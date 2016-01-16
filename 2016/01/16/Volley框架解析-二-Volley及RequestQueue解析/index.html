@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Xiaojuanmao&#39;s Blog</title>
+  <title>Volley框架解析(二)-----Volley及RequestQueue解析 | Xiaojuanmao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Coding Life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xiaojuanmao's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="题外话(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的public, interface, final等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley框架解析(二)-----Volley及RequestQueue解析">
+<meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
-<meta property="og:description" content="Coding Life">
+<meta property="og:description" content="题外话(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的public, interface, final等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了">
+<meta property="og:updated_time" content="2016-01-16T10:31:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xiaojuanmao's Blog">
-<meta name="twitter:description" content="Coding Life">
+<meta name="twitter:title" content="Volley框架解析(二)-----Volley及RequestQueue解析">
+<meta name="twitter:description" content="题外话(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的public, interface, final等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了">
   
     <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
   
@@ -63,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Volley框架解析-二-Volley及RequestQueue解析" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Volley框架解析-二-Volley及RequestQueue解析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" class="article-date">
   <time datetime="2016-01-16T10:10:02.000Z" itemprop="datePublished">2016-01-16</time>
@@ -78,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/">Volley框架解析(二)-----Volley及RequestQueue解析</a>
+    <h1 class="article-title" itemprop="name">
+      Volley框架解析(二)-----Volley及RequestQueue解析
     </h1>
   
 
@@ -751,261 +750,20 @@ public class RequestQueue {
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Volley框架解析-一-整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-一-整体介绍/" class="article-date">
-  <time datetime="2016-01-16T10:06:40.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-一-整体介绍/">Volley框架解析(一)-----整体介绍</a>
-    </h1>
+    <a href="/2016/01/16/Volley框架解析-一-整体介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Volley框架解析(一)-----整体介绍</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#160;&#160;&#160;&#160;感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon" target="_blank" rel="external">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99" target="_blank" rel="external">huxian99</a>,<a href="https://github.com/trinea" title="trinea" target="_blank" rel="external">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju" target="_blank" rel="external">郭霖juju</a>的图片素材，以及详细的分析。</p>
-<p>&#160;&#160;&#160;&#160;其他菊苣关于Volley解析的链接如下：</p>
-<p>&#160;&#160;&#160;&#160;<a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="external">codeKK—Volley源码解析</a></p>
-<p>&#160;&#160;&#160;&#160;<a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju" target="_blank" rel="external">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
-<hr>
-<p>##题外话(可直接跳过orz<br>&#160;&#160;&#160;&#160;在Android路上的第一个涉及到网络的项目中，就用到了Volley，当时也就照着网上的方法用了用，用到后面发现满足不了需求之后，尝试着去自定义了一些request，自己去结合Volley来处理服务器返回的cookie。第一个项目已经过去时间比较长了，突然想到想深入的了解下Volley,于是就开始了Volley源码之旅…..本人比较笨，需要比其他人花更多的时间来消化，没办法orz。看了比较长的一段时间后，把自己边看边写的笔记拿出来和大家分享。</p>
-<p>##1. Volley简介</p>
-<p>####1.1 Volley是什么<br>&#160;&#160;&#160;&#160;Volley是Google推出的Android异步网络请求框架和图片加载的框架。适合数据量小的,通信频繁的各种请求,官方已经封装好了各种API,而且还提供了很灵活的自定义请求接口,不仅使用起来方便,可扩展性也很强。来一张google配图 (也是偷的orz，pia~, 啊哦，表打脸…<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/volley.png" alt="volley"></p>
-<p>&#160;&#160;&#160;&#160;可以通过下面的几种途径获取到volley的代码：</p>
-<pre><code>git clone https://android.googlesource.com/platform/frameworks/volley  
-
-jar包下载地址： http://www.kwstu.com/ResourcesView/kwstu_201441183330928 
-</code></pre><p>####1.2 整体框架<br>&#160;&#160;&#160;&#160;这是从上面提到的菊苣那里拿来的一张图，十分感谢Orz,这张图大致的分析出了Volley中Request从开始到结束需要经历的一个流程，在后面会详细的分析request每一步的动向，这里先简单的做个介绍。<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/design.png" alt="design"></p>
-<p>&#160;&#160;&#160;&#160;最开始用到Volley发送请求的时候需要通过如下的几行代码(注意给应用添加网络访问的权限)，</p>
-<pre><code>//先新建一个请求队列(RequestQueue)
-RequestQueue mQueue = Volley.newRequestQueue(context); 
-
-//新建一个request
-StringRequest stringRequest = new StringRequest(&quot;http://www.xxxxxxx.com&quot;,  
-                    new Response.Listener&lt;String&gt;() {  
-                        @Override  
-                        public void onResponse(String response) {  
-                            Log.d(&quot;TAG&quot;, response);  
-                        }  
-                    }, new Response.ErrorListener() {  
-                        @Override  
-                        public void onErrorResponse(VolleyError error) {  
-                            Log.e(&quot;TAG&quot;, error.getMessage(), error);  
-                        }  
-                    });
-
-//将request加入到队列(RequestQueue)当中
-mQueue.add(stringRequest); 
-</code></pre><p>&#160;&#160;&#160;&#160;做完上面的这些工作,如果不出问题，等着request返回结果就可以了。结合上面的图片，mQueue(<strong>RequestQueue</strong>)被创建之后，会启动新的工作线程(<strong>dispatcher</strong>)开始工作，mQueue里面有专门用来存放request的容器，只要没被stop,这些工作线程会不停的从容器中取出request进行处理,工作线程大致分为两类：</p>
-<ol>
-<li>处理有缓存存在的request的dispatcher。该工作线程会涉及到从之前存储的有效缓存(<strong>cache</strong>)中读取数据并返回给调用者。</li>
-<li>处理网络请求的request的dispatcher。该工作线程会涉及到从网络(<strong>network</strong>)获取有效的数据，并返回合适数据给调用者，并会根据request的设置来决定是否将请求结果缓存到本地。</li>
-</ol>
-<p>&#160;&#160;&#160;&#160;在工作线程得到了请求响应结果response之后，会将response交给<strong>ResponseDelivery</strong>来处理并通过回调传递给调用者。</p>
-<p>&#160;&#160;&#160;&#160;通过上面的介绍，应该能大致的了解volley中，一个request创建并加入到RequestQueue之后大致的一个走向。</p>
-<p>####1.3 基础类的简介<br>&#160;&#160;&#160;&#160;在Volley中一共有43个类(不知道当前阅读的是否为最新版本的，不过核心类差不了很远）,主要介绍一下核心类以及其在Volley中起的作用，后面会对核心类的每行代码进行展开分析。</p>
-<p><strong>Volley.java:</strong> 从上面的用法<code>Volley.newRequestQueue</code>就能看出，Volley类是对外的接口，里面仅有4个重载了的<code>newRequestQueue()</code>函数，用来以各种不同的方式创建并启动一个RequestQueue。</p>
-<p><strong>RequestQueue.java:</strong> 外界通过Volley中的接口来创建其实例，RequestQueue的作用就是存放所有add进来的Request(所有的Request不仅会存放在<code>mCurrentRequests</code>里面，其原型是一个HashSet。而且Request还会被分类存放在<code>mCacheQueue</code>和<code>mNetworkQueue</code>中，分类的标准是是否涉及到网络数据的获取),并且里面会有两类调度器<code>mDispatchers</code>和<code>mCacheDispatcher</code>来负责处理Request。前者用来处理涉及到网络的Request，后者用来处理直接从缓存中获取数据的Request。它俩获得了数据之后都会交给<code>mDelivery</code>(ResponseDelivery.java的实例)来传递回caller。</p>
-<p><strong>Request.java:</strong> 请求类的基类，所有请求类都从该类继承。里面包含了请求方法(POST,GET等)，用户可自定义符合需求的Request，自由度很大。</p>
-<p><strong>NetworkDispatcher.java:</strong> 处理网络请求的调度器，继承自<code>Thread</code>类，其中包含了用于存储涉及网络请求的<code>mQueue</code>，以及用于网络请求的接口类<code>mNetwork</code>(Network.java实例)。在被停止之前进行死循环，调度器会不停的从<code>mQueue</code>中取出request来处理，将结果通过<code>mCache</code>(Cache.java实例)写入本地缓存中，通过<code>mDelivery</code>(ResponseDelivery.java实例)将结果回传给caller。</p>
-<p><strong>CacheDispatcher.java:</strong> 处理缓存请求的调度器，继承自<code>Thread</code>类，包含了用于存储涉及缓存请求的队列<code>mCacheQueue</code>，和上面的网络调度器工作原理类似。只是从缓存中取出数据再通过<code>mDelivery</code>返回给caller。</p>
-<p><strong>ResponseDelivery.java:</strong> 一个用于将Response传递给调用者的回调接口，包含了两类回调方法，<code>postResponse(Request&lt;?&gt; request, Response&lt;?&gt; response, Runnable runnable)</code>和<code>postError(Request&lt;?&gt; request, VolleyError error)</code>。</p>
-<p><strong>Network.java:</strong> 用于网络请求调用的接口，包含一个方法<code>performRequest()</code>。</p>
-<p><strong>BasicNetwork.java:</strong> 继承了Network类，是Volley中默认使用的网络请求处理工具类。在该类里面会处理Request发送前的一系列工作，以及发送工作和发送后返回NetworkResponse的解析工作。里面真正实现网络请求的发送工作是利用了其中的<code>mHttpStack</code>(HttpStack.java实例)。</p>
-<p><strong>HttpStack.java:</strong> 网络请求接口类，包含一个方法<code>performRequest(Request&lt;?&gt; request, Map&lt;String, String&gt; additionalHeaders)</code>。该方法和BasicNetwork类中实现的方法<code>performRequest(Request&lt;?&gt; request)</code>不同。前者在后者的方法中被调用，来实现真正的网络请求。</p>
-<p><strong>HurlStack.java:</strong> 实现了HttpStack接口，在android版本在2.3之上的系统中，通过HttpURLConnection类实现网络请求。</p>
-<p><strong>HttpClientStack.java:</strong> 实现了HttpStack接口，在android版本在2.3之下的系统中，通过HttpClient类实现网络请求。</p>
-<p><strong>Cache.java:</strong> 读写缓存类的接口类，抽象出了一系列有关缓存读写的方法。</p>
-<p><strong>DiskBasedCache.java:</strong> 继承并实现了Cache中的一系列方法，是Volley中默认使用的缓存读写工具类。</p>
-<p><strong>Response.java:</strong> Volley自定义的bean类，Request通过上面实现了HttpStack接口的两种实现方法发出之后，会返回相应的<code>NetworkResponse</code>类实例，这个类是<code>org.apache.http</code>包里面的类，<code>NetworkResponse</code>实例返回后，解析出有用的信息，并组成Response实例。</p>
-<p>&#160;&#160;&#160;&#160;上面简单的介绍了Volley中的核心类，再盗用一张图orz，再次感谢上面的菊苣们。<img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/Volley-run-flow-chart.png" alt="design"></p>
-<p>&#160;&#160;&#160;&#160;上图清晰的画出了，请求从加入到队列，怎么被分步骤处理，分缓存和网络两条路径，先查询是否存在请求对应的缓存，如存在有效缓存则直接取出缓存数据返回给调用者，如不存在有效缓存则从网络获取数据，写入缓存并返回将结果返回给调用者。</p>
-<p>&#160;&#160;&#160;&#160;对Volley整体上的简单介绍就先到这里了，后面会将阅读源码时候的笔记整理之后再和大家分享。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-一-整体介绍/" data-id="cijgz0s790009uhutshk6hnkq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Volley/">Android Volley</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-Ubuntu上结合Github用Hexo搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Ubuntu上结合Github用Hexo搭建博客/" class="article-date">
-  <time datetime="2016-01-16T08:14:54.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Ubuntu上结合Github用Hexo搭建博客/">Ubuntu上结合Github用Hexo搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>这就是标题</strong><br>&#160;&#160;&#160;&#160;之前用过CSDN，其他的都没怎么用，什么博客园之类的技术平台，身边的小伙子们都齐刷刷的搭好了自己的技术博客，自己心里也有点痒痒了，抽了个小时间来折腾下。毕竟Hexo已经6的飞起了。</p>
-<p><strong>为什么写这个东西</strong><br>&#160;&#160;&#160;&#160;为什么写这篇，网上那么多关于Hexo搭建博客的，各种大神博客齐飞，是，我承认我肯定是看了他们的博客之后，自己弄了半天才写出的这个东西。那我这么说吧，写这个东西纯粹是为了给我的小波可(博客)过一个生日不行？嗯？？刚生下来的小波可还需要用我日后的经验积累来投食，所以从现在开始我要好好的养它。废话说多了点，在华丽丽的分割线下面，是小波可诞生的日志。</p>
-<hr>
-<h3 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h3><p>&#160;&#160;&#160;&#160;在搭建博客的过程中会涉及到下面这些东西：</p>
-<ol>
-<li>Hexo</li>
-<li>Git</li>
-<li>Github Pages</li>
-<li>Npm</li>
-<li>Nodejs</li>
-</ol>
-<p><strong><a href="https://github.com/hexojs/hexo" target="_blank" rel="external">Hexo</a></strong></p>
-<p>&#160;&#160;&#160;&#160;说了这么多，什么是Hexo呢，首先它肯定是不能吃的，因为吃了会胃疼，不吃就不会。其次它流弊的作者给它定义如下：</p>
-<pre><code>一款基于Node.js的简单、快速、强大的静态博客框架
-</code></pre><p><strong>Hexo搭建博客和github有什么关系</strong></p>
-<p>&#160;&#160;&#160;&#160;那Hexo就是一个博客框架，关Github什么事情呢，这还被你说对了，还真不怎么和github相关，用hexo弄一个博客出来很简单。当然你也可以选择用wordpress来结合hexo，只是这里选择用github pages服务，那又说到了一个东西:<strong>github pages</strong>。</p>
-<p><strong><a href="https://pages.github.com/" target="_blank" rel="external">Github Pages</a></strong></p>
-<p>&#160;&#160;&#160;&#160;上面是网址，可以自己进去看看，简单的说就是github提供的一种用来展示托管在自己github仓库上的静态网页。github pages也有自己的一套框架，只用github pages也可以搭建自己的博客。</p>
-<p><strong><a href="https://www.npmjs.com/" target="_blank" rel="external">Npm</a></strong></p>
-<p>&#160;&#160;&#160;&#160;一个NodeJs包管理和分发工具，全称为Node Package Manager。和Ruby的gem，Python的pypi类似。通过npm能快速的部署hexo框架，毕竟hexo基于nodejs。</p>
-<p><strong><a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></strong></p>
-<p>&#160;&#160;&#160;&#160;Node是一个Javascript运行环境(runtime)。实际上它是对Google V8引擎进行了封装。V8引 擎执行Javascript的速度非常快，性能非常好。Node对一些特殊用例进行了优化，提供了替代的API，使得V8在非浏览器环境下运行得更好。</p>
-<h3 id="u5B89_u88C5"><a href="#u5B89_u88C5" class="headerlink" title="安装"></a>安装</h3><h4 id="1-__u5B89_u88C5Node-js"><a href="#1-__u5B89_u88C5Node-js" class="headerlink" title="1. 安装Node.js"></a>1. 安装Node.js</h4><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在Ubuntu下面部署很容易的= =,在终端输入：</p>
-<pre><code>sudo apt-get install --yes nodejs
-</code></pre><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Nodejs的部署工作就完成了。其他的Linux发行版可以参照下面的教程<a href="https://github.com/nodejs/node-v0.x-archive/wiki/Installing-Node.js-via-package-manager" target="_blank" rel="external">Installing Node.js via package manager</a></p>
-<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;也可以在Node的官网上直接<a href="https://nodejs.org/en/download/" target="_blank" rel="external">下载</a>安装。</p>
-<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;安装好之后，在终端输入nodejs即可进入到nodejs的交互模式中。</p>
-<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Note</strong><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;需要注意一个问题就是，在hexo中的nodejs文件在运行时使用的是<code>node xxx/js</code>这样的形式，而在Ubuntu下面直接运行<code>node xxx.js</code>会失败，报错为<code>/usr/bin/env: node: No such file or directory</code>，网上有些说是和node的版本有关，实际上是因为NodeJs在Ubuntu上默认安装之后，需要<code>nodejs xxx.js</code>这样用，解决方法为创建如下软链接，保证可以运行<code>node xxx.js</code>:</p>
-<pre><code>ln -s /usr/bin/nodejs /usr/bin/node
-</code></pre><h4 id="2-__u5B89_u88C5npm"><a href="#2-__u5B89_u88C5npm" class="headerlink" title="2. 安装npm"></a>2. 安装npm</h4><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在终端输入：</p>
-<pre><code>sudo apt-get install npm
-</code></pre><h4 id="3-__u5B89_u88C5hexo"><a href="#3-__u5B89_u88C5hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h4><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;终端输入：</p>
-<pre><code>npm install hexo-cli -g
-</code></pre><p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;在这里可能会报错，由于没有root权限导致无法安装hexo，<code>sudo su</code>root一下再安装一次就好了。</p>
-<p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;到这里就完成了对Hexo的初步安装了，直接在终端输入<code>hexo</code>会出现相关的信息。</p>
-<h4 id="4-__u5B89_u88C5git"><a href="#4-__u5B89_u88C5git" class="headerlink" title="4. 安装git"></a>4. 安装git</h4><p>&#160;&#160;&#160;&#160;首先安装git</p>
-<pre><code>sudo apt-get update
-sudo apt-get install git
-</code></pre><p>&#160;&#160;&#160;&#160;设置用户信息</p>
-<pre><code>$ git config --global user.name &quot;Xiaojuanmao&quot;//用户名
-$ git config --global user.email  &quot;daque@hustunique.com&quot;//填写自己的邮箱
-</code></pre><p>&#160;&#160;&#160;&#160;检查SSH keys</p>
-<pre><code>$ cd ~/. ssh
-</code></pre><p>&#160;&#160;&#160;&#160;如果提示No such file or directory 说明你是第一次使用git。按照如下步骤处理SSH Keys，如果存在SSH Keys，则直接跳过下面分割线内的部分。</p>
-<hr>
-<p><strong>配置SSH Keys</strong></p>
-<ul>
-<li><p>生成新的SSH Keys</p>
-<pre><code>$ ssh-keygen -t rsa -C &quot;邮件地址@youremail.com&quot;
-</code></pre><p>  会出现下面的提示：</p>
-<pre><code>Generating public/private rsa key pair.
-Enter file in which to save the key
-(/Users/your_user_directory/.ssh/id_rsa):
-</code></pre><p>  直接回车，存储在默认的目录下面。系统会提示输入密码，密码的作用是在向仓库提交代码的时候用到，可以防止其他人向自己的仓库提交代码。输入密码后，相关的会生成.ssh文件。</p>
-</li>
-<li><p>添加新的SSH Keys到GitHub</p>
-<p>  通过下面的命令进入目录，该目录下存放着刚才生成的密钥文件</p>
-<pre><code>$ cd ~/. ssh
-</code></pre><p>  登陆github系统。点击右上角的 Account Settings—-&gt;SSH Public keys —-&gt; add another public keys。打开刚才目录下面的<code>id_rsa.pub</code>文件，将文件内容复制到key文本框中就可以了。</p>
-</li>
-<li><p>测试SSH<br>  可以输入下面的命令，测试SSH是否设置成功</p>
-<pre><code>ssh -T git@github.com
-</code></pre><p>  如果出现下面的信息，则说明设置成功</p>
-<pre><code>Hi XXX! You&apos;ve successfully authenticated, but GitHub does not provide shell access.
-</code></pre><p>  <strong>Note</strong><br>  也可能会报出错误：<code>Agent admitted failure to sign using the key.Permission denied (publickey).</code>这是由于没有将新建的ssh密钥加入，下面的命令可以解决：</p>
-<pre><code>ssh-add   ~/.ssh/id_rsa
-</code></pre></li>
-</ul>
-<hr>
-<h3 id="u4F7F_u7528"><a href="#u4F7F_u7528" class="headerlink" title="使用"></a>使用</h3><h4 id="1-__u4F7F_u7528github_u521B_u5EFA_u535A_u5BA2_u4ED3_u5E93"><a href="#1-__u4F7F_u7528github_u521B_u5EFA_u535A_u5BA2_u4ED3_u5E93" class="headerlink" title="1. 使用github创建博客仓库"></a>1. 使用github创建博客仓库</h4><p>&#160;&#160;&#160;&#160;在github上创建一个仓库，<strong>仓库的名字和用户名必须对应</strong>，如我的帐户名为<code>Xiaojuanmao</code>,则创建的仓库名称为<code>Xiaojuanmao.github.io</code>。这样存放在github上的远程仓库就准备好了，下面来用hexo来初始化本地的仓库内容。</p>
-<h4 id="2-_Hexo_u521D_u59CB_u5316"><a href="#2-_Hexo_u521D_u59CB_u5316" class="headerlink" title="2. Hexo初始化"></a>2. Hexo初始化</h4><p>&#160;&#160;&#160;&#160;在主文件夹下创建一个hexo文件夹，进入文件夹，在终端输入如下的命令</p>
-<pre><code>hexo init
-</code></pre><p>&#160;&#160;&#160;&#160;会给出这样的反馈：<code>INFO  Copying data to ~/hexo INFO  You are almost done! Don&#39;t forget to run &#39;npm install&#39; before you start blogging with Hexo!</code></p>
-<p>&#160;&#160;&#160;&#160;接着按照上面的提示，输入命令</p>
-<pre><code>npm install
-</code></pre><p>&#160;&#160;&#160;&#160;会自动在目录下面安装node_modules。接着在命令行中启动本地的服务器，可以用来预览个人博客的样子：</p>
-<pre><code>hexo server
-</code></pre><p>&#160;&#160;&#160;&#160;反馈信息会提示已经在挂在了本地的服务器：<code>INFO  Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop.</code></p>
-<p>&#160;&#160;&#160;&#160;在浏览器中打开<code>http://0.0.0.0&quot;4000/</code>可以看到网页的整个框架已经生成了。有个默认的主题，如果觉得这个主题不好看，hexo还有好多主题可供更换。</p>
-<h4 id="3-__u6DFB_u52A0_u6587_u7AE0"><a href="#3-__u6DFB_u52A0_u6587_u7AE0" class="headerlink" title="3. 添加文章"></a>3. 添加文章</h4><p>&#160;&#160;&#160;&#160;打开命令行，进入到hexo的目录下，利用如下的命令，可以新建一个.md格式的文件。</p>
-<pre><code>hexo new &quot;My New Post&quot;
-反馈信息：INFO  Created: ~/hexo/source/_posts/My-New-Post.md
-</code></pre><p>&#160;&#160;&#160;&#160;刷新刚才的<code>localhost:4000</code>，就能看到一篇新的博客出现了，用起来还是炒鸡方便的。创建之后再去编辑这个.md文件，写自己想写的内容就可以了。</p>
-<h4 id="4-__u751F_u6210_u9759_u6001_u7F51_u9875"><a href="#4-__u751F_u6210_u9759_u6001_u7F51_u9875" class="headerlink" title="4. 生成静态网页"></a>4. 生成静态网页</h4><p>&#160;&#160;&#160;&#160;下面的命令生成静态的网页，在将本地的内容部署到github上面去之前，一定要先执行这个步骤。</p>
-<pre><code>hexo generate
-   或者 hexo g
-</code></pre><p>&#160;&#160;&#160;&#160;执行完之后，会在./public的目录下生成一系列的.html,.css文件。</p>
-<h4 id="5-__u90E8_u7F72_u5230Github"><a href="#5-__u90E8_u7F72_u5230Github" class="headerlink" title="5. 部署到Github"></a>5. 部署到Github</h4><p>&#160;&#160;&#160;&#160;在和github完成对接之前，需要去配置hexo自己的配置文件<code>_config.yml</code>。关于这个文件里面的一些内容，需要进行一些修改：</p>
-<pre><code># Hexo Configuration
-## Docs: http://hexo.io/docs/configuration.html
-## Source: https://github.com/hexojs/hexo/
-
-# Site
-title: Xiaojuanmao&apos;s Blog # 网站的标题
-subtitle: Life began in 1990 # 网站的副标题
-description: Coding Life # 显示在网页最下面的描述，类似于tag
-author: Xiaoxiaoda
-email: daque@hustunique.com
-language: zh_CN
-timezone:
-
-# Deployment
-## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type: git #这里不要写github了，hexo3.0之后用git代替了github
-  repository: git@github.com:Xiaojuanmao/Xiaojuanmao.github.io.git # 填写自己的git仓库地址，之前创建好了的
-  branch: master
-</code></pre><p>&#160;&#160;&#160;&#160;更改完配置文件之后保存，通过下面的命令部署到github上：</p>
-<pre><code>hexo generate 或者 hexo g  #生成静态网页
-hexo deploy 或者 hexo d #部署到github
-上面两个命令可以和并为 hexo d -g
-</code></pre><p><strong>Note</strong><br>&#160;&#160;&#160;&#160;部署的过程中可能会出现如下的问题：</p>
-<pre><code>ERROR Deployer not found: github
-</code></pre><p>&#160;&#160;&#160;&#160;遇到这个不要慌，是hexo升级到3.0之后用git代替了github，所以需要再输入下面的命令，安装git的deployer</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>&#160;&#160;&#160;&#160;安装之后就可以将静态的网页部署到github的远程仓库上面。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Ubuntu上结合Github用Hexo搭建博客/" data-id="cijgz0s6h0000uhutujvpfzb0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu-github-hexo/">Ubuntu github hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
 </section>
         
           <aside id="sidebar">
