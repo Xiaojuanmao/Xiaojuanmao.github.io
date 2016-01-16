@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="题外话(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的public, interface, final等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了">
-<meta property="og:updated_time" content="2016-01-16T10:55:00.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(二)-----Volley及RequestQueue解析">
 <meta name="twitter:description" content="题外话(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的public, interface, final等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了">
@@ -90,6 +90,7 @@
 <p>&#160;&#160;&#160;&#160;有些地方在一个.java文件里面是无法理解用处的，这样的先直接跳过不要纠结，看到对应用的地方就会恍然大悟了。还总结出了一个小技巧就是从框架暴露给外面的接口开始阅读，因为框架里面是一层一层往上的，底层是为了上层服务的，所以从接口开始阅读能很好的向下展开。</p>
 <p>&#160;&#160;&#160;&#160;前面一篇对Volley做了一个初步的介绍以及从整体上的一个解析，只是简单的描述了Request在Volley中是如何被处理的。从这篇博客开始将从最顶层一步一步的向下挖掘每一行代码，从最开始调用的地方<code>RequestQueue mQueue = Volley.newRequestQueue(mContext)</code>开始。</p>
 <hr>
+<a id="more"></a>
 <h3 id="1-_Volley-java"><a href="#1-_Volley-java" class="headerlink" title="1. Volley.java"></a>1. Volley.java</h3><p>&#160;&#160;&#160;&#160;Volley.java是Volley整个框架对外暴露的接口，里面有四个重载的同名静态函数，方便直接使用。下面结合源代码来分析，主要是代码里面的注释。</p>
 <pre><code>
 

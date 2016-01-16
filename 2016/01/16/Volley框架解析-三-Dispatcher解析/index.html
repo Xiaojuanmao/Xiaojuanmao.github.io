@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="题外话(可直接无视，跳过~&amp;#160;&amp;#160;&amp;#160;&amp;#160;在上一篇博客中结合volley源代码分析了Volley.java和RequestQueue.java这两个类，不知道代码全贴上去了，会不会看着很烦的嗯= =，当时看源代码的时候心里就有些不淡定，满屏幕看不懂的东西，但是个人觉得源代码和注释一起看才方便，一段代码一段解释会感觉有点摸不着头脑= =。前面的博客中一直提到了Disp">
-<meta property="og:updated_time" content="2016-01-16T12:07:53.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(三)-----Dispatcher解析">
 <meta name="twitter:description" content="题外话(可直接无视，跳过~&amp;#160;&amp;#160;&amp;#160;&amp;#160;在上一篇博客中结合volley源代码分析了Volley.java和RequestQueue.java这两个类，不知道代码全贴上去了，会不会看着很烦的嗯= =，当时看源代码的时候心里就有些不淡定，满屏幕看不懂的东西，但是个人觉得源代码和注释一起看才方便，一段代码一段解释会感觉有点摸不着头脑= =。前面的博客中一直提到了Disp">
@@ -88,6 +88,7 @@
       
         <h3 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E" class="headerlink" title="题外话(可直接无视，跳过~"></a>题外话(可直接无视，跳过~</h3><p>&#160;&#160;&#160;&#160;在上一篇博客中结合volley源代码分析了<code>Volley.java</code>和<code>RequestQueue.java</code>这两个类，不知道代码全贴上去了，会不会看着很烦的嗯= =，当时看源代码的时候心里就有些不淡定，满屏幕看不懂的东西，但是个人觉得源代码和注释一起看才方便，一段代码一段解释会感觉有点摸不着头脑= =。前面的博客中一直提到了<code>Dispatcher</code>这种的东西，有<code>mNetworkDispatcher</code>和<code>mCacheDispatcher</code>之类的，这篇博客就开始进一步的介绍Volley中的Dispatcher。</p>
 <hr>
+<a id="more"></a>
 <h3 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h3><p>&#160;&#160;&#160;&#160;在Volley中涉及到了两类的Dispatcher,一类是涉及到缓存的<code>CacheDispatcher.java</code>，另外一类是用来处理网络方面request的<code>NetworkDispatcher.java</code>，最开始出现这两个Dispatcher是在<code>RequestQueue#start()</code>中，再来回顾一下start方法中的代码：</p>
 <pre><code>public void start() {
     stop();  // Make sure any currently running dispatchers are stopped.

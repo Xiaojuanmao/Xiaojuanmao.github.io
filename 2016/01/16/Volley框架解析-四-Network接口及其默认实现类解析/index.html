@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispatch">
-<meta property="og:updated_time" content="2016-01-16T12:08:49.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(四)-----Network接口及其默认实现类解析">
 <meta name="twitter:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispatch">
@@ -88,6 +88,7 @@
       
         <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="1. 前言(可直接无视跳过"></a>1. 前言(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，<code>NetworkDispatcher</code>以及<code>CacheDispatcher</code>。应该是将一个request从新建，到加入队列中等待处理，如何被处理以及返回结果或者error这一系列的流程理顺了。</p>
 <p>&#160;&#160;&#160;&#160;但是对于一些细节的问题还是不清楚，例如request究竟是如何发送出去，通过<code>NetworkResponse networkResponse = mNetwork.performRequest(request);</code>这么一句话就返回了结果(response)，这里面发生了些什么还不得而知，还有<code>Network#performRequest()</code>和<code>HttpStack#performRequest()</code>这两个函数之间有什么区别和联系等等。</p>
+<a id="more"></a>
 <h3 id="2-_Network-java"><a href="#2-_Network-java" class="headerlink" title="2. Network.java"></a>2. Network.java</h3><p>&#160;&#160;&#160;&#160;最早接触到Network这个类是在<code>Volley.java</code>中的<code>newRequestQueue()</code>函数里面，<code>Network network = new BasicNetwork(stack);</code>创建了一个Network接口引用，并指向了一个Volley中的默认实现类的实例<code>BasicNetwork.java</code>，这个默认实现类也会在这篇博客的后面详细的解析。</p>
 <p>&#160;&#160;&#160;&#160;经过前面几篇博客的分析，<code>Volley.java</code>仅仅是持有而没有使用，仅将这个引用传递给了<code>NetworkDispatcher.java</code>中，只有在<code>NetworkDispatcher.java</code>类中用到了这个Network接口，在<code>NetowkrDispatcher.java</code>中存在着这么一行代码，</p>
 <pre><code>NetworkResponse networkResponse = mNetwork.performRequest(request);

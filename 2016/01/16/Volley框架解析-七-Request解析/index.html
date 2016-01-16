@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="1. 前言(可直接无视跳过= =&amp;#160;&amp;#160;&amp;#160;&amp;#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—Request.java，前面一直在说request，但是一直都没有介绍到Request是">
-<meta property="og:updated_time" content="2016-01-16T12:07:37.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(七)-----Request解析">
 <meta name="twitter:description" content="1. 前言(可直接无视跳过= =&amp;#160;&amp;#160;&amp;#160;&amp;#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—Request.java，前面一直在说request，但是一直都没有介绍到Request是">
@@ -87,6 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—<code>Request.java</code>，前面一直在说request，但是一直都没有介绍到Request是个什么东西，这么重要的东西怎么能忘记呢，其实小达也搞不清楚整个框架的介绍顺序，沿着接口自顶向下的延展开来，支路多了之后就只能慢慢的道来，request的来迟深感抱歉orz。</p>
+<a id="more"></a>
 <h3 id="2-_Request-java"><a href="#2-_Request-java" class="headerlink" title="2. Request.java"></a>2. Request.java</h3><p>&#160;&#160;&#160;&#160;Volley封装的一个抽象类，Request.java提供了很大的便利性，可供我们自定义Request,之前在使用Volley的时候自定义了一些reuqest的，也总结过自定义request的方法，在这篇博客中有提到<a href="http://blog.csdn.net/jing_unique_da/article/details/45101331" title="Volley使用技巧-----自定义Request" target="_blank" rel="external">Volley使用技巧—–自定义Request</a>。下面就开始分析<code>Request.java</code>的源码。</p>
 <pre><code>/**
  * Base class for all network requests.

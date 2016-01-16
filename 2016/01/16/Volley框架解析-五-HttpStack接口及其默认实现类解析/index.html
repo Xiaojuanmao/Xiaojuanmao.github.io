@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="1. 前言(可直接无视跳过= =&amp;#160;&amp;#160;&amp;#160;&amp;#160;历经前面的四篇，终于涉及到网络请求核心的内容了，前面都在做一些准备工作，以及对request队列调度以及维护工作。之前一直说，httpResponse = mHttpStack.performRequest(request, headers);这句话是网络请求的核心，因为这句话一出来，神不知鬼不觉的request就被发">
-<meta property="og:updated_time" content="2016-01-16T12:02:04.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(五)-----HttpStack接口及其默认实现类解析">
 <meta name="twitter:description" content="1. 前言(可直接无视跳过= =&amp;#160;&amp;#160;&amp;#160;&amp;#160;历经前面的四篇，终于涉及到网络请求核心的内容了，前面都在做一些准备工作，以及对request队列调度以及维护工作。之前一直说，httpResponse = mHttpStack.performRequest(request, headers);这句话是网络请求的核心，因为这句话一出来，神不知鬼不觉的request就被发">
@@ -87,6 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;历经前面的四篇，终于涉及到网络请求核心的内容了，前面都在做一些准备工作，以及对request队列调度以及维护工作。之前一直说，<code>httpResponse = mHttpStack.performRequest(request, headers);</code>这句话是网络请求的核心，因为这句话一出来，神不知鬼不觉的request就被发出去了，并且还带回来一个HttpResponse的实例= =，有没有感觉被忽悠了，今天就深入进去一探究竟0.0。</p>
+<a id="more"></a>
 <h3 id="2-_HttpStack-java"><a href="#2-_HttpStack-java" class="headerlink" title="2. HttpStack.java"></a>2. HttpStack.java</h3><p>&#160;&#160;&#160;&#160;接口类，里面包含了一个方法，<code>performRequest()</code>。</p>
 <pre><code>/**
  * An HTTP stack abstraction.

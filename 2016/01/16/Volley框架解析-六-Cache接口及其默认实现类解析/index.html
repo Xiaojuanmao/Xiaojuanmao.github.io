@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;不知不觉Volley的源码分析到了Cache接口部分了，前面涉及到网络的部分都介绍完了，在处理网络请求返回的数据时，会根据request结果是否需要缓存来进行不同的处理。如需要缓存结果，就涉及到了Cache.java及其默认实现类DiskBasedCache.java。 其实在之前什么都不知道的时候，认为缓存是个非常神秘的东">
-<meta property="og:updated_time" content="2016-01-16T12:08:19.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:12:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(六)-----Cache接口及其默认实现类解析">
 <meta name="twitter:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;不知不觉Volley的源码分析到了Cache接口部分了，前面涉及到网络的部分都介绍完了，在处理网络请求返回的数据时，会根据request结果是否需要缓存来进行不同的处理。如需要缓存结果，就涉及到了Cache.java及其默认实现类DiskBasedCache.java。 其实在之前什么都不知道的时候，认为缓存是个非常神秘的东">
@@ -87,6 +87,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="1. 前言(可直接无视跳过"></a>1. 前言(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;不知不觉Volley的源码分析到了Cache接口部分了，前面涉及到网络的部分都介绍完了，在处理网络请求返回的数据时，会根据request结果是否需要缓存来进行不同的处理。如需要缓存结果，就涉及到了<code>Cache.java</code>及其默认实现类<code>DiskBasedCache.java</code>。 其实在之前什么都不知道的时候，认为缓存是个非常神秘的东西，可能是人类对于未知的恐惧和敬畏嘛orz，后来在用到另外一个牛掰的网络请求框架<a href="https://github.com/koush/ion" title="ion" target="_blank" rel="external">ion</a>的时候，在自己app的目录下面看到一个ion的文件夹= =，进去之后发现了好多balabala乱七八糟的打不开的文件，突然明白了，估计是看到本地缓存的文件了。扯远了= =，开始源代码的分析。</p>
+<a id="more"></a>
 <h3 id="2-_Cache-java"><a href="#2-_Cache-java" class="headerlink" title="2. Cache.java"></a>2. Cache.java</h3><p>&#160;&#160;&#160;&#160;用于处理缓存的接口，里面有很多抽象的方法等着被实现，里面还有一个static类<code>Entry</code>,里面有些关于缓存的单元信息。(例如，缓存的内容，缓存过期的时间，缓存需要刷新的时间等等）。</p>
 <pre><code>package com.android.volley;
 
