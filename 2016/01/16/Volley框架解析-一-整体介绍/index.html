@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/volley.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/design.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/Volley-run-flow-chart.png">
-<meta property="og:updated_time" content="2016-01-16T10:35:35.000Z">
+<meta property="og:updated_time" content="2016-01-16T12:07:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(一)-----整体介绍">
 <meta name="twitter:description" content="&amp;#160;&amp;#160;&amp;#160;&amp;#160;感谢各位菊苣，grumoon,huxian99,trinea,郭霖juju的图片素材，以及详细的分析。
@@ -103,14 +103,13 @@
 <p>&#160;&#160;&#160;&#160;<a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="external">codeKK—Volley源码解析</a></p>
 <p>&#160;&#160;&#160;&#160;<a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju" target="_blank" rel="external">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
 <hr>
-<p>##题外话(可直接跳过orz<br>&#160;&#160;&#160;&#160;在Android路上的第一个涉及到网络的项目中，就用到了Volley，当时也就照着网上的方法用了用，用到后面发现满足不了需求之后，尝试着去自定义了一些request，自己去结合Volley来处理服务器返回的cookie。第一个项目已经过去时间比较长了，突然想到想深入的了解下Volley,于是就开始了Volley源码之旅…..本人比较笨，需要比其他人花更多的时间来消化，没办法orz。看了比较长的一段时间后，把自己边看边写的笔记拿出来和大家分享。</p>
-<p>##1. Volley简介</p>
-<p>####1.1 Volley是什么<br>&#160;&#160;&#160;&#160;Volley是Google推出的Android异步网络请求框架和图片加载的框架。适合数据量小的,通信频繁的各种请求,官方已经封装好了各种API,而且还提供了很灵活的自定义请求接口,不仅使用起来方便,可扩展性也很强。来一张google配图 (也是偷的orz，pia~, 啊哦，表打脸…<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/volley.png" alt="volley"></p>
+<h2 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u8DF3_u8FC7orz"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u8DF3_u8FC7orz" class="headerlink" title="题外话(可直接跳过orz"></a>题外话(可直接跳过orz</h2><p>&#160;&#160;&#160;&#160;在Android路上的第一个涉及到网络的项目中，就用到了Volley，当时也就照着网上的方法用了用，用到后面发现满足不了需求之后，尝试着去自定义了一些request，自己去结合Volley来处理服务器返回的cookie。第一个项目已经过去时间比较长了，突然想到想深入的了解下Volley,于是就开始了Volley源码之旅…..本人比较笨，需要比其他人花更多的时间来消化，没办法orz。看了比较长的一段时间后，把自己边看边写的笔记拿出来和大家分享。</p>
+<h2 id="1-_Volley_u7B80_u4ECB"><a href="#1-_Volley_u7B80_u4ECB" class="headerlink" title="1. Volley简介"></a>1. Volley简介</h2><h4 id="1-1_Volley_u662F_u4EC0_u4E48"><a href="#1-1_Volley_u662F_u4EC0_u4E48" class="headerlink" title="1.1 Volley是什么"></a>1.1 Volley是什么</h4><p>&#160;&#160;&#160;&#160;Volley是Google推出的Android异步网络请求框架和图片加载的框架。适合数据量小的,通信频繁的各种请求,官方已经封装好了各种API,而且还提供了很灵活的自定义请求接口,不仅使用起来方便,可扩展性也很强。来一张google配图 (也是偷的orz，pia~, 啊哦，表打脸…<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/volley.png" alt="volley"></p>
 <p>&#160;&#160;&#160;&#160;可以通过下面的几种途径获取到volley的代码：</p>
 <pre><code>git clone https://android.googlesource.com/platform/frameworks/volley  
 
 jar包下载地址： http://www.kwstu.com/ResourcesView/kwstu_201441183330928 
-</code></pre><p>####1.2 整体框架<br>&#160;&#160;&#160;&#160;这是从上面提到的菊苣那里拿来的一张图，十分感谢Orz,这张图大致的分析出了Volley中Request从开始到结束需要经历的一个流程，在后面会详细的分析request每一步的动向，这里先简单的做个介绍。<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/design.png" alt="design"></p>
+</code></pre><h4 id="1-2__u6574_u4F53_u6846_u67B6"><a href="#1-2__u6574_u4F53_u6846_u67B6" class="headerlink" title="1.2 整体框架"></a>1.2 整体框架</h4><p>&#160;&#160;&#160;&#160;这是从上面提到的菊苣那里拿来的一张图，十分感谢Orz,这张图大致的分析出了Volley中Request从开始到结束需要经历的一个流程，在后面会详细的分析request每一步的动向，这里先简单的做个介绍。<br><img src="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/design.png" alt="design"></p>
 <p>&#160;&#160;&#160;&#160;最开始用到Volley发送请求的时候需要通过如下的几行代码(注意给应用添加网络访问的权限)，</p>
 <pre><code>//先新建一个请求队列(RequestQueue)
 RequestQueue mQueue = Volley.newRequestQueue(context); 
@@ -138,7 +137,7 @@ mQueue.add(stringRequest);
 </ol>
 <p>&#160;&#160;&#160;&#160;在工作线程得到了请求响应结果response之后，会将response交给<strong>ResponseDelivery</strong>来处理并通过回调传递给调用者。</p>
 <p>&#160;&#160;&#160;&#160;通过上面的介绍，应该能大致的了解volley中，一个request创建并加入到RequestQueue之后大致的一个走向。</p>
-<p>####1.3 基础类的简介<br>&#160;&#160;&#160;&#160;在Volley中一共有43个类(不知道当前阅读的是否为最新版本的，不过核心类差不了很远）,主要介绍一下核心类以及其在Volley中起的作用，后面会对核心类的每行代码进行展开分析。</p>
+<h4 id="1-3__u57FA_u7840_u7C7B_u7684_u7B80_u4ECB"><a href="#1-3__u57FA_u7840_u7C7B_u7684_u7B80_u4ECB" class="headerlink" title="1.3 基础类的简介"></a>1.3 基础类的简介</h4><p>&#160;&#160;&#160;&#160;在Volley中一共有43个类(不知道当前阅读的是否为最新版本的，不过核心类差不了很远）,主要介绍一下核心类以及其在Volley中起的作用，后面会对核心类的每行代码进行展开分析。</p>
 <p><strong>Volley.java:</strong> 从上面的用法<code>Volley.newRequestQueue</code>就能看出，Volley类是对外的接口，里面仅有4个重载了的<code>newRequestQueue()</code>函数，用来以各种不同的方式创建并启动一个RequestQueue。</p>
 <p><strong>RequestQueue.java:</strong> 外界通过Volley中的接口来创建其实例，RequestQueue的作用就是存放所有add进来的Request(所有的Request不仅会存放在<code>mCurrentRequests</code>里面，其原型是一个HashSet。而且Request还会被分类存放在<code>mCacheQueue</code>和<code>mNetworkQueue</code>中，分类的标准是是否涉及到网络数据的获取),并且里面会有两类调度器<code>mDispatchers</code>和<code>mCacheDispatcher</code>来负责处理Request。前者用来处理涉及到网络的Request，后者用来处理直接从缓存中获取数据的Request。它俩获得了数据之后都会交给<code>mDelivery</code>(ResponseDelivery.java的实例)来传递回caller。</p>
 <p><strong>Request.java:</strong> 请求类的基类，所有请求类都从该类继承。里面包含了请求方法(POST,GET等)，用户可自定义符合需求的Request，自由度很大。</p>

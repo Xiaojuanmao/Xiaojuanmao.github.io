@@ -5,16 +5,16 @@
   
   <title>Volley框架解析(四)-----Network接口及其默认实现类解析 | Xiaojuanmao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispa">
+  <meta name="description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispatch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Volley框架解析(四)-----Network接口及其默认实现类解析">
 <meta property="og:url" content="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
-<meta property="og:description" content="###1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispa">
-<meta property="og:updated_time" content="2016-01-16T12:01:26.000Z">
+<meta property="og:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispatch">
+<meta property="og:updated_time" content="2016-01-16T12:08:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(四)-----Network接口及其默认实现类解析">
-<meta name="twitter:description" content="###1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispa">
+<meta name="twitter:description" content="1. 前言(可直接无视跳过&amp;#160;&amp;#160;&amp;#160;&amp;#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，NetworkDispatcher以及CacheDispatch">
   
     <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
   
@@ -86,9 +86,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###1. 前言(可直接无视跳过<br>&#160;&#160;&#160;&#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，<code>NetworkDispatcher</code>以及<code>CacheDispatcher</code>。应该是将一个request从新建，到加入队列中等待处理，如何被处理以及返回结果或者error这一系列的流程理顺了。</p>
+        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="1. 前言(可直接无视跳过"></a>1. 前言(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，<code>NetworkDispatcher</code>以及<code>CacheDispatcher</code>。应该是将一个request从新建，到加入队列中等待处理，如何被处理以及返回结果或者error这一系列的流程理顺了。</p>
 <p>&#160;&#160;&#160;&#160;但是对于一些细节的问题还是不清楚，例如request究竟是如何发送出去，通过<code>NetworkResponse networkResponse = mNetwork.performRequest(request);</code>这么一句话就返回了结果(response)，这里面发生了些什么还不得而知，还有<code>Network#performRequest()</code>和<code>HttpStack#performRequest()</code>这两个函数之间有什么区别和联系等等。</p>
-<p>###2. Network.java<br>&#160;&#160;&#160;&#160;最早接触到Network这个类是在<code>Volley.java</code>中的<code>newRequestQueue()</code>函数里面，<code>Network network = new BasicNetwork(stack);</code>创建了一个Network接口引用，并指向了一个Volley中的默认实现类的实例<code>BasicNetwork.java</code>，这个默认实现类也会在这篇博客的后面详细的解析。</p>
+<h3 id="2-_Network-java"><a href="#2-_Network-java" class="headerlink" title="2. Network.java"></a>2. Network.java</h3><p>&#160;&#160;&#160;&#160;最早接触到Network这个类是在<code>Volley.java</code>中的<code>newRequestQueue()</code>函数里面，<code>Network network = new BasicNetwork(stack);</code>创建了一个Network接口引用，并指向了一个Volley中的默认实现类的实例<code>BasicNetwork.java</code>，这个默认实现类也会在这篇博客的后面详细的解析。</p>
 <p>&#160;&#160;&#160;&#160;经过前面几篇博客的分析，<code>Volley.java</code>仅仅是持有而没有使用，仅将这个引用传递给了<code>NetworkDispatcher.java</code>中，只有在<code>NetworkDispatcher.java</code>类中用到了这个Network接口，在<code>NetowkrDispatcher.java</code>中存在着这么一行代码，</p>
 <pre><code>NetworkResponse networkResponse = mNetwork.performRequest(request);
 </code></pre><p>&#160;&#160;&#160;&#160;仅仅用了一句话就将request发送出去了，并且还拿回来了一个<code>NetworkResponse.java</code>类对象。里面发生了什么= =，先进去Network.java里面看看：</p>
@@ -114,7 +114,7 @@ public interface Network {
     public NetworkResponse performRequest(Request&lt;?&gt; request) throws VolleyError;
 }
 </code></pre><p>&#160;&#160;&#160;&#160;对，没有看错= =，就这么点东西，仅仅一个抽象方法而已，Network.java就是一个等待被实现的接口，想看真东西，还需要进去<code>Network network = new BasicNetwork(stack);</code>里面所提到的<code>BasicNetwork.java</code>看看。</p>
-<p>###3. BasicNetwork.java<br>&#160;&#160;&#160;&#160;<code>Network.java</code>接口的默认实现类，该类里面会处理一些request发送前后的处理工作，主要是对请求返回的httpResponse处理，以及对请求失败进行retry或者抛出异常的处理。</p>
+<h3 id="3-_BasicNetwork-java"><a href="#3-_BasicNetwork-java" class="headerlink" title="3. BasicNetwork.java"></a>3. BasicNetwork.java</h3><p>&#160;&#160;&#160;&#160;<code>Network.java</code>接口的默认实现类，该类里面会处理一些request发送前后的处理工作，主要是对请求返回的httpResponse处理，以及对请求失败进行retry或者抛出异常的处理。</p>
 <pre><code>package com.android.volley.toolbox;
 
 /**
@@ -543,7 +543,7 @@ public class BasicNetwork implements Network {
         return result;
     }
 }
-</code></pre><p>###4. ByteArrayPool.java<br>&#160;&#160;&#160;&#160;ByteArrayPool.java是用来将HttpResponse中Entity通过stream的形式转换成byte[],主要的作用是提供缓冲区，用来辅助流数据的读取，在使用完成之后需要将使用过的缓冲区还给ByteArrayPool，ByteArrayPool里会对这些byte[]进行简单的回收处理。</p>
+</code></pre><h3 id="4-_ByteArrayPool-java"><a href="#4-_ByteArrayPool-java" class="headerlink" title="4. ByteArrayPool.java"></a>4. ByteArrayPool.java</h3><p>&#160;&#160;&#160;&#160;ByteArrayPool.java是用来将HttpResponse中Entity通过stream的形式转换成byte[],主要的作用是提供缓冲区，用来辅助流数据的读取，在使用完成之后需要将使用过的缓冲区还给ByteArrayPool，ByteArrayPool里会对这些byte[]进行简单的回收处理。</p>
 <pre><code>/**
  * 用来给外界提供byte[]作为缓冲区的一个工具类
  */
@@ -697,7 +697,7 @@ public interface RetryPolicy {
      */
     public void retry(VolleyError error) throws VolleyError;
 }
-</code></pre><h3 id="5-_DefaultRetryPolicy-java"><a href="#5-_DefaultRetryPolicy-java" class="headerlink" title="5. DefaultRetryPolicy.java"></a>5. DefaultRetryPolicy.java</h3><p>&#160;&#160;&#160;&#160;<code>DefaultRetryPolicy.java</code>描述了对待Volley中涉及Network的request的策略方针，可以理解为重试策略方针，也就是对那些在网络请求失败的request处理方法。里面包含了retry的最大次数(<code>mMaxNumRetries</code>)，当前请求次数(<code>mCurrentRetryCount</code>)以及请求超时的时间阀值(<code>mCurrentTimeoutMs</code>)等。每个Request里面都包含了一个<code>RetryPolicy.java</code>实现类，在处理的时候可以通过<code>getRetryPolicy()</code>方法获得。</p>
+</code></pre><h3 id="6-_DefaultRetryPolicy-java"><a href="#6-_DefaultRetryPolicy-java" class="headerlink" title="6. DefaultRetryPolicy.java"></a>6. DefaultRetryPolicy.java</h3><p>&#160;&#160;&#160;&#160;<code>DefaultRetryPolicy.java</code>描述了对待Volley中涉及Network的request的策略方针，可以理解为重试策略方针，也就是对那些在网络请求失败的request处理方法。里面包含了retry的最大次数(<code>mMaxNumRetries</code>)，当前请求次数(<code>mCurrentRetryCount</code>)以及请求超时的时间阀值(<code>mCurrentTimeoutMs</code>)等。每个Request里面都包含了一个<code>RetryPolicy.java</code>实现类，在处理的时候可以通过<code>getRetryPolicy()</code>方法获得。</p>
 <pre><code>package com.android.volley;
 
 /**
