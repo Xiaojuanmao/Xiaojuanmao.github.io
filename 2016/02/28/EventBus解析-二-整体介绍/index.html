@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Volley | Xiaojuanmao&#39;s Blog</title>
+  <title>EventBus解析(二)整体介绍 | Xiaojuanmao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Coding Life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xiaojuanmao's Blog">
-<meta property="og:url" content="http://yoursite.com/tags/Volley/index.html">
+  <meta name="description" content="线框图工作流程
+由EventBus或者EventBusBuilder这两个类提供的API来注册register，也就是给eventbus这套框架指定需要检索的具有@Subscribe注解方法的类实例。
+在register(Object subscriber)的过程中，用到了SubscriberMethodFinder这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象subscriber">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventBus解析(二)整体介绍">
+<meta property="og:url" content="http://yoursite.com/2016/02/28/EventBus解析-二-整体介绍/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
-<meta property="og:description" content="Coding Life">
+<meta property="og:description" content="线框图工作流程
+由EventBus或者EventBusBuilder这两个类提供的API来注册register，也就是给eventbus这套框架指定需要检索的具有@Subscribe注解方法的类实例。
+在register(Object subscriber)的过程中，用到了SubscriberMethodFinder这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象subscriber">
+<meta property="og:updated_time" content="2016-02-28T16:27:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xiaojuanmao's Blog">
-<meta name="twitter:description" content="Coding Life">
+<meta name="twitter:title" content="EventBus解析(二)整体介绍">
+<meta name="twitter:description" content="线框图工作流程
+由EventBus或者EventBusBuilder这两个类提供的API来注册register，也就是给eventbus这套框架指定需要检索的具有@Subscribe注解方法的类实例。
+在register(Object subscriber)的过程中，用到了SubscriberMethodFinder这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象subscriber">
   
     <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
   
@@ -63,153 +70,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-七-Request解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:44.000Z" itemprop="datePublished">1月 16</time>
+        <section id="main"><article id="post-EventBus解析-二-整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/28/EventBus解析-二-整体介绍/" class="article-date">
+  <time datetime="2016-02-28T15:43:32.000Z" itemprop="datePublished">2016-02-28</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-七-Request解析/">Volley框架解析(七)-----Request解析</a>
+    <h1 class="article-title" itemprop="name">
+      EventBus解析(二)整体介绍
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:37.000Z" itemprop="datePublished">1月 16</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/">Volley框架解析(六)-----Cache接口及其默认实现类解析</a>
-    </h1>
-  
+        <h4 id="u7EBF_u6846_u56FE"><a href="#u7EBF_u6846_u56FE" class="headerlink" title="线框图"></a>线框图</h4><h4 id="u5DE5_u4F5C_u6D41_u7A0B"><a href="#u5DE5_u4F5C_u6D41_u7A0B" class="headerlink" title="工作流程"></a>工作流程</h4><ol>
+<li>由<code>EventBus</code>或者<code>EventBusBuilder</code>这两个类提供的API来注册<code>register</code>，也就是给<code>eventbus</code>这套框架指定需要检索的具有<code>@Subscribe</code>注解方法的类实例。</li>
+<li>在<code>register(Object subscriber)</code>的过程中，用到了<code>SubscriberMethodFinder</code>这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象<code>subscriber</code>中符合规定的方法，并记录在一个<code>Map&lt;Class&lt;?&gt;, List&lt;Subscription&gt;&gt;</code>中，这里会按照优先级对订阅了同一<code>event</code>进行排序，上篇博客提到的<code>priority</code>就是在这时候起的作用。</li>
+<li>当用户调用了<code>post(MsgEvent event)</code>方法之后，就会根据调用线程是否为主线程以及调用线程的一些相关信息，来对订阅过<code>MsgEvent</code>类型以及订阅过<code>MsgEvent</code>父类的一些方法进行任务处理。这里的任务处理指的不仅仅是简单的调用，而是根据在<code>@Subscribe(threadMode = ThreadMode.XXXXX)</code>注解上面的一些配置项来看的。之前提到过的四种线程模式就在这里开始起作用了，框架里面用到了三种处理方式来实现不同的效果，用到了下面这三个类：<pre><code>HandlerPoster ThreadMode.MAIN
+BackgroundPoster ThreadMode.BACKGROUND
+AsyncPoster ThreadMode.ASYNC
+</code></pre>来对不同的方法进行调度，然后就有了很方便使用的<code>eventbus</code>框架，一些细节部分后面结合源代码来看。</li>
+</ol>
+<h4 id="u4E3B_u8981_u7C7B_u578B"><a href="#u4E3B_u8981_u7C7B_u578B" class="headerlink" title="主要类型"></a>主要类型</h4><ol>
+<li><strong>EventBus</strong>: 最基本的类，类似于事件分发管理的一个中心枢纽</li>
+<li><strong>EventBusBuilder</strong>: 从名字能看的出，建造者模式的一个应用，用于方便的实例化不同配置的EventBus</li>
+<li><strong>PostingThreadState</strong>: </li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:29.000Z" itemprop="datePublished">1月 16</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/">Volley框架解析(五)-----HttpStack接口及其默认实现类解析</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:22.000Z" itemprop="datePublished">1月 16</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-整体介绍/" data-id="cil7ax0bt000osfutv0ab2zgn" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/">Volley框架解析(四)-----Network接口及其默认实现类解析</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-三-Dispatcher解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:13.000Z" itemprop="datePublished">1月 16</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-三-Dispatcher解析/">Volley框架解析(三)-----Dispatcher解析</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" class="archive-article-date">
-  <time datetime="2016-01-16T10:10:02.000Z" itemprop="datePublished">1月 16</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/">Volley框架解析(二)-----Volley及RequestQueue解析</a>
-    </h1>
   
+    <a href="/2016/02/28/EventBus解析-一-简单介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EventBus解析(一)简单介绍</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/01/16/Volley框架解析-一-整体介绍/" class="archive-article-date">
-  <time datetime="2016-01-16T10:06:40.000Z" itemprop="datePublished">1月 16</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/01/16/Volley框架解析-一-整体介绍/">Volley框架解析(一)-----整体介绍</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 </section>
         
           <aside id="sidebar">

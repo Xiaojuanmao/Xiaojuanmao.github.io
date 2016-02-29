@@ -65,6 +65,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-EventBus解析-二-整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/28/EventBus解析-二-整体介绍/" class="article-date">
+  <time datetime="2016-02-28T15:43:32.000Z" itemprop="datePublished">2016-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/28/EventBus解析-二-整体介绍/">EventBus解析(二)整体介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u7EBF_u6846_u56FE"><a href="#u7EBF_u6846_u56FE" class="headerlink" title="线框图"></a>线框图</h4><h4 id="u5DE5_u4F5C_u6D41_u7A0B"><a href="#u5DE5_u4F5C_u6D41_u7A0B" class="headerlink" title="工作流程"></a>工作流程</h4><ol>
+<li>由<code>EventBus</code>或者<code>EventBusBuilder</code>这两个类提供的API来注册<code>register</code>，也就是给<code>eventbus</code>这套框架指定需要检索的具有<code>@Subscribe</code>注解方法的类实例。</li>
+<li>在<code>register(Object subscriber)</code>的过程中，用到了<code>SubscriberMethodFinder</code>这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象<code>subscriber</code>中符合规定的方法，并记录在一个<code>Map&lt;Class&lt;?&gt;, List&lt;Subscription&gt;&gt;</code>中，这里会按照优先级对订阅了同一<code>event</code>进行排序，上篇博客提到的<code>priority</code>就是在这时候起的作用。</li>
+<li>当用户调用了<code>post(MsgEvent event)</code>方法之后，就会根据调用线程是否为主线程以及调用线程的一些相关信息，来对订阅过<code>MsgEvent</code>类型以及订阅过<code>MsgEvent</code>父类的一些方法进行任务处理。这里的任务处理指的不仅仅是简单的调用，而是根据在<code>@Subscribe(threadMode = ThreadMode.XXXXX)</code>注解上面的一些配置项来看的。之前提到过的四种线程模式就在这里开始起作用了，框架里面用到了三种处理方式来实现不同的效果，用到了下面这三个类：<pre><code>HandlerPoster ThreadMode.MAIN
+BackgroundPoster ThreadMode.BACKGROUND
+AsyncPoster ThreadMode.ASYNC
+</code></pre>来对不同的方法进行调度，然后就有了很方便使用的<code>eventbus</code>框架，一些细节部分后面结合源代码来看。</li>
+</ol>
+<h4 id="u4E3B_u8981_u7C7B_u578B"><a href="#u4E3B_u8981_u7C7B_u578B" class="headerlink" title="主要类型"></a>主要类型</h4><ol>
+<li><strong>EventBus</strong>: 最基本的类，类似于事件分发管理的一个中心枢纽</li>
+<li><strong>EventBusBuilder</strong>: 从名字能看的出，建造者模式的一个应用，用于方便的实例化不同配置的EventBus</li>
+<li><strong>PostingThreadState</strong>: </li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-整体介绍/" data-id="cil7ax0bt000osfutv0ab2zgn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-EventBus解析-一-简单介绍" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/28/EventBus解析-一-简单介绍/" class="article-date">
@@ -88,195 +139,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D" class="headerlink" title="题外话(可直接无视= ="></a>题外话(可直接无视= =</h4><p>&#160;&#160;&#160;&#160;最近接触了一下EventBus这个开源项目，在好多人都已经用烂的情况下才开始。在了解之前也听到过好多种声音，有说eventbus是语法糖，越用越上瘾，不建议经常使用等等。也有说eventbus挺好用的，又省事来又过瘾，简直关爱代码从事人员的身心健康。是非多，两种声音并不能代表什么，只能说明这个项目大家的关注度还是不小的。</p>
-<p>&#160;&#160;&#160;&#160;<a href="https://github.com/greenrobot/EventBus" target="_blank" rel="external">github地址</a></p>
-<p>&#160;&#160;&#160;&#160;<a href="http://greenrobot.org/eventbus/" target="_blank" rel="external">eventbus官方文档</a></p>
-<h4 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h4><pre><code>EventBus is publish/subscribe event bus optimized for Android
-
-EventBus是Android平台上经过优化的、用来发布/订阅指定事件的事件传递机制
-</code></pre><p>&#160;&#160;&#160;&#160;盗用官网上的一张图，简单的介绍了eventbus是如何进行工作的。<br><img src="https://raw.githubusercontent.com/greenrobot/EventBus/master/EventBus-Publish-Subscribe.png" alt="EvenyBus"></p>
-<h4 id="u4F18_u70B9"><a href="#u4F18_u70B9" class="headerlink" title="优点"></a>优点</h4><ul>
-<li>简化组建之间的交流方式<ul>
-<li>降低event的发送者和接受着之间的耦合程度</li>
-<li>能在Activity、Fragment以及后台的线程之间通信方面表现的很好</li>
-<li>避免了繁杂的依赖关系以及生命周期等问题</li>
-</ul>
-</li>
-<li>让你的代码更加的简化</li>
-<li>速度快</li>
-<li>体积小</li>
-<li>好多app都集成在用 = =</li>
-</ul>
-<h4 id="u7B80_u5355_u4F7F_u7528"><a href="#u7B80_u5355_u4F7F_u7528" class="headerlink" title="简单使用"></a>简单使用</h4><p>&#160;&#160;&#160;&#160;怎么把EventBus弄到自己的项目里面来就不用说了，EventBus的使用很简单，只需要三步即可：</p>
-<ol>
-<li><p>定义Event<br> &#160;&#160;&#160;&#160;这里说的Event就是在Android编码的过程中，需要传递的JavaBean。</p>
-<pre><code>public class MsgEvent{
-    private String msg;
-    public MsgEvent(String msg) {
-        this.msg = msg;
-    }
-    public String getMsg() {
-        return msg;
-    }
-}
-</code></pre></li>
-<li><p>注册EventBus以及Subscribers</p>
-<p> <strong>注册EventBus</strong></p>
-<p> &#160;&#160;&#160;&#160;通过EventBus或者EventBusBuilder的一些方法能将一个类注册到EventBus实例中，EventBus将在注册过的类中寻找带有<code>@Subscribe</code>注解的方法。</p>
-<pre><code>EventBus eventBus = EventBus.getDefault();
-eventBus.register(this);
-</code></pre><p> &#160;&#160;&#160;&#160;在使用完之后需要注销掉</p>
-<pre><code>eventBus.unregister(this);
-</code></pre><p> &#160;&#160;&#160;&#160;如果在Activity或者是Fragment中使用EventBus的话，可以和其声明周期进行绑定。</p>
-<p> <strong>注册Subscribers</strong></p>
-<p> &#160;&#160;&#160;&#160;EventBus初始化完成之后，就可以定义类似于Receiver的事件处理者了,用注解<code>@Subscribe</code>来定义。</p>
-<pre><code>@Subscribe
-public void onEvent(MsgEvent event){
-    /**
-     */
-}
-</code></pre></li>
-<li><p>发送event<br>&#160;&#160;&#160;&#160;所有的准备工作都做好之后，就可以发送想要传递的数据，在上面注册的接受端处理就可以了。</p>
-<pre><code>eventBus.post(new MsgEvent(&quot;hello world&quot;));
-</code></pre></li>
-</ol>
-<h4 id="u56DB_u79CD_u5DE5_u4F5C_u6A21_u5F0F"><a href="#u56DB_u79CD_u5DE5_u4F5C_u6A21_u5F0F" class="headerlink" title="四种工作模式"></a>四种工作模式</h4><p>&#160;&#160;&#160;&#160;上面的只是简单的使用，用的都是默认设置好的配置，EventBus还提供了四种<code>ThreadMode</code>来扩展功能，这四种功能使得EventBus不仅能够处理Event的传递，还能处理android上UI线程等方面的问题。可以通过<code>@Subscribe</code>注解来设定不同模式，下面介绍下这四种模式：</p>
-<ol>
-<li><p><strong>POSTING</strong></p>
-<pre><code>@Subscribe(threadMode = ThreadMode.POSTING)
-public void onMessage(MsgEvent event) {
-/**
- */
-}
-</code></pre><p> &#160;&#160;&#160;&#160;通过设定<code>threadMode</code>来指定<code>ThreadMode</code>为<code>POSTING</code>，这项参数表明订阅方法<code>onMessage(MsgEvent event)</code>的调用将在<code>post</code>线程完成，也就是说如果在<code>UI thread</code>线程调用<code>eventBus.post()</code>方法，则会在该线程调用<code>onMessage(MsgEvent event)</code>方法。</p>
-</li>
-<li><p><strong>MAIN</strong></p>
-<pre><code>@Subscribe(threadMode = ThreadMode.MAIN)
-public void onMessage(MsgEvent event) {
-/**
- */
-}
-</code></pre><p> &#160;&#160;&#160;&#160;无论<code>eventBus.post()</code>方法在哪个线程调用，<code>onMessage(MsgEvent event)</code>方法都将在主线程被调用，如果本身就是<code>UI thread</code>调用了<code>eventBus.post()</code>，那就会被当作<code>POSTING</code>的情况处理了。</p>
-</li>
-<li><p><strong>BACKGROUND</strong></p>
-<pre><code>@Subscribe(threadMode = ThreadMode.BACKGROUND)
-public void onMessage(MsgEvent event) {
-/**
- */
-}
-</code></pre><p> &#160;&#160;&#160;&#160;<code>onMessage(MsgEvent event)</code>方法将在后台的线程被偷偷的调用，如果调用<code>eventBus.post()</code>方法的线程不是<code>UI thread</code>，那么就直接偷懒的作为<code>POSTING</code>情况进行处理了，如果是<code>UI thread</code>的话，就会用另外一个线程来处理。</p>
-</li>
-<li><p><strong>ASYNC</strong></p>
-<pre><code>@Subscribe(threadMode = ThreadMode.ASYNC)
-public void onMessage(MsgEvent event) {
-/**
- */
-}
-</code></pre><p> &#160;&#160;&#160;&#160;最后一个模式完全将event的发送和处理放在了两个不同的线程中。比较适用于一些耗时操作，例如网络请求、I/O等等。</p>
-</li>
-</ol>
-<h4 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h4><p>&#160;&#160;&#160;&#160;前面用到的EventBus都是利用默认配置的，如果想自己改变配置可以利用内置的Builder来完成，例如下面的几种使用方法:</p>
-<pre><code>EventBus eventBus = EventBus.builder().logNoSubscriberMessages(false).sendNoSubscriberEvent(false).build();
-
-EventBus eventBus = EventBus.builder().throwSubscriberException(true).build();
-</code></pre><p>&#160;&#160;&#160;&#160;还有其他的一些配置这里就不列出来了，在具体的使用过程中再去查阅。</p>
-<h4 id="Sticky_Events"><a href="#Sticky_Events" class="headerlink" title="Sticky Events"></a>Sticky Events</h4><p>&#160;&#160;&#160;&#160;还有个比较有意思的功能就是<code>Sticky Events</code>，官方这样解释的：</p>
-<pre><code>Instead of implementing your own caching, you can use sticky events. EventBus keeps the last sticky event of a certain type in memory.
-
-用Sticky events可以替代自己实现缓存，意味着sticky events发出之后并不是马上得到处理就消失了，而是可以延时处理。
-</code></pre><p>&#160;&#160;&#160;&#160;<strong>Sticky Example</strong></p>
-<pre><code>eventBus.postSticky(new MsgEvent(&quot;hello world&quot;));
-</code></pre><p>&#160;&#160;&#160;&#160;Sticky event已经发出，新启动一个activity之后仍然可以处理这个事件，只要它没有被新的sticky event覆盖。例如：</p>
-<pre><code>@Override
-public void onStart() {
-    super.onStart();
-    EventBus.getDefault().register(this);
-}
-
-@Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-public void onEvent(MsgEvent event) {
-    // UI updates must run on MainThread
-    textField.setText(event.getMsg());
-}
-
-@Override
-public void onStop() {
-    EventBus.getDefault().unregister(this);
-    super.onStop();
-}
-</code></pre><p>&#160;&#160;&#160;&#160;只要在Sticky event被覆盖掉之前，都能够处理到该事件。关于sticky event被覆盖的情况，也就是每一个event类只能存在一个sticky。也可以随时的得到这个sticky event，用法如下：</p>
-<pre><code>MsgEvent stickyEvent = EventBus.getDefault().getStickyEvent(MsgEvent.class);
-if (stickyEvent != null) {
-    EventBus.getDefault().removeStickyEvent(stickyEvent);
-}
-</code></pre><h4 id="Priorities_and_Event_Cancellation"><a href="#Priorities_and_Event_Cancellation" class="headerlink" title="Priorities and Event Cancellation"></a>Priorities and Event Cancellation</h4><p>&#160;&#160;&#160;&#160;<strong>Priorities</strong></p>
-<p>&#160;&#160;&#160;&#160;当一个<code>event</code>注册有多个<code>@Subscribe</code>的时候，究竟先调用哪一个？<code>EventBus</code>提供了<code>Priorities</code>参数来表明他们之间先后调用的关系，默认的优先级为0，优先级越大越先调用，在之后的源码分析中看的会更加的明确，优先级的用法如下：</p>
-<pre><code>@Subscribe(priority = 1)
-public void onEvent(MsgEvent event) {
-...
-}
-</code></pre><p>&#160;&#160;&#160;&#160;这个优先级的管辖范围只限于同一<code>ThreadMode</code>中，如果处于不同的<code>ThreadMode</code>中，优先级并不是那么完全的惯用，因为不同的模式中调用方式不同，并不能一定保证先后顺序。</p>
-<p>&#160;&#160;&#160;&#160;<strong>Cancelling event delivery</strong></p>
-<p>&#160;&#160;&#160;&#160;发出一个<code>event</code>之后可能面临着需要取消的问题，<code>eventbus</code>也有留出接口<code>cancelEventDelivery(Object event)</code>，具体的用法如下：</p>
-<pre><code>@Subscribe
-public void onEvent(MsgEvent event) {
-    //...
-    EventBus.getDefault().cancelEventDelivery(event);
-}
-</code></pre><p>&#160;&#160;&#160;&#160;最好在高优先级的订阅方法中取消<code>event</code>的传递。</p>
-<p>&#160;&#160;&#160;&#160;<code>EventBus</code>上面的一些用法基本上就这么多，还有些功能可以到官网上去看看。下篇就开始从最顶端的API入手，分析<code>EventBus</code>的实现原理了。</p>
-
+<p>&#160;&#160;&#160;&#160;<a href="https://github.com/greenrobot/EventBus">github地址</a></p>
+<p>&#160;&#160;&#160;&#160;<a href="http://greenrobot.org/eventbus/">eventbus官方文档</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/28/EventBus解析-一-简单介绍/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cil6lubxz0000rqutwlxa224t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cil7ax0ax0000sfutu5b0jcxl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SimpleDraweeView解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/29/SimpleDraweeView解析/" class="article-date">
-  <time datetime="2016-01-29T01:20:26.000Z" itemprop="datePublished">2016-01-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/29/SimpleDraweeView解析/">SimpleDraweeView解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u95F2_u8BDD"><a href="#u95F2_u8BDD" class="headerlink" title="闲话"></a>闲话</h3><p>&#160;&#160;&#160;&#160;最近项目催的有点紧，没什么时间静下心来好好的体会下所谓的好的代码，做项目时间一紧就没什么特别多的时间自己去写点东西，github上的好的开源项目确实多，虽然说拿来用用也无妨，总有一种罪恶感从内心发散，这样的项目做的越多，罪恶感也越来越深重。</p>
-<p>&#160;&#160;&#160;&#160;还记得当时刚开始接触android时候，参与了一个需要涉及到网络请求的项目，当时什么都不懂，就听其他人说过什么Volley好用，Volley啥啥啥，没有多想抄起Volley就上了。参照Volley的使用方法，就那样云里雾里的用了一段时间，发现往后面发展直接在代码里面使用Volley貌似不那么美好，代码变得越来越臃肿，于是开始寻找方法来改变这种现状，现在看来根本就是傻乎乎的懵逼(居然不知道要去封装api)，还记得那天晚上思考到了第二天早上，就为这个事情，当时也是灵机一动，觉得那些重复的代码可以复用，然后刷刷刷的给网络请求模块封了3层。</p>
-<p>&#160;&#160;&#160;&#160;反倒是现在项目催紧后，并没有什么时间闲下来细细的思考怎么做才是好的解决方案，为什么这么做，其他人是怎么做的。当自己在这条路上的状态不怎么好的时候，抽出时间来反思其实并不是一种浪费时间的表现，对自己解剖才能寻出根源—–那就是懒。</p>
-<p>&#160;&#160;&#160;&#160;前一段时间刚发生了一件事情，当时的自己还沉迷于游戏，电脑上的游戏也是快十几个了(以前是不怎么打游戏的)，一天到晚睁眼闭眼就是游戏，女票当时开玩笑的问了一句“现在怎么天天玩游戏了，怎么不学习了呢，以后怎么办”。其实我一直都很在乎她的每句话，尽管知道她是在开玩笑的，但我突然意识到自己如果这样玩下去，那绝壁是废柴一根，虽然不玩也可能是废柴，但是至少有机会不是，拼尽全力还是有可能进化为劈柴的。</p>
-<p>&#160;&#160;&#160;&#160;当晚就把自己扇了5个大嘴巴子(一个星期后还疼= =，为了让自己印象深刻，也是把自己打醉了)，把电脑手机上的游戏全部卸掉，给自己说以后不再上瘾游戏。离开了游戏一个月了，我还活着，早上8点，晚上12点的忙活着。</p>
-<p>&#160;&#160;&#160;&#160;闲话扯远了，为什么要对SimpleDraweeView下手呢0.0，因为在开发项目的过程中遇到了一个小问题，SimpleDraweeView对同一uri的文件只会加载一次，第二次让它加载它就认为自己有缓存，不肯干活了，可是我的文件内容变化了= =大哥。所以决定花点时间来看看。</p>
-<h3 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h3><p>&#160;&#160;&#160;&#160;SimpleDrawee</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/29/SimpleDraweeView解析/" data-id="cil6lubzm000orqut45v5rzoz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li></ul>
 
     </footer>
   </div>
@@ -320,7 +196,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cil6lubzi000irqutyt4svaw5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cil7ax0bp000isfut94ldc3ag" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
@@ -363,7 +239,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cil6lubze000erqutgum62bji" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cil7ax0bj000esfutu7xd5mag" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -406,7 +282,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" data-id="cil6lubz60006rqutlalczsy4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" data-id="cil7ax0bc0006sfut5s5naowe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -449,7 +325,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" data-id="cil6lubz90008rqutcjmz6of9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" data-id="cil7ax0be0008sfut09c6eaoh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -493,7 +369,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" data-id="cil6lubz30003rqut884blcdj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" data-id="cil7ax0b90003sfut0gtpecc5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -537,7 +413,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cil6lubzc000crqutyd4gcjv9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cil7ax0bh000csfutgo97pxrf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -583,7 +459,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cil6lubzb000arqut50pa893m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cil7ax0bg000asfutvjyfncte" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -630,7 +506,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-一-整体介绍/" data-id="cil6lubzf000grqut4xfzoswp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-一-整体介绍/" data-id="cil7ax0bl000gsfutjfj971pw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -657,7 +533,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/facebook/">facebook</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -666,7 +542,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 10px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/facebook/" style="font-size: 10px;">facebook</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a>
     </div>
   </div>
 
@@ -675,7 +551,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">10</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -687,11 +563,11 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       <ul>
         
           <li>
-            <a href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
+            <a href="/2016/02/28/EventBus解析-二-整体介绍/">EventBus解析(二)整体介绍</a>
           </li>
         
           <li>
-            <a href="/2016/01/29/SimpleDraweeView解析/">SimpleDraweeView解析</a>
+            <a href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
           </li>
         
           <li>
