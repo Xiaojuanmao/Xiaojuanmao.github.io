@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Xiaojuanmao&#39;s Blog</title>
+  <title>WebView使用总结 | Xiaojuanmao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Coding Life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xiaojuanmao's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="闲话(可直接无视&amp;#160;&amp;#160;&amp;#160;&amp;#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebView使用总结">
+<meta property="og:url" content="http://yoursite.com/2016/03/03/WebView使用总结/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
-<meta property="og:description" content="Coding Life">
+<meta property="og:description" content="闲话(可直接无视&amp;#160;&amp;#160;&amp;#160;&amp;#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一">
+<meta property="og:updated_time" content="2016-03-03T02:25:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xiaojuanmao's Blog">
-<meta name="twitter:description" content="Coding Life">
+<meta name="twitter:title" content="WebView使用总结">
+<meta name="twitter:description" content="闲话(可直接无视&amp;#160;&amp;#160;&amp;#160;&amp;#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一">
   
     <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
   
@@ -63,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-WebView使用总结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-WebView使用总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/03/WebView使用总结/" class="article-date">
   <time datetime="2016-03-03T02:24:30.000Z" itemprop="datePublished">2016-03-03</time>
@@ -78,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
+    <h1 class="article-title" itemprop="name">
+      WebView使用总结
     </h1>
   
 
@@ -149,416 +148,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-EventBus解析-二-整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/29/EventBus解析-二-整体介绍/" class="article-date">
-  <time datetime="2016-02-29T05:01:31.000Z" itemprop="datePublished">2016-02-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="u7EBF_u6846_u56FE"><a href="#u7EBF_u6846_u56FE" class="headerlink" title="线框图"></a>线框图</h4><h4 id="u5DE5_u4F5C_u6D41_u7A0B"><a href="#u5DE5_u4F5C_u6D41_u7A0B" class="headerlink" title="工作流程"></a>工作流程</h4><ol>
-<li>由<code>EventBus</code>或者<code>EventBusBuilder</code>这两个类提供的API来注册<code>register</code>，也就是给<code>eventbus</code>这套框架指定需要检索的具有<code>@Subscribe</code>注解方法的类实例。</li>
-<li>在<code>register(Object subscriber)</code>的过程中，用到了<code>SubscriberMethodFinder</code>这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象<code>subscriber</code>中符合规定的方法，并记录在一个<code>Map&lt;Class&lt;?&gt;, List&lt;Subscription&gt;&gt;</code>中，这里会按照优先级对订阅了同一<code>event</code>进行排序，上篇博客提到的<code>priority</code>就是在这时候起的作用。</li>
-<li>当用户调用了<code>post(MsgEvent event)</code>方法之后，就会根据调用线程是否为主线程以及调用线程的一些相关信息，来对订阅过<code>MsgEvent</code>类型以及订阅过<code>MsgEvent</code>父类的一些方法进行任务处理。这里的任务处理指的不仅仅是简单的调用，而是根据在<code>@Subscribe(threadMode = ThreadMode.XXXXX)</code>注解上面的一些配置项来看的。之前提到过的四种线程模式就在这里开始起作用了，框架里面用到了三种处理方式来实现不同的效果，用到了下面这三个类：<pre><code>HandlerPoster ThreadMode.MAIN
-BackgroundPoster ThreadMode.BACKGROUND
-AsyncPoster ThreadMode.ASYNC
-</code></pre>来对不同的方法进行调度，然后就有了很方便使用的<code>eventbus</code>框架，一些细节部分后面结合源代码来看。</li>
-</ol>
-<p>&lt;!–more&gt;</p>
-<h4 id="u4E3B_u8981_u7C7B_u578B"><a href="#u4E3B_u8981_u7C7B_u578B" class="headerlink" title="主要类型"></a>主要类型</h4><ol>
-<li><strong>EventBus</strong>: 最基本的类，类似于事件分发管理的一个中心枢纽</li>
-<li><strong>EventBusBuilder</strong>: 从名字能看的出，建造者模式的一个应用，用于方便的实例化不同配置的EventBus</li>
-<li><strong>PostingThreadState</strong>: 一个用来存储不同线程线程私有数据的数据结构，包含了一些字段例如：<code>是否为主线程</code>，<code>事件队列</code>等等。框架中将其与<code>ThreadLocal</code>结合一起使用</li>
-<li><strong>HandlerPoster</strong>: 对应ThreadMode.MAIN模式下的事件处理器</li>
-<li><strong>BackgroundPoster</strong>: 对应ThreadMode.BACKGROUND模式下的事件处理器</li>
-<li><strong>AsyncPoster</strong>: 对应ThreadMode.ASYNC模式下的事件处理器</li>
-<li></li>
-</ol>
+  
+    <a href="/2016/02/29/EventBus解析-二-整体介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/29/EventBus解析-二-整体介绍/" data-id="cilbnhgp3000rfkutljrfvb12" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-EventBus解析-一-简单介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/28/EventBus解析-一-简单介绍/" class="article-date">
-  <time datetime="2016-02-28T08:09:40.000Z" itemprop="datePublished">2016-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D" class="headerlink" title="题外话(可直接无视= ="></a>题外话(可直接无视= =</h4><p>&#160;&#160;&#160;&#160;最近接触了一下EventBus这个开源项目，在好多人都已经用烂的情况下才开始。在了解之前也听到过好多种声音，有说eventbus是语法糖，越用越上瘾，不建议经常使用等等。也有说eventbus挺好用的，又省事来又过瘾，简直关爱代码从事人员的身心健康。是非多，两种声音并不能代表什么，只能说明这个项目大家的关注度还是不小的。</p>
-<p>&#160;&#160;&#160;&#160;<a href="https://github.com/greenrobot/EventBus">github地址</a></p>
-<p>&#160;&#160;&#160;&#160;<a href="http://greenrobot.org/eventbus/">eventbus官方文档</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/02/28/EventBus解析-一-简单介绍/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cilbnhgn50000fkutnthb8m6n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Ugly-Number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/17/Ugly-Number/" class="article-date">
-  <time datetime="2016-01-17T08:30:13.000Z" itemprop="datePublished">2016-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/17/Ugly-Number/">Ugly Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u9898_u76EE"><a href="#u9898_u76EE" class="headerlink" title="题目"></a>题目</h3><h4 id="Ugly_Number"><a href="#Ugly_Number" class="headerlink" title="Ugly Number"></a><a href="/&quot;http://www.lintcode.com/en/problem/ugly-number/&quot;">Ugly Number</a></h4><pre><code>Ugly number is a number that only have factors 3, 5 and 7.
-
-Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3, 5, 7, 9, 15 ...
-</code></pre><h3 id="u4F8B_u5B50"><a href="#u4F8B_u5B50" class="headerlink" title="例子"></a>例子</h3><pre><code>If K=4, return 9.
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/17/Ugly-Number/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cilbnhgp0000lfkut4vb1ew3a" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-七-Request解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-七-Request解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:44.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-七-Request解析/">Volley框架解析(七)-----Request解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—<code>Request.java</code>，前面一直在说request，但是一直都没有介绍到Request是个什么东西，这么重要的东西怎么能忘记呢，其实小达也搞不清楚整个框架的介绍顺序，沿着接口自顶向下的延展开来，支路多了之后就只能慢慢的道来，request的来迟深感抱歉orz。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-七-Request解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cilbnhgow000hfkutq9g6tu1x" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-六-Cache接口及其默认实现类解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:37.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/">Volley框架解析(六)-----Cache接口及其默认实现类解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="1. 前言(可直接无视跳过"></a>1. 前言(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;不知不觉Volley的源码分析到了Cache接口部分了，前面涉及到网络的部分都介绍完了，在处理网络请求返回的数据时，会根据request结果是否需要缓存来进行不同的处理。如需要缓存结果，就涉及到了<code>Cache.java</code>及其默认实现类<code>DiskBasedCache.java</code>。 其实在之前什么都不知道的时候，认为缓存是个非常神秘的东西，可能是人类对于未知的恐惧和敬畏嘛orz，后来在用到另外一个牛掰的网络请求框架<a href="https://github.com/koush/ion" title="ion">ion</a>的时候，在自己app的目录下面看到一个ion的文件夹= =，进去之后发现了好多balabala乱七八糟的打不开的文件，突然明白了，估计是看到本地缓存的文件了。扯远了= =，开始源代码的分析。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" data-id="cilbnhgop0009fkutsjmeoboj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-五-HttpStack接口及其默认实现类解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:29.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/">Volley框架解析(五)-----HttpStack接口及其默认实现类解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;历经前面的四篇，终于涉及到网络请求核心的内容了，前面都在做一些准备工作，以及对request队列调度以及维护工作。之前一直说，<code>httpResponse = mHttpStack.performRequest(request, headers);</code>这句话是网络请求的核心，因为这句话一出来，神不知鬼不觉的request就被发出去了，并且还带回来一个HttpResponse的实例= =，有没有感觉被忽悠了，今天就深入进去一探究竟0.0。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" data-id="cilbnhgoq000bfkute9e450j7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-四-Network接口及其默认实现类解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:22.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/">Volley框架解析(四)-----Network接口及其默认实现类解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="1. 前言(可直接无视跳过"></a>1. 前言(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，<code>NetworkDispatcher</code>以及<code>CacheDispatcher</code>。应该是将一个request从新建，到加入队列中等待处理，如何被处理以及返回结果或者error这一系列的流程理顺了。</p>
-<p>&#160;&#160;&#160;&#160;但是对于一些细节的问题还是不清楚，例如request究竟是如何发送出去，通过<code>NetworkResponse networkResponse = mNetwork.performRequest(request);</code>这么一句话就返回了结果(response)，这里面发生了些什么还不得而知，还有<code>Network#performRequest()</code>和<code>HttpStack#performRequest()</code>这两个函数之间有什么区别和联系等等。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" data-id="cilbnhgom0006fkut5netxui9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-三-Dispatcher解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-三-Dispatcher解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:13.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-三-Dispatcher解析/">Volley框架解析(三)-----Dispatcher解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E" class="headerlink" title="题外话(可直接无视，跳过~"></a>题外话(可直接无视，跳过~</h3><p>&#160;&#160;&#160;&#160;在上一篇博客中结合volley源代码分析了<code>Volley.java</code>和<code>RequestQueue.java</code>这两个类，不知道代码全贴上去了，会不会看着很烦的嗯= =，当时看源代码的时候心里就有些不淡定，满屏幕看不懂的东西，但是个人觉得源代码和注释一起看才方便，一段代码一段解释会感觉有点摸不着头脑= =。前面的博客中一直提到了<code>Dispatcher</code>这种的东西，有<code>mNetworkDispatcher</code>和<code>mCacheDispatcher</code>之类的，这篇博客就开始进一步的介绍Volley中的Dispatcher。</p>
-<hr>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-三-Dispatcher解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cilbnhgou000ffkut4lesk990" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-二-Volley及RequestQueue解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:02.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/">Volley框架解析(二)-----Volley及RequestQueue解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="题外话(可直接无视跳过"></a>题外话(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的<code>public, interface, final</code>等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了。</p>
-<p>&#160;&#160;&#160;&#160;有些地方在一个.java文件里面是无法理解用处的，这样的先直接跳过不要纠结，看到对应用的地方就会恍然大悟了。还总结出了一个小技巧就是从框架暴露给外面的接口开始阅读，因为框架里面是一层一层往上的，底层是为了上层服务的，所以从接口开始阅读能很好的向下展开。</p>
-<p>&#160;&#160;&#160;&#160;前面一篇对Volley做了一个初步的介绍以及从整体上的一个解析，只是简单的描述了Request在Volley中是如何被处理的。从这篇博客开始将从最顶层一步一步的向下挖掘每一行代码，从最开始调用的地方<code>RequestQueue mQueue = Volley.newRequestQueue(mContext)</code>开始。</p>
-<hr>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cilbnhgos000dfkut9vehaft8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </section>
         
           <aside id="sidebar">
