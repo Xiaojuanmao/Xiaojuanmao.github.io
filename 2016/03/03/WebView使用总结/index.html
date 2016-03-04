@@ -11,7 +11,9 @@
 <meta property="og:url" content="http://yoursite.com/2016/03/03/WebView使用总结/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="闲话(可直接无视&amp;#160;&amp;#160;&amp;#160;&amp;#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一">
-<meta property="og:updated_time" content="2016-03-03T02:25:46.000Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20150729133044546">
+<meta property="og:image" content="http://img.blog.csdn.net/20150729134929204">
+<meta property="og:updated_time" content="2016-03-04T03:15:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WebView使用总结">
 <meta name="twitter:description" content="闲话(可直接无视&amp;#160;&amp;#160;&amp;#160;&amp;#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一">
@@ -90,14 +92,9 @@
 <h2 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>国际惯例咯，先看看google推销它自己东西的。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class</span><br><span class="line">  WebView</span><br><span class="line">    extends AbsoluteLayout</span><br><span class="line">      implements ViewTreeObserver<span class="class">.OnGlobalFocusChangeListener</span> ViewGroup<span class="class">.OnHierarchyChangeListener</span></span><br><span class="line"></span><br><span class="line">java<span class="class">.lang</span><span class="class">.Object</span></span><br><span class="line">   ↳	android<span class="class">.view</span><span class="class">.View</span></span><br><span class="line"> 	   ↳	android<span class="class">.view</span><span class="class">.ViewGroup</span></span><br><span class="line"> 	 	   ↳	android<span class="class">.widget</span><span class="class">.AbsoluteLayout</span></span><br><span class="line"> 	 	 	   ↳	android<span class="class">.webkit</span><span class="class">.WebView</span></span><br><span class="line"></span><br><span class="line">	A View that displays web pages. This class is the basis upon which you can roll your own web browser or simply <span class="attribute">display</span> some online <span class="attribute">content</span> within your Activity. It uses the WebKit rendering engine to <span class="attribute">display</span> web pages and includes methods to navigate forward and backward through <span class="tag">a</span> history, zoom <span class="keyword">in</span> and out, perform text searches and more.</span><br><span class="line"></span><br><span class="line">Note that, <span class="keyword">in</span> <span class="attribute">order</span> <span class="keyword">for</span> your Activity to access the Internet and load web pages <span class="keyword">in</span> <span class="tag">a</span> WebView, you must add the INTERNET permissions to your Android Manifest file:</span><br><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br><span class="line"></span><br><span class="line">附上我的渣渣翻译orz：</span><br><span class="line">	WebView是用来显示网页的控件，这个类能作为你制作自己的浏览器或者仅仅在activity中显示一些网络上内容的基础，它采用了WebKit渲染引擎来显示网页并且能够在历史记录中显示上一页和下一页，放缩以及对网页上的文字进行查询等功能。</span><br><span class="line"></span><br><span class="line">	需要注意的是，为了让WebView能够访问网络，应该在AndroidManifest.xml文件里面加入下面的权限(上面那一行).....如果是直接访问本地的html，是不用加上的，但本地有什么好玩的，最好还是加上把，忘记了就game over了。</span><br></pre></td></tr></table></figure>
 <p>&#160;&#160;&#160;&#160;说白了就是用来显示网页的，之前小达只知道能访问网络上的东西，不知道还可以访问本地的html文件，后面会给大家一一呈上来。</p>
-<!--more>
-
-## 2. 简单使用
-&#160;&#160;&#160;&#160;了解了大概之后现在来实战一下。
-
-### 2.1 从网络加载
-&#160;&#160;&#160;&#160;最开始的时候看着官方文档上是这么写的
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webview.<span class="built_in">load</span>Url(<span class="string">"http://slashdot.org/"</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="2-__u7B80_u5355_u4F7F_u7528"><a href="#2-__u7B80_u5355_u4F7F_u7528" class="headerlink" title="2. 简单使用"></a>2. 简单使用</h2><p>&#160;&#160;&#160;&#160;了解了大概之后现在来实战一下。</p>
+<h3 id="2-1__u4ECE_u7F51_u7EDC_u52A0_u8F7D"><a href="#2-1__u4ECE_u7F51_u7EDC_u52A0_u8F7D" class="headerlink" title="2.1 从网络加载"></a>2.1 从网络加载</h3><p>&#160;&#160;&#160;&#160;最开始的时候看着官方文档上是这么写的<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webview.<span class="built_in">load</span>Url(<span class="string">"http://slashdot.org/"</span>);</span><br></pre></td></tr></table></figure></p>
 <p>&#160;&#160;&#160;&#160;看到这个瞬间惊呆了，就在想这么流弊么。传入url就可以访问网站了？接着动手试了一下，创建一个Activity,布局文件里面只放一个WebView：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">RelativeLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">                <span class="attribute">xmlns:tools</span>=<span class="value">"http://schemas.android.com/tools"</span></span><br><span class="line">                <span class="attribute">android:id</span>=<span class="value">"@+id/activity_display_template_root"</span></span><br><span class="line">                <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">                <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span></span><br><span class="line">                <span class="attribute">tools:context</span>=<span class="value">"com.ldx.microtravelnotes.ui.activity.DisplayTemplateActivity"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">WebView</span></span><br><span class="line">        <span class="attribute">android:id</span>=<span class="value">"@+id/webview"</span></span><br><span class="line">        <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span></span><br><span class="line">        <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&#160;&#160;&#160;&#160;掉头去Activity里面对WebView进行设置，需要说明的是，直接mWebView.setXXX()什么都找不到，什么也设置不了，WebView里面有一个WebSetting,相当于用于配置当前WebView的一个类，里面可以设置是否支持JavaScript等内容，其他的自己去探索咯…..</p>
@@ -117,7 +114,7 @@
 <h4 id="3-1-2__u8C03_u7528JavaScript_u5E26_u53C2_u51FD_u6570"><a href="#3-1-2__u8C03_u7528JavaScript_u5E26_u53C2_u51FD_u6570" class="headerlink" title="3.1.2 调用JavaScript带参函数"></a>3.1.2 调用JavaScript带参函数</h4><p>&#160;&#160;&#160;&#160;但是对于有参数的js函数就不同了。我们将上面的demo.html文件进行小小的修改，让<strong>updataHtml()</strong>函数变成有一个参数的，代码如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateHtml</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">	 <span class="built_in">document</span>.getElementById(<span class="string">"content"</span>).innerHTML =   </span><br><span class="line">         <span class="string">"you have invoke javascript method, "</span> + <span class="string">"the num is "</span> + num;</span><br><span class="line">&#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">this is my html</span><br><span class="line"><span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"content"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&#160;&#160;&#160;&#160;比较有趣的是，调用js带参函数的传参过程有点厉害,竟然是直接将参数准备好了，和函数名组成一整个字符串，再一起给WebView，当时看到之后吓到了(原谅我的无知orz，乡下来的没见过世面)。上面的Java调用代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWebView.loadUrl(<span class="string">"javascript:updateHtml("</span> + <span class="number">3</span> + <span class="string">")"</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-2_Java_u8C03_u7528JavaScript"><a href="#3-2_Java_u8C03_u7528JavaScript" class="headerlink" title="3.2 Java调用JavaScript"></a>3.2 Java调用JavaScript</h3><p>&#160;&#160;&#160;&#160;JavaScript反过来调用Java函数相对麻烦一点，需要通过调用WebView的<strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object, java.lang.String">addJavascriptInterface()</a>)</strong>方法来给js和java之间建立一个调用接口。这个函数有两个参数：</p>
+<h3 id="3-2_Java_u8C03_u7528JavaScript"><a href="#3-2_Java_u8C03_u7528JavaScript" class="headerlink" title="3.2 Java调用JavaScript"></a>3.2 Java调用JavaScript</h3><p>&#160;&#160;&#160;&#160;JavaScript反过来调用Java函数相对麻烦一点，需要通过调用WebView的<strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object, java.lang.String" target="_blank" rel="external">addJavascriptInterface()</a>)</strong>方法来给js和java之间建立一个调用接口。这个函数有两个参数：</p>
 <ol>
 <li>object    the Java object to inject into this WebView’s JavaScript context. Null values are ignored.</li>
 <li>name    the name used to expose the object in JavaScript</li>
@@ -134,13 +131,13 @@
 <h3 id="4-1__u542F_u52A8_u4E00_u4E2A_u65B0_u7684_u8FDB_u7A0B"><a href="#4-1__u542F_u52A8_u4E00_u4E2A_u65B0_u7684_u8FDB_u7A0B" class="headerlink" title="4.1 启动一个新的进程"></a>4.1 启动一个新的进程</h3><p>&#160;&#160;&#160;&#160;给WebView所在的Activity启动一个新的进程,WebView搞不好就崩掉了，你应该不希望WebView随时把你的App弄崩掉吧，给它启动一个新的进程，然后对它说：“要崩你自己崩去吧，不要拉上我orz“。启动的方法很简单，在<strong>AndroidManifest.xml</strong>文件里面找到所在的Activity,添加上下面的代码就可以了：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">android:</span>process=<span class="string">"packagename.web"</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="4-2__u5C3D_u91CF_u52A8_u6001_u6DFB_u52A0WebView"><a href="#4-2__u5C3D_u91CF_u52A8_u6001_u6DFB_u52A0WebView" class="headerlink" title="4.2 尽量动态添加WebView"></a>4.2 尽量动态添加WebView</h3><p>&#160;&#160;&#160;&#160;尽量不要在.xml文件里面直接添加一个WebView控件，动态的Add进去比较好一些，因为在销毁Activity的过程中，可以提前对WebView做一些处理，例如及时的清理掉WebView占用的内存(WebView内存泄漏貌似有点严重的咧,我也就听大神们说的orz)，另外需要注意创建webview需要使用applicationContext而不是activity的context。在Activity或者Fragment的<strong>onDestory()</strong>方法中应该对WebView做一些处理：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mWebView.stopLoading()<span class="comment">;</span></span><br><span class="line">mWebView.removeAllViews()<span class="comment">;</span></span><br><span class="line">mWebView.destroy()<span class="comment">;</span></span><br><span class="line">mWebView = null<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
 <p>&#160;&#160;&#160;&#160;调用activity的finish()方法后，执行上面四行代码，对WebView处理就算完成了，但是尽管activity被销毁掉了，其所在的进程还存在，还需要进一步的手动销毁进程。接着在后面加上下面两行代码，<strong>killBackgroundProcesses()</strong>里面的参数即创建时候进程的名字，由于当前activity属于这个进程，直接getPackageName()就能得到,不需要在后面加上<strong>.web</strong>。<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE)<span class="comment">;</span></span><br><span class="line">activityManager.killBackgroundProcesses(getPackageName())<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-<p>&#160;&#160;&#160;&#160;还有一些更加高端的优化和使用技巧暂时没有用上，链接也呈上来，<a href="http://blog.csdn.net/xyz_lmn/article/details/39473701">Android WebView开发问题及优化汇总</a>。</p>
+<p>&#160;&#160;&#160;&#160;还有一些更加高端的优化和使用技巧暂时没有用上，链接也呈上来，<a href="http://blog.csdn.net/xyz_lmn/article/details/39473701" target="_blank" rel="external">Android WebView开发问题及优化汇总</a>。</p>
 <p>&#160;&#160;&#160;&#160;以上就是个人在使用WebView时候的一些看法，抽了点时间总结一下，以后也方便自己看看。继续默默的赶项目去了orz……….</p>
--->
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cilbnhgok0003fkut9dykg883" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cild4yjzn0003gbut0qwbqz4e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
@@ -150,6 +147,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/03/04/Android微信第三方登录以及分享/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android微信第三方登录以及分享
+        
+      </div>
+    </a>
   
   
     <a href="/2016/02/29/EventBus解析-二-整体介绍/" id="article-nav-older" class="article-nav-link-wrap">
@@ -172,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -181,7 +187,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -190,7 +196,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -200,6 +206,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/04/Android微信第三方登录以及分享/">Android微信第三方登录以及分享</a>
+          </li>
         
           <li>
             <a href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
@@ -215,10 +225,6 @@
         
           <li>
             <a href="/2016/01/17/Ugly-Number/">Ugly Number</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/16/Volley框架解析-七-Request解析/">Volley框架解析(七)-----Request解析</a>
           </li>
         
       </ul>
