@@ -164,52 +164,6 @@
 
 
   
-    <article id="post-WebView使用总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/03/WebView使用总结/" class="article-date">
-  <time datetime="2016-03-03T02:24:30.000Z" itemprop="datePublished">2016-03-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u95F2_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6"><a href="#u95F2_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6" class="headerlink" title="闲话(可直接无视"></a>闲话(可直接无视</h3><p>&#160;&#160;&#160;&#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一次接触到了WebView,感觉好激动好神秘,下面就把使用WebView的一些经验给大家呈上来orz。好久都没上来写点东西了，一上来就大片废话(</p>
-<h2 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>国际惯例咯，先看看google推销它自己东西的。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class</span><br><span class="line">  WebView</span><br><span class="line">    extends AbsoluteLayout</span><br><span class="line">      implements ViewTreeObserver<span class="class">.OnGlobalFocusChangeListener</span> ViewGroup<span class="class">.OnHierarchyChangeListener</span></span><br><span class="line"></span><br><span class="line">java<span class="class">.lang</span><span class="class">.Object</span></span><br><span class="line">   ↳	android<span class="class">.view</span><span class="class">.View</span></span><br><span class="line"> 	   ↳	android<span class="class">.view</span><span class="class">.ViewGroup</span></span><br><span class="line"> 	 	   ↳	android<span class="class">.widget</span><span class="class">.AbsoluteLayout</span></span><br><span class="line"> 	 	 	   ↳	android<span class="class">.webkit</span><span class="class">.WebView</span></span><br><span class="line"></span><br><span class="line">	A View that displays web pages. This class is the basis upon which you can roll your own web browser or simply <span class="attribute">display</span> some online <span class="attribute">content</span> within your Activity. It uses the WebKit rendering engine to <span class="attribute">display</span> web pages and includes methods to navigate forward and backward through <span class="tag">a</span> history, zoom <span class="keyword">in</span> and out, perform text searches and more.</span><br><span class="line"></span><br><span class="line">Note that, <span class="keyword">in</span> <span class="attribute">order</span> <span class="keyword">for</span> your Activity to access the Internet and load web pages <span class="keyword">in</span> <span class="tag">a</span> WebView, you must add the INTERNET permissions to your Android Manifest file:</span><br><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br><span class="line"></span><br><span class="line">附上我的渣渣翻译orz：</span><br><span class="line">	WebView是用来显示网页的控件，这个类能作为你制作自己的浏览器或者仅仅在activity中显示一些网络上内容的基础，它采用了WebKit渲染引擎来显示网页并且能够在历史记录中显示上一页和下一页，放缩以及对网页上的文字进行查询等功能。</span><br><span class="line"></span><br><span class="line">	需要注意的是，为了让WebView能够访问网络，应该在AndroidManifest.xml文件里面加入下面的权限(上面那一行).....如果是直接访问本地的html，是不用加上的，但本地有什么好玩的，最好还是加上把，忘记了就game over了。</span><br></pre></td></tr></table></figure>
-<p>&#160;&#160;&#160;&#160;说白了就是用来显示网页的，之前小达只知道能访问网络上的东西，不知道还可以访问本地的html文件，后面会给大家一一呈上来。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/03/03/WebView使用总结/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cilgm8ro00003j7utz1iw463f" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-EventBus解析-二-整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/29/EventBus解析-二-整体介绍/" class="article-date">
@@ -521,6 +475,50 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
 
 
   
+    <article id="post-Volley框架解析-三-Dispatcher解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/16/Volley框架解析-三-Dispatcher解析/" class="article-date">
+  <time datetime="2016-01-16T10:10:13.000Z" itemprop="datePublished">2016-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/16/Volley框架解析-三-Dispatcher解析/">Volley框架解析(三)-----Dispatcher解析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_uFF0C_u8DF3_u8FC7_7E" class="headerlink" title="题外话(可直接无视，跳过~"></a>题外话(可直接无视，跳过~</h3><p>&#160;&#160;&#160;&#160;在上一篇博客中结合volley源代码分析了<code>Volley.java</code>和<code>RequestQueue.java</code>这两个类，不知道代码全贴上去了，会不会看着很烦的嗯= =，当时看源代码的时候心里就有些不淡定，满屏幕看不懂的东西，但是个人觉得源代码和注释一起看才方便，一段代码一段解释会感觉有点摸不着头脑= =。前面的博客中一直提到了<code>Dispatcher</code>这种的东西，有<code>mNetworkDispatcher</code>和<code>mCacheDispatcher</code>之类的，这篇博客就开始进一步的介绍Volley中的Dispatcher。</p>
+<hr>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/16/Volley框架解析-三-Dispatcher解析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cilgm8rob000fj7utgrzmvo64" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -536,7 +534,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -545,7 +543,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -554,7 +552,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -574,15 +572,15 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
           </li>
         
           <li>
-            <a href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
-          </li>
-        
-          <li>
             <a href="/2016/02/29/EventBus解析-二-整体介绍/">(no title)</a>
           </li>
         
           <li>
             <a href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/17/Ugly-Number/">Ugly Number</a>
           </li>
         
       </ul>
