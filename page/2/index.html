@@ -65,6 +65,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Volley框架解析-五-HttpStack接口及其默认实现类解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" class="article-date">
+  <time datetime="2016-01-16T10:10:29.000Z" itemprop="datePublished">2016-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/">Volley框架解析(五)-----HttpStack接口及其默认实现类解析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;历经前面的四篇，终于涉及到网络请求核心的内容了，前面都在做一些准备工作，以及对request队列调度以及维护工作。之前一直说，<code>httpResponse = mHttpStack.performRequest(request, headers);</code>这句话是网络请求的核心，因为这句话一出来，神不知鬼不觉的request就被发出去了，并且还带回来一个HttpResponse的实例= =，有没有感觉被忽悠了，今天就深入进去一探究竟0.0。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-五-HttpStack接口及其默认实现类解析/" data-id="cillwx9oe000bhputk24fjari" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Volley框架解析-四-Network接口及其默认实现类解析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" class="article-date">
@@ -97,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" data-id="cillmjdzg0006odutbxq05r0v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-四-Network接口及其默认实现类解析/" data-id="cillwx9ob0006hput4o5ovx7j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -141,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cillmjdzw000foduti8enrcbb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-三-Dispatcher解析/" data-id="cillwx9oj000fhputogulkb2v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -187,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cillmjdzt000dodutf071fjqi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cillwx9oi000dhput9u3d8ap0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -234,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-一-整体介绍/" data-id="cillmje00000jodutaab9efwm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-一-整体介绍/" data-id="cillwx9om000jhputp3o11t13" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -279,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Ubuntu上结合Github用Hexo搭建博客/" data-id="cillmje07000rodutz0ehx1lq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Ubuntu上结合Github用Hexo搭建博客/" data-id="cillwx9or000rhputnwt9x4be" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
@@ -306,7 +349,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -315,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -324,7 +367,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -334,6 +377,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/10/Java内存模型/">Java内存模型</a>
+          </li>
         
           <li>
             <a href="/2016/03/07/EventBus解析-三-查找Subscribe方法/">EventBus解析-三-查找Subscribe方法</a>
@@ -349,10 +396,6 @@
         
           <li>
             <a href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
-          </li>
-        
-          <li>
-            <a href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
           </li>
         
       </ul>

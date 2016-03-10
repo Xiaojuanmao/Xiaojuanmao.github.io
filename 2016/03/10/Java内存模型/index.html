@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java内存模型 | Xiaojuanmao&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内存模型由来&amp;#160;&amp;#160;&amp;#160;&amp;#160;由于多任务处理的需求，在很多情况下计算机的运算能力强大了，低速的磁盘I/O或者网络通信或者数据库的操作访问完全跟不上CPU高速处理的节奏，这个时候出现了高速缓存这个东西来调节这两者之间的差距。
+&amp;#160;&amp;#160;&amp;#160;&amp;#160;出现高速缓存之后又面临着一个问题，就是在主内存中和在高速缓存中存储的可能不是同一份数据，也就是不能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java内存模型">
+<meta property="og:url" content="http://yoursite.com/2016/03/10/Java内存模型/index.html">
+<meta property="og:site_name" content="Xiaojuanmao's Blog">
+<meta property="og:description" content="内存模型由来&amp;#160;&amp;#160;&amp;#160;&amp;#160;由于多任务处理的需求，在很多情况下计算机的运算能力强大了，低速的磁盘I/O或者网络通信或者数据库的操作访问完全跟不上CPU高速处理的节奏，这个时候出现了高速缓存这个东西来调节这两者之间的差距。
+&amp;#160;&amp;#160;&amp;#160;&amp;#160;出现高速缓存之后又面临着一个问题，就是在主内存中和在高速缓存中存储的可能不是同一份数据，也就是不能">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2012%3A28%3A39.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2013%3A10%3A03.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2014%3A00%3A31.png">
+<meta property="og:updated_time" content="2016-03-10T06:47:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java内存模型">
+<meta name="twitter:description" content="内存模型由来&amp;#160;&amp;#160;&amp;#160;&amp;#160;由于多任务处理的需求，在很多情况下计算机的运算能力强大了，低速的磁盘I/O或者网络通信或者数据库的操作访问完全跟不上CPU高速处理的节奏，这个时候出现了高速缓存这个东西来调节这两者之间的差距。
+&amp;#160;&amp;#160;&amp;#160;&amp;#160;出现高速缓存之后又面临着一个问题，就是在主内存中和在高速缓存中存储的可能不是同一份数据，也就是不能">
+  
+    <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Xiaojuanmao&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Life began in 1990</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Java内存模型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/10/Java内存模型/" class="article-date">
+  <time datetime="2016-03-10T06:46:58.000Z" itemprop="datePublished">2016-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java内存模型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u5185_u5B58_u6A21_u578B_u7531_u6765"><a href="#u5185_u5B58_u6A21_u578B_u7531_u6765" class="headerlink" title="内存模型由来"></a>内存模型由来</h4><p>&#160;&#160;&#160;&#160;由于多任务处理的需求，在很多情况下计算机的运算能力强大了，低速的磁盘I/O或者网络通信或者数据库的操作访问完全跟不上CPU高速处理的节奏，这个时候出现了高速缓存这个东西来调节这两者之间的差距。</p>
+<p>&#160;&#160;&#160;&#160;出现高速缓存之后又面临着一个问题，就是在主内存中和在高速缓存中存储的可能不是同一份数据，也就是不能保证<strong>缓存一致性(Cache Chherence)</strong>。在多处理器的系统中，每个处理器都有自己的高速缓存，而同时又共享一块主内存，这个时候没有一个标准是不行的。所以就出来了一系列的协议，读写的时候都根据协议来就不会出错了(例如MSI、MOSI等等)。而所谓的<strong>内存模型</strong>，可以暂时理解为在特定的操作协议之下，对特定内存或者高速缓存进行读写访问的过程抽象。</p>
+<p><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2012%3A28%3A39.png" alt=""></p>
+<a id="more"></a>
+<p>&#160;&#160;&#160;&#160;不同的机器也有自己的内存模型，Java虚拟机也是一样的。除了增加高速缓存之外，为了使得处理器内部的运算单元能够尽量被充分利用，处理器可能会对输入的代码进行乱序执行(Out-Of-Order Execution)优化。处理器会在计算之后将乱序执行的结果重组，保证该结果与顺序执行的结果是一致的，但并不保证程序中各个语句计算的先后顺序与输入代码的顺序一致。与处理器的乱序执行优化类似，Java虚拟机的即时编译器中也有类似的指令重排序(Instruction Reorder)优化。</p>
+<h4 id="Java_u5185_u5B58_u6A21_u578B"><a href="#Java_u5185_u5B58_u6A21_u578B" class="headerlink" title="Java内存模型"></a>Java内存模型</h4><p>&#160;&#160;&#160;&#160;Java虚拟机规范中试图定义一种<strong>Java内存模型(Java Memory Model, JMM)</strong>来屏蔽掉各种硬件和操作系统的内存访问差异，以实现Java在各种平台下都能达成一致的内存访问效果。C/C++都直接使用物理硬件和操作系统的内存模型，所以在不同的平台上就会表现出错。</p>
+<h4 id="u4E3B_u5185_u5B58_u548C_u5DE5_u4F5C_u5185_u5B58"><a href="#u4E3B_u5185_u5B58_u548C_u5DE5_u4F5C_u5185_u5B58" class="headerlink" title="主内存和工作内存"></a>主内存和工作内存</h4><p>&#160;&#160;&#160;&#160;Java内存模型主要的目标是定义程序中各个变量的访问规则，即在虚拟机中将变量存储到内存和从内存中取出变量的这种底层的细节。这里的变量包括实例字段、静态字段和构成数组对象的元素，不包括局部变量与方法参数，因为后者是线程私有的，不会被共享，自然不存在竞争的问题了。</p>
+<p>&#160;&#160;&#160;&#160;Java内存模型规定了所有的变量都存储在主内存(Main Memory)中(虚拟机内存的一部分共用区域)。每条线程还可以有自己的工作内存(Working Memory, 类比之前提到的Cache)，线程工作内存中保存了被该线程使用到的变量的主内存副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量。不同的线程之间也无法直接访问对方的工作内存中的变量，线程间变量值的传递都需要通过主内存来完成。三者的交互关系如下图所示：</p>
+<p><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2013%3A10%3A03.png" alt=""></p>
+<h4 id="u5185_u5B58_u95F4_u4EA4_u4E92_u64CD_u4F5C"><a href="#u5185_u5B58_u95F4_u4EA4_u4E92_u64CD_u4F5C" class="headerlink" title="内存间交互操作"></a>内存间交互操作</h4><p>&#160;&#160;&#160;&#160;Java内存模型中定义了下面8种操作来完成主内存与线程工作内存之间的交互，虚拟机实现的时候必须保证下面提及到的每一种操作都是原子的、不可再分的。</p>
+<ul>
+<li><p>用于主内存变量</p>
+<ul>
+<li><strong>lock</strong>(锁定)：它把一个变量标识为一条线程独占的状态</li>
+<li><strong>unlock</strong>(解锁)：将变量从线程独占的状态中释放出来</li>
+<li><strong>read</strong>(读取)：把变量的值从主内存传输到线程的工作内存中去，以便之后的<strong>load</strong>操作</li>
+</ul>
+</li>
+<li><p>用于工作内存变量</p>
+<ul>
+<li><strong>load</strong>(载入):将<strong>read</strong>进来的值放入工作内存的变量副本中去</li>
+<li><strong>use</strong>(使用):将工作内存中的一个变量传给执行引擎，每当虚拟机遇到一个需要使用变量的值的字节码指令时将会执行这个操作</li>
+<li><strong>assign</strong>(赋值):将一个从执行引擎接受到的值给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作</li>
+<li><strong>store</strong>(存储):将一个工作内存中的值传送到主内存中，以便随后的<strong>write</strong>操作</li>
+<li><strong>write</strong>(写入):将<strong>store</strong>操作从工作内存中得到的变量的值放入到主内存的变量中去。</li>
+</ul>
+</li>
+</ul>
+<p>&#160;&#160;&#160;&#160;如果一个变量从主内存到工作内存，就需要顺序的执行<strong>read</strong>和<strong>load</strong>操作，只是要求顺序但不要求连续，意思就是说可以是<code>read a; read b; load b; load a;</code>这种执行顺序。除此之外，Java内存模型还规定了在执行上面8种基本操作时满足如下规则：</p>
+<ul>
+<li>不允许<strong>read</strong>和<strong>load</strong>、<strong>store</strong>、<strong>write</strong>单独出现</li>
+<li>不允许一个线程丢弃最近的<strong>assign</strong>操作，应该继续写入到主存中同步变化</li>
+<li>不允许一个线程没发生<strong>assign</strong>把数据从线程的工作内存同步回主内存</li>
+<li>一个新的变量只能从主内存中<strong>诞生</strong>，不允许线程创建新的变量写入主内存中</li>
+<li>一个变量在同一时刻只允许一条线程对其<strong>lock</strong>，但是这条线程能够<strong>lock</strong>多次这个变量，<strong>unlock</strong>的时候也需要执行多次。</li>
+<li>如果对一个变量<strong>lock</strong>，则会清空工作内存中的该变量值，在执行引擎使用的时候会重新读取</li>
+<li>如果没有<strong>lock</strong>过，也不许执行<strong>unlock</strong>操作，解铃还需系铃人= =</li>
+<li><strong>unlock</strong>之前，必须先同步变量到主内存中</li>
+</ul>
+<h4 id="u5173_u4E8Evolatile_u7C7B_u578B"><a href="#u5173_u4E8Evolatile_u7C7B_u578B" class="headerlink" title="关于volatile类型"></a>关于volatile类型</h4><p>&#160;&#160;&#160;&#160;<strong>Volatile能够说是Java虚拟机提供的最轻量的同步机制</strong><br>&#160;&#160;&#160;&#160;一个变量被关键字<strong>volatile</strong>修饰之后，会具备两种特性：</p>
+<ol>
+<li><p>保证这个变量对所有线程的可见性，也就是说当线程改变了该变量的值，会立即写入主存进行同步。每次线程在使用这个变量之前，都会从主存中读取该变量的值，也就是执行引擎看不到不同步的情况，线程工作内存之间还是可以看到不同步的现象发生。<br> 关于这个变量的线程安全性，由于Java中的运算并不是原子性的，导致volatile变量的运算在并发下一样是不安全的。(例如：a++这个操作)<br> 由于volatile变量只能保证可见性，在不符合下面两个条件规则的场景中还是要通过加锁来保证操作原子性：</p>
+<ul>
+<li>运算结果并不依赖于变量的当前值，或者能够确保只有单一的线程修改变量的值</li>
+<li>变量不需要和其他的状态变量共同参与不变约束</li>
+</ul>
+</li>
+<li><p>第二个特性是禁止指令重排序优化，看下面这个例子</p>
+<pre><code>Map configOptions;
+char[] configText;
+volatile boolean initialized = false;
+//假设下面代码运行在线程A
+configOptions = new HashMap();
+configText = readConfigFile(fileName);
+processConfigOptions(configText, configOptions);
+
+//下面代码运行在线程B
+while(!initialized) {
+    sleep();
+}
+doSimethingWithConfig();
+</code></pre><p> &#160;&#160;&#160;&#160;在上面的一个例子中，如果变量没有用<strong>volatile</strong>修饰，可能会指令重排序的优化，<code>initialized = true</code>这句话可能提前执行，这样线程B中可能会出现错误。再来看下面这个例子：<br> <img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-03-10%2014%3A00%3A31.png" alt=""><br> &#160;&#160;&#160;&#160;这个例子对汇编代码进行了分析。如果没有加上<strong>volatile</strong>修饰符，则没有<strong>lock addl $0x0, (%esp)</strong>这行操作，这个操作相当于一道内存屏障(Memory Barrier或Memory Fence)，指重排序时不能把后面的指令重排序到屏障之前。仅限于多cpu访问内存的时候才需要用到。<strong>这条指令的作用是将当前CPU的Cache写入内存，这个动作也会引起其他的cup的Cache无效化，所以通过这个操作能够让其他cpu立即可见</strong>。</p>
+<p> &#160;&#160;&#160;&#160;关于<strong>Volatile</strong>如何禁止重排序，重排序是CPU采用了允许将多条指令不按照程序规定的顺序分开发送给多个电路单元进行处理，分发的也是有一定的规则的，数据依赖的指令不能乱排序等等。</p>
+</li>
+</ol>
+<h4 id="u539F_u5B50_u6027_u3001_u53EF_u89C1_u6027_u548C_u6709_u5E8F_u6027"><a href="#u539F_u5B50_u6027_u3001_u53EF_u89C1_u6027_u548C_u6709_u5E8F_u6027" class="headerlink" title="原子性、可见性和有序性"></a>原子性、可见性和有序性</h4><ul>
+<li><strong>原子性</strong>：由Java内存模型来直接保证的原子性变量操作包括<strong>read</strong>、<strong>load</strong>、<strong>assign</strong>、<strong>use</strong>、<strong>store</strong>、<strong>write</strong>。大致可以认为基本数据类型的访问读写是具备原子性的，除了long和double这两个64位的非原子性协定。</li>
+<li><strong>可见性</strong>：一个线程修改共享变量，其他线程能够立刻知道这个修改。<strong>final</strong>和<strong>synchronized</strong>也能够保证可见性。</li>
+<li><strong>有序性</strong>：在本线程内观察，所有的操作都是有序的，如果在另外一个线程中观察，所有的操作都是无序的。</li>
+</ul>
+<h4 id="u5148_u884C_u53D1_u751F_u539F_u5219"><a href="#u5148_u884C_u53D1_u751F_u539F_u5219" class="headerlink" title="先行发生原则"></a>先行发生原则</h4><p>&#160;&#160;&#160;&#160;如果有序性需要靠着<strong>volatile</strong>和<strong>synchronized</strong>来维持的话，那写Java的时候会变得很繁琐，但是开发者们并没有感觉到，是因为<strong>先行发生(happens-before)</strong>的原则。这个原则很重要，是判断数据是否存在竞争、线程是否安全的主要依据。</p>
+<p>&#160;&#160;&#160;&#160;<strong>先行发生</strong>是Java内存模型中定义的两项操作之前的偏序关系，如果说A操作先行发生于B操作，也就是B操作可能会被A操作产生的影响影响到。</p>
+<pre><code>//线程A操作
+i = 1;
+//线程B操作
+j = i;
+//线程C操作
+i = 2;
+</code></pre><p>&#160;&#160;&#160;&#160;如果A先行发生于B操作，不考虑C操作，则j的值肯定是1;如果考虑C的操作，则j可能是1或者2，C对i的影响可能会被B检测到，也可能不会，这时候B可能就存在读到脏数据的风险，不具备多线程安全性。</p>
+<p>&#160;&#160;&#160;&#160;Java内存模型下有一些“天然的”先行发生关系，无须我们去处理，只要两个操作能够满足下列规则或者规则的推导，那俩操作就存在顺序行保障，虚拟机可以对其进行任意重排序。</p>
+<ol>
+<li><strong>程序次序规则</strong>：单线程内，按照程序代码顺序执行，前面的操作先行发生于后面的操作。</li>
+<li><strong>管程锁定规则</strong>：一个<strong>unlock</strong>先行发生于对同一个变量的<strong>lock</strong>操作</li>
+<li><strong>volatile变量规则</strong>：对一个<strong>volatile</strong>变量的写先行发生于后面对这个变量的读操作</li>
+<li><strong>线程启动规则</strong>：Thread对象的start()方法先行发生于线程的每个动作</li>
+<li><strong>线程终止规则</strong>：线程中所有操作先行发生于线程的终止检测，通过<strong>join()</strong>方法结束等</li>
+<li><strong>线程中断规则</strong>：interrupt()方法先行发生于被终端线程的代码检测到中断发生</li>
+<li><strong>对象终结规则</strong>：一个对象初始化的完成先行发生于<strong>finalize()</strong>方法</li>
+<li><strong>传递性</strong>：A先行B，B先行C，则A先行C</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cillwx9ot000uhputnksmq1zn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/07/EventBus解析-三-查找Subscribe方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">EventBus解析-三-查找Subscribe方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/10/Java内存模型/">Java内存模型</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/07/EventBus解析-三-查找Subscribe方法/">EventBus解析-三-查找Subscribe方法</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/06/View事件分发机制/">View事件分发机制</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/04/Android微信第三方登录以及分享/">Android微信第三方登录以及分享</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/03/WebView使用总结/">WebView使用总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Xiaoxiaoda<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
