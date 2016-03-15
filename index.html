@@ -98,7 +98,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cillwx9ot000uhputnksmq1zn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cilsxu9jq000u2jutaxo3rqnv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -196,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cillwx9oz0010hputt014zy9w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cilsxu9k200102jutijmh5aj8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -249,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cillwx9oo000lhpute5b08ccf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cilsxu9jk000l2jut8motvvme" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/View/">View</a></li></ul>
@@ -295,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cillwx9nm0000hputttk3mki3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cilsxu9ip00002jut49pgy24e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wechat/">wechat</a></li></ul>
@@ -330,7 +330,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="u95F2_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6"><a href="#u95F2_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6" class="headerlink" title="闲话(可直接无视"></a>闲话(可直接无视</h3><p>&#160;&#160;&#160;&#160;好久都没有上博客写点东西，总结下最近的学习情况了，又是课程设计又是项目的，都快被弄成XX了。最近又接了个锅，做一个能社交的游记应用，游记的内容由用户编辑好之后上传给服务器，由前端写好不同模板后将图片放入模板，前段还是很溜的，写出来的模板都蛮好看的呢(射鸡湿也很厉害呢，Android这边需要通过WebView去浏览已经处理好的游记。第一次接触到了WebView,感觉好激动好神秘,下面就把使用WebView的一些经验给大家呈上来orz。好久都没上来写点东西了，一上来就大片废话(</p>
-<h2 id="1-__u7B80_u4ECB"><a href="#1-__u7B80_u4ECB" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>国际惯例咯，先看看google推销它自己东西的。</p>
+<h3 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h3><p>国际惯例咯，先看看google推销它自己东西的。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class</span><br><span class="line">  WebView</span><br><span class="line">    extends AbsoluteLayout</span><br><span class="line">      implements ViewTreeObserver<span class="class">.OnGlobalFocusChangeListener</span> ViewGroup<span class="class">.OnHierarchyChangeListener</span></span><br><span class="line"></span><br><span class="line">java<span class="class">.lang</span><span class="class">.Object</span></span><br><span class="line">   ↳	android<span class="class">.view</span><span class="class">.View</span></span><br><span class="line"> 	   ↳	android<span class="class">.view</span><span class="class">.ViewGroup</span></span><br><span class="line"> 	 	   ↳	android<span class="class">.widget</span><span class="class">.AbsoluteLayout</span></span><br><span class="line"> 	 	 	   ↳	android<span class="class">.webkit</span><span class="class">.WebView</span></span><br><span class="line"></span><br><span class="line">	A View that displays web pages. This class is the basis upon which you can roll your own web browser or simply <span class="attribute">display</span> some online <span class="attribute">content</span> within your Activity. It uses the WebKit rendering engine to <span class="attribute">display</span> web pages and includes methods to navigate forward and backward through <span class="tag">a</span> history, zoom <span class="keyword">in</span> and out, perform text searches and more.</span><br><span class="line"></span><br><span class="line">Note that, <span class="keyword">in</span> <span class="attribute">order</span> <span class="keyword">for</span> your Activity to access the Internet and load web pages <span class="keyword">in</span> <span class="tag">a</span> WebView, you must add the INTERNET permissions to your Android Manifest file:</span><br><span class="line"></span><br><span class="line">&lt;uses-permission android:name=<span class="string">"android.permission.INTERNET"</span> /&gt;</span><br><span class="line"></span><br><span class="line">附上我的渣渣翻译orz：</span><br><span class="line">	WebView是用来显示网页的控件，这个类能作为你制作自己的浏览器或者仅仅在activity中显示一些网络上内容的基础，它采用了WebKit渲染引擎来显示网页并且能够在历史记录中显示上一页和下一页，放缩以及对网页上的文字进行查询等功能。</span><br><span class="line"></span><br><span class="line">	需要注意的是，为了让WebView能够访问网络，应该在AndroidManifest.xml文件里面加入下面的权限(上面那一行).....如果是直接访问本地的html，是不用加上的，但本地有什么好玩的，最好还是加上把，忘记了就game over了。</span><br></pre></td></tr></table></figure>
 <p>&#160;&#160;&#160;&#160;说白了就是用来显示网页的，之前小达只知道能访问网络上的东西，不知道还可以访问本地的html文件，后面会给大家一一呈上来。</p>
         
@@ -341,7 +341,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cillwx9o90003hputt0vknlup" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cilsxu9j100032jutlnkz3d6o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
@@ -391,7 +391,7 @@ AsyncPoster ThreadMode.ASYNC
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-调用链分析/" data-id="cillwx9ov000xhputvisyajxv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-调用链分析/" data-id="cilsxu9js000x2jut2ga4m6o4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -436,7 +436,7 @@ AsyncPoster ThreadMode.ASYNC
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cillwx9p50012hput8nh5ns04" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cilsxu9k300122juthpje38mn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -483,7 +483,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cillwx9op000ohputcckfpp9j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cilsxu9jm000o2jutp94hwtv9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
@@ -526,7 +526,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cillwx9ol000hhput05knoar3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cilsxu9jh000h2jutxe2zakbu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
@@ -569,7 +569,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" data-id="cillwx9od0009hpute18b1uzo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-六-Cache接口及其默认实现类解析/" data-id="cilsxu9j400092juturfwitf5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
