@@ -65,6 +65,127 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-[译]ProtocolBuffers脚本生成代码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/" class="article-date">
+  <time datetime="2016-07-27T11:54:53.000Z" itemprop="datePublished">2016-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ProtocolBuffers_u811A_u672C_u751F_u6210_u4EE3_u7801"><a href="#ProtocolBuffers_u811A_u672C_u751F_u6210_u4EE3_u7801" class="headerlink" title="ProtocolBuffers脚本生成代码"></a>ProtocolBuffers脚本生成代码</h2><h3 id="u4ECE-pb_u6587_u4EF6_u751F_u6210_u7684_u5DE5_u5177_u7C7B"><a href="#u4ECE-pb_u6587_u4EF6_u751F_u6210_u7684_u5DE5_u5177_u7C7B" class="headerlink" title="从.pb文件生成的工具类"></a>从.pb文件生成的工具类</h3><hr>
+<p>&#160;&#160;&#160;&#160;在上一篇中，定义好了message，选定制定语言并运行官方编译器即可生成能够使用的工具类，工具类中包括了get和set字段值，从序列化message到输出流以及从输入流中解析message的一系列方法。这里以Java为例，运行<a href="https://developers.google.com/protocol-buffers/docs/javatutorial">脚本</a>之后会为每一个message类型都生成一个<code>.java</code>文件。</p>
+<p>&#160;&#160;&#160;&#160;从.pb文件生成.java只需要下面这一行脚本：<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">protoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">proto_path=src</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">java_out=build/gen</span> <span class="comment">src/foo</span><span class="string">.</span><span class="comment">proto</span></span><br></pre></td></tr></table></figure></p>
+<p>&#160;&#160;&#160;&#160;脚本中包含一些元素：</p>
+<ol>
+<li><code>protoc</code> : 脚本命令，类似于java或javac一样</li>
+<li><code>--proto_path=src</code> : 指定.pb文件文件所在的目录</li>
+<li><code>--java_out=build/gen</code> : 指定.java文件输出的目录</li>
+<li><code>src/foo.proto</code> : .pb文件的名称</li>
+</ol>
+<p>&#160;&#160;&#160;&#160;在执行脚本之前，还需要指定生成的.java文件名称，在.pb文件开头写上如下内容：<code>option java_outer_classname = &quot;Foo&quot;;</code>文件名称随意。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/27/[译]ProtocolBuffers脚本生成代码/" data-id="cir4txrdw00099lutwd0aqmmw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JitPack使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/27/JitPack使用/" class="article-date">
+  <time datetime="2016-07-27T11:54:41.000Z" itemprop="datePublished">2016-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JitPack"><a href="#JitPack" class="headerlink" title="JitPack"></a>JitPack</h2><p>&#160;&#160;&#160;&#160;从接触Android到现在也快有一年半的时间了，一直都在看看书写写自己的小项目，中途自己写了写博客总结自己遇到的一些坑以及小心得，发现在之后学习的过程中遇到类似的问题也能方便查阅温习。最近想把之前的写的一些工具整理一下，发到maven仓库上去，虽然东西没有很高大上，但总归是一次体验，以后说不定能造出什么好用的轮子。</p>
+<h3 id="JitPack-io"><a href="#JitPack-io" class="headerlink" title="JitPack.io"></a><a href="https://jitpack.io/">JitPack.io</a></h3><blockquote>
+<p>JitPack is a novel package repository for JVM and Android projects. It builds Git projects on demand and provides you with ready-to-use artifacts (jar, aar).<br>If you want your library to be available to the world there is no need to go through project build and upload steps. All you need to do is push your project to GitHub and JitPack will take care of the rest.</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2016/07/27/JitPack使用/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/27/JitPack使用/" data-id="cir4txrez00119lutlozua3ad" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-寻找实习的小感受" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/23/寻找实习的小感受/" class="article-date">
+  <time datetime="2016-04-23T11:54:23.000Z" itemprop="datePublished">2016-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/23/寻找实习的小感受/">寻找实习的小感受</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;从3月1号开始，磨磨蹭蹭到现在快将近一个半月的时间了，实习各种面试笔试也差不多接近尾声，其中还夹杂着两小波考试的轰炸，将近40天日夜来，心情跌宕起伏的，不过大部分时间都是塞塞的，好不容易抽了个周六的晚上来和自己谈谈心。</p>
+<h3 id="u4E3A_u4EC0_u4E48_u627E_u5B9E_u4E60"><a href="#u4E3A_u4EC0_u4E48_u627E_u5B9E_u4E60" class="headerlink" title="为什么找实习"></a>为什么找实习</h3><p>&#160;&#160;&#160;&#160;作为一只标准的大三狗，按照标准剧情来发展，下学期一般都是在外面实习，所谓实习也就是跑到外面公司呆一段时间顺便看能不能顺点有用的东西回来，听说是在学校里面学不到的。<br>&#160;&#160;&#160;&#160;不知道在哪里听到的一句话，说“实习就像是婚前恋爱一样，在结婚之前先感受感受，以免结婚之后没有后悔的余地”。当时一听这话还是觉得挺逗的，如果自己以后上班的地方没办法适应啥的，将就将就是不行的，上班是个长久的活儿，像生活一样。</p>
+<p>&#160;&#160;&#160;&#160;可后来想了想，好像实习这件事情和恋爱并不能这么笔划吧。跑出去见见世面也行啊，好多去实习并不是为了去那个公司工作做准备，说不定是为了去某个城市玩玩，顺便赚点路费啥的。好像又想了一下，那恋爱呢，好像好多人只是为了体验异性相处时候是什么感觉，或者只是为了嘿嘿嘿罢了，真尼玛纠结的样子，怎么想都行，自己有时候就是这样，想啥都来个正面，再来个反面，自己就在那里打架都可以打一年。</p>
+<p>&#160;&#160;&#160;&#160;我也去尝试找了实习，内推投了小米、阿里、网易、微信，校招投了腾讯以及阿里，反正我找实习那真是为了工作，这点倒不假。麻麻今天都给我打电话了的，说让我考虑下读研的事情咯，我其实还是挺想读研的，只是现在由于某些不可抗拒的力量，我要去工作。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/23/寻找实习的小感受/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/23/寻找实习的小感受/" data-id="cir4txrds00069lutpz60luy7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-运输层" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/31/运输层/" class="article-date">
@@ -117,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/31/运输层/" data-id="cimg2hbqh0003jvutypdted58" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/31/运输层/" data-id="cir4txrdl00039luts6u3wjja" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net/">net</a></li></ul>
@@ -162,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cimg2hbr6000xjvut3g08qopm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cir4txrf000129lutmsvtuxls" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -260,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cimg2hbrc0013jvutqd0fnrp3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cir4txrf400189lut39ncs9fx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -313,7 +434,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cimg2hbr1000ojvutye9c9l0i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cir4txrem000s9lutkzkhcq70" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/View/">View</a></li></ul>
@@ -359,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cimg2hbq50000jvut82x5l2xh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cir4txrd100009lutrcewu42q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wechat/">wechat</a></li></ul>
@@ -405,60 +526,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cimg2hbqk0006jvut5pmykaan" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cir4txre4000a9luttwlerkza" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-EventBus解析-二-调用链分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/28/EventBus解析-二-调用链分析/" class="article-date">
-  <time datetime="2016-02-28T08:09:40.000Z" itemprop="datePublished">2016-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/28/EventBus解析-二-调用链分析/">EventBus解析(二)调用链跟踪</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="u5DE5_u4F5C_u6D41_u7A0B"><a href="#u5DE5_u4F5C_u6D41_u7A0B" class="headerlink" title="工作流程"></a>工作流程</h4><ol>
-<li>由<code>EventBus</code>或者<code>EventBusBuilder</code>这两个类提供的API来注册<code>register</code>，也就是给<code>eventbus</code>这套框架指定需要检索的具有<code>@Subscribe</code>注解方法的类实例。</li>
-<li>在<code>register(Object subscriber)</code>的过程中，用到了<code>SubscriberMethodFinder</code>这个工具类，这个工具类利用反射以及很多的缓存机制，寻找传入对象<code>subscriber</code>中符合规定的方法，并记录在一个<code>Map&lt;Class&lt;?&gt;, List&lt;Subscription&gt;&gt;</code>中，这里会按照优先级对订阅了同一<code>event</code>进行排序，上篇博客提到的<code>priority</code>就是在这时候起的作用。</li>
-<li>当用户调用了<code>post(MsgEvent event)</code>方法之后，就会根据调用线程是否为主线程以及调用线程的一些相关信息，来对订阅过<code>MsgEvent</code>类型以及订阅过<code>MsgEvent</code>父类的一些方法进行任务处理。这里的任务处理指的不仅仅是简单的调用，而是根据在<code>@Subscribe(threadMode = ThreadMode.XXXXX)</code>注解上面的一些配置项来看的。之前提到过的四种线程模式就在这里开始起作用了，框架里面用到了三种处理方式来实现不同的效果，用到了下面这三个类：<pre><code>HandlerPoster ThreadMode.MAIN
-BackgroundPoster ThreadMode.BACKGROUND
-AsyncPoster ThreadMode.ASYNC
-</code></pre>来对不同的方法进行调度，然后就有了很方便使用的<code>eventbus</code>框架，一些细节部分后面结合源代码来看。</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a href="/2016/02/28/EventBus解析-二-调用链分析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-调用链分析/" data-id="cimg2hbr80010jvutlbmtipnu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
 
     </footer>
   </div>
@@ -500,100 +571,10 @@ AsyncPoster ThreadMode.ASYNC
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cimg2hbre0015jvutgn4ea1vg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cir4txrf5001a9lut3iztnbud" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Ugly-Number" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/17/Ugly-Number/" class="article-date">
-  <time datetime="2016-01-17T08:30:13.000Z" itemprop="datePublished">2016-01-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/17/Ugly-Number/">Ugly Number</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u9898_u76EE"><a href="#u9898_u76EE" class="headerlink" title="题目"></a>题目</h3><h4 id="Ugly_Number"><a href="#Ugly_Number" class="headerlink" title="Ugly Number"></a><a href="/&quot;http://www.lintcode.com/en/problem/ugly-number/&quot;">Ugly Number</a></h4><pre><code>Ugly number is a number that only have factors 3, 5 and 7.
-
-Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3, 5, 7, 9, 15 ...
-</code></pre><h3 id="u4F8B_u5B50"><a href="#u4F8B_u5B50" class="headerlink" title="例子"></a>例子</h3><pre><code>If K=4, return 9.
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/17/Ugly-Number/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cimg2hbr3000rjvut85t0tu1t" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-七-Request解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-七-Request解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:44.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-七-Request解析/">Volley框架解析(七)-----Request解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—<code>Request.java</code>，前面一直在说request，但是一直都没有介绍到Request是个什么东西，这么重要的东西怎么能忘记呢，其实小达也搞不清楚整个框架的介绍顺序，沿着接口自顶向下的延展开来，支路多了之后就只能慢慢的道来，request的来迟深感抱歉orz。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-七-Request解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cimg2hbqx000kjvutz6hxajco" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
 
     </footer>
   </div>
@@ -617,7 +598,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -626,7 +607,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -635,7 +616,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -647,23 +628,23 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       <ul>
         
           <li>
+            <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/27/JitPack使用/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/23/寻找实习的小感受/">寻找实习的小感受</a>
+          </li>
+        
+          <li>
             <a href="/2016/03/31/运输层/">运输层</a>
           </li>
         
           <li>
             <a href="/2016/03/10/Java内存模型/">Java内存模型</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/07/EventBus解析-三-查找Subscribe方法/">EventBus解析-三-查找Subscribe方法</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/06/View事件分发机制/">View事件分发机制</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/04/Android微信第三方登录以及分享/">Android微信第三方登录以及分享</a>
           </li>
         
       </ul>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Xiaojuanmao&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JitPack&amp;#160;&amp;#160;&amp;#160;&amp;#160;从接触Android到现在也快有一年半的时间了，一直都在看看书写写自己的小项目，中途自己写了写博客总结自己遇到的一些坑以及小心得，发现在之后学习的过程中遇到类似的问题也能方便查阅温习。最近想把之前的写的一些工具整理一下，发到maven仓库上去，虽然东西没有很高大上，但总归是一次体验，以后说不定能造出什么好用的轮子。
+JitPack.io">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xiaojuanmao's Blog">
+<meta property="og:url" content="http://yoursite.com/2016/07/27/JitPack使用/index.html">
+<meta property="og:site_name" content="Xiaojuanmao's Blog">
+<meta property="og:description" content="JitPack&amp;#160;&amp;#160;&amp;#160;&amp;#160;从接触Android到现在也快有一年半的时间了，一直都在看看书写写自己的小项目，中途自己写了写博客总结自己遇到的一些坑以及小心得，发现在之后学习的过程中遇到类似的问题也能方便查阅温习。最近想把之前的写的一些工具整理一下，发到maven仓库上去，虽然东西没有很高大上，但总归是一次体验，以后说不定能造出什么好用的轮子。
+JitPack.io">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/1.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-54-05.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-56-04.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-59-13.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2012-02-36.png">
+<meta property="og:updated_time" content="2016-07-27T11:54:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xiaojuanmao's Blog">
+<meta name="twitter:description" content="JitPack&amp;#160;&amp;#160;&amp;#160;&amp;#160;从接触Android到现在也快有一年半的时间了，一直都在看看书写写自己的小项目，中途自己写了写博客总结自己遇到的一些坑以及小心得，发现在之后学习的过程中遇到类似的问题也能方便查阅温习。最近想把之前的写的一些工具整理一下，发到maven仓库上去，虽然东西没有很高大上，但总归是一次体验，以后说不定能造出什么好用的轮子。
+JitPack.io">
+  
+    <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Xiaojuanmao&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Life began in 1990</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-JitPack使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/27/JitPack使用/" class="article-date">
+  <time datetime="2016-07-27T11:54:41.000Z" itemprop="datePublished">2016-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JitPack"><a href="#JitPack" class="headerlink" title="JitPack"></a>JitPack</h2><p>&#160;&#160;&#160;&#160;从接触Android到现在也快有一年半的时间了，一直都在看看书写写自己的小项目，中途自己写了写博客总结自己遇到的一些坑以及小心得，发现在之后学习的过程中遇到类似的问题也能方便查阅温习。最近想把之前的写的一些工具整理一下，发到maven仓库上去，虽然东西没有很高大上，但总归是一次体验，以后说不定能造出什么好用的轮子。</p>
+<h3 id="JitPack-io"><a href="#JitPack-io" class="headerlink" title="JitPack.io"></a><a href="https://jitpack.io/" target="_blank" rel="external">JitPack.io</a></h3><blockquote>
+<p>JitPack is a novel package repository for JVM and Android projects. It builds Git projects on demand and provides you with ready-to-use artifacts (jar, aar).<br>If you want your library to be available to the world there is no need to go through project build and upload steps. All you need to do is push your project to GitHub and JitPack will take care of the rest.</p>
+</blockquote>
+<a id="more"></a>
+<p>&#160;&#160;&#160;&#160;按照官网上的描述，JitPack是用来提供Android和Java包管理的服务商，能够让用户很方便的将自己的jar、aar开源出去，只需要做好部署工作之后，push到GitHub上，JitPack将自动的完成后续工作。</p>
+<p>&#160;&#160;&#160;&#160;<strong>在开始之前确保自己有github的帐号并且有确定需要开源的项目。</strong></p>
+<h3 id="u53D1_u5E03_u5230JitPack"><a href="#u53D1_u5E03_u5230JitPack" class="headerlink" title="发布到JitPack"></a>发布到JitPack</h3><p>&#160;&#160;&#160;&#160;这个过程中需要用到一个插件<a href="https://github.com/dcendents/android-maven-gradle-plugin" target="_blank" rel="external">android-maven-gradle-plugin</a>，使用方法如下：</p>
+<ol>
+<li>在需要开源的根目录下的<strong>build.gradle</strong>文件中添加下面这行代码<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">classpath</span> <span class="string">'com.github.dcendents:android-maven-gradle-plugin:1.3'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可能根据gradle版本不同需要引入不同的插件版本，具体版本表参考上面的链接<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/1.png" alt="根目录build.gradle"></p>
+<ol>
+<li>在需要开源的libary目录下的build.gradle添加如下代码：<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="symbol">'com</span>.github.dcendents.android-maven'</span><br><span class="line">group=<span class="symbol">'com</span>.github.yourName'</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>group后面的字符串的”yourName”换成自己github上的名称,其他用户在compile项目的时候需要用到的<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-54-05.png" alt="libary/build.gradle"></p>
+<ol>
+<li>在Github对应项目上创建一个release,就在下图的release里面，创建一个release,需要填写当前版本号之类的信息<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-56-04.png" alt="Github Release"><br>填写好之后是这个样子的，注意版本号，compile的时候需要用到的<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2011-59-13.png" alt="Github Release"></li>
+</ol>
+<p>到这里配置的工作就已经完成了，在另外一个项目里面compile开源的libary</p>
+<h3 id="compile_u5165_u9879_u76EE"><a href="#compile_u5165_u9879_u76EE" class="headerlink" title="compile入项目"></a>compile入项目</h3><ol>
+<li>添加maven url 到另一个项目的根目录build.gradle中<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">maven</span> &#123; <span class="title">url</span> <span class="string">"https://jitpack.io"</span> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如下图所示<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/Screenshot%20from%202016-07-20%2012-02-36.png" alt="build.gradle"></p>
+<ol>
+<li>直接compile项目,下面的是这次弄的一个管理android权限的一个小工具,需要换成自己的项目以及对应的版本号<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">compile</span> <span class="string">'com.github.xiaojuanmao:android_permissionutil:1.0'</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/27/JitPack使用/" data-id="cir4txrez00119lutlozua3ad" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/23/寻找实习的小感受/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">寻找实习的小感受</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/27/JitPack使用/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/23/寻找实习的小感受/">寻找实习的小感受</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/31/运输层/">运输层</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/10/Java内存模型/">Java内存模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Xiaoxiaoda<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
