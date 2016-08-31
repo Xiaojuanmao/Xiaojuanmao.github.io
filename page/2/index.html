@@ -65,6 +65,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android微信第三方登录以及分享" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/04/Android微信第三方登录以及分享/" class="article-date">
+  <time datetime="2016-03-04T03:19:50.000Z" itemprop="datePublished">2016-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/04/Android微信第三方登录以及分享/">Android微信第三方登录以及分享</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>&#160;&#160;&#160;&#160;1. 闲话(可直接无视</h2>
+
+<p>&#160;&#160;&#160;&#160;项目慢慢的推进，逐渐的做到了微信第三方登录的功能模块了。其实我想说Orz，我等这一天等了好久了，想做个微信验证登录都等了两个多星期咧(其实是我们这边出了点问题)，先要申请<a href="https://open.weixin.qq.com/">微信开放平台</a>的帐号，在里面创建一个应用，通过审核之后再交300软妹币，是的，你没有听错，上交300软妹币(听说会成为传说中的认证开发者)才可以获得应用第三方登录的权限，否则只能够分享到盆友圈。中间也是遇到了一些小问题，微信那边的文档写的也不是特别的清楚，还有一些关于微信分享到朋友圈和好友方面的，下面就把问题和解决方法给大家呈上来。</p>
+<hr>
+        
+          <p class="article-more-link">
+            <a href="/2016/03/04/Android微信第三方登录以及分享/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cis0edblv001azyutw1ofjjp5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wechat/">wechat</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-WebView使用总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/03/WebView使用总结/" class="article-date">
@@ -244,7 +290,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cis0edblk000tzyutxw98znd1" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
 
     </footer>
   </div>
@@ -470,52 +516,6 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
 
 
   
-    <article id="post-Volley框架解析-二-Volley及RequestQueue解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:02.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/">Volley框架解析(二)-----Volley及RequestQueue解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" class="headerlink" title="题外话(可直接无视跳过"></a>题外话(可直接无视跳过</h3><p>&#160;&#160;&#160;&#160;是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的<code>public, interface, final</code>等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了。</p>
-<p>&#160;&#160;&#160;&#160;有些地方在一个.java文件里面是无法理解用处的，这样的先直接跳过不要纠结，看到对应用的地方就会恍然大悟了。还总结出了一个小技巧就是从框架暴露给外面的接口开始阅读，因为框架里面是一层一层往上的，底层是为了上层服务的，所以从接口开始阅读能很好的向下展开。</p>
-<p>&#160;&#160;&#160;&#160;前面一篇对Volley做了一个初步的介绍以及从整体上的一个解析，只是简单的描述了Request在Volley中是如何被处理的。从这篇博客开始将从最顶层一步一步的向下挖掘每一行代码，从最开始调用的地方<code>RequestQueue mQueue = Volley.newRequestQueue(mContext)</code>开始。</p>
-<hr>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-二-Volley及RequestQueue解析/" data-id="cis0edblb000izyut1ggjlx1d" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -531,7 +531,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LintCode/">LintCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -540,7 +540,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LintCode/" style="font-size: 10px;">LintCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 16.67px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 13.33px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -549,7 +549,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -559,6 +559,10 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/31/89_Gray Code/">Gray Code</a>
+          </li>
         
           <li>
             <a href="/2016/08/19/关于正则表达式(Regular Expression)/">(no title)</a>
@@ -574,10 +578,6 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
         
           <li>
             <a href="/2016/07/27/JitPack使用/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/23/寻找实习的小感受/">寻找实习的小感受</a>
           </li>
         
       </ul>
