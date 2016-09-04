@@ -65,6 +65,100 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-279_Perfect Squares" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/14/279_Perfect Squares/" class="article-date">
+  <time datetime="2016-09-14T14:50:13.000Z" itemprop="datePublished">2016-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/14/279_Perfect Squares/">Perfect Squares</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="279-_Perfect_Squares"><a href="#279-_Perfect_Squares" class="headerlink" title="279. Perfect Squares"></a>279. Perfect Squares</h2><p>Given a positive integer <code>n</code>, find the least number of perfect square numbers (for example, <code>1, 4, 9, 16, ...</code>) which sum to n.</p>
+<p>For example, given n = <code>12</code>, return <code>3</code> because <code>12 = 4 + 4 + 4</code>; given n = <code>13</code>, return <code>2</code> because <code>13 = 4 + 9</code>.</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/09/14/279_Perfect Squares/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/14/279_Perfect Squares/" data-id="cisoqmo3o0000ddutr7giiqat" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-313_Super Ugly Number" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/14/313_Super Ugly Number/" class="article-date">
+  <time datetime="2016-09-14T13:50:13.000Z" itemprop="datePublished">2016-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/14/313_Super Ugly Number/">Super Ugly Number</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="313-_Super_Ugly_Number"><a href="#313-_Super_Ugly_Number" class="headerlink" title="313. Super Ugly Number"></a>313. Super Ugly Number</h2><p>Write a program to find the nth super ugly number.</p>
+<p>Super ugly numbers are positive numbers whose all prime factors are in the given <code>prime</code> list primes of size <code>k</code>. For example, <code>[1, 2, 4, 7, 8, 13, 14, 16, 19, 26, 28, 32]</code> is the sequence of the first 12 super ugly numbers given <code>primes</code> = <code>[2, 7, 13, 19]</code> of size 4.</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li><code>1</code> is a super ugly number for any given <code>primes</code>.</li>
+<li>The given numbers in <code>primes</code> are in ascending order.</li>
+<li>0 &lt; <code>k</code> ≤ 100, 0 &lt; <code>n</code> ≤ 106, 0 &lt; <code>primes[i]</code> &lt; 1000.</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2016/09/14/313_Super Ugly Number/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/14/313_Super Ugly Number/" data-id="cisoqmo670002ddut00gpuuse" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-89_Gray Code" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/08/31/89_Gray Code/" class="article-date">
@@ -695,157 +789,6 @@
 
 
   
-    <article id="post-EventBus解析-三-查找Subscribe方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/07/EventBus解析-三-查找Subscribe方法/" class="article-date">
-  <time datetime="2016-03-07T08:24:12.000Z" itemprop="datePublished">2016-03-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/07/EventBus解析-三-查找Subscribe方法/">EventBus解析-三-查找Subscribe方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="u67E5_u627E_u8BA2_u9605_u65B9_u6CD5"><a href="#u67E5_u627E_u8BA2_u9605_u65B9_u6CD5" class="headerlink" title="查找订阅方法"></a>查找订阅方法</h4><p>&#160;&#160;&#160;&#160;在调用<code>eventBus.register(object)</code>方法之后，会利用工具类<code>SubscriberMethodFinder</code>来找到object类中所有符合规范的<code>@Subscribe</code>方法，整个过程有两种方式来实现，一种是利用反射，另外一种是利用提供的<code>SubscriberInfoIndex</code>。</p>
-<p>&#160;&#160;&#160;&#160;<code>SubscribeMethodFinder</code>类中主要的方法就是<code>findSubscriberMethods()</code>方法。</p>
-<pre><code>List&lt;SubscriberMethod&gt; findSubscriberMethods(Class&lt;?&gt; subscriberClass) {
-    List&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);
-    if (subscriberMethods != null) {
-        return subscriberMethods;
-    }
-
-    if (ignoreGeneratedIndex) {
-        subscriberMethods = findUsingReflection(subscriberClass);
-    } else {
-        subscriberMethods = findUsingInfo(subscriberClass);
-    }
-    if (subscriberMethods.isEmpty()) {
-        throw new EventBusException(&quot;Subscriber &quot; + subscriberClass
-                + &quot; and its super classes have no public methods with the @Subscribe annotation&quot;);
-    } else {
-        METHOD_CACHE.put(subscriberClass, subscriberMethods);
-        return subscriberMethods;
-    }
-}
-</code></pre><p>&#160;&#160;&#160;&#160;先在<code>METHOD_CACHE</code>这个Map中去寻找内存中是否具有对应类中已找到的方法的缓存列表，如果之前查找过这个类中符合要求的方法，直接返回方法列表。如果没有内存缓存，根据变量<code>ignoreGeneratedIndex</code>来选择不同方式去检测订阅方法，接着将找到的方法列表放入到<code>METHOD_CACHE</code>这个map中作缓存。</p>
-<h4 id="u5229_u7528_u53CD_u5C04"><a href="#u5229_u7528_u53CD_u5C04" class="headerlink" title="利用反射"></a>利用反射</h4><p>&#160;&#160;&#160;&#160;利用反射来查找订阅方法的函数为<code>findUsingReflection()</code></p>
-<pre><code>private List&lt;SubscriberMethod&gt; findUsingReflection(Class&lt;?&gt; subscriberClass) {
-    FindState findState = prepareFindState();
-    findState.initForSubscriber(subscriberClass);
-    while (findState.clazz != null) {
-        findUsingReflectionInSingleClass(findState);
-        findState.moveToSuperclass();
-    }
-    return getMethodsAndRelease(findState);
-}
-</code></pre><p>&#160;&#160;&#160;&#160;在里面涉及到了一个<code>FindState</code>类，用来辅助对一个类中的订阅方法的查找，算是包装了一些map以及list数据结构来存储找到的方法。<code>EventBus</code>每次对一个类进行订阅方法查找的时候都会用一个<code>FindState</code>类实例来辅助查找，因此对这个类的复用自然很正常，后面的<code>prepareFindState()</code>方法验证了这个事实：</p>
-<pre><code>private FindState prepareFindState() {
-    synchronized (FIND_STATE_POOL) {
-        for (int i = 0; i &lt; POOL_SIZE; i++) {
-            FindState state = FIND_STATE_POOL[i];
-            if (state != null) {
-                FIND_STATE_POOL[i] = null;
-                return state;
-            }
-        }
-    }
-    return new FindState();
-}
-</code></pre><p>&#160;&#160;&#160;&#160;<code>FIND_STATE_POOL</code>为一个大小为<code>POOL_SIZE == 4</code>的<code>FindState</code>数组，用来复用<code>FindState</code>的实例。</p>
-<p>&#160;&#160;&#160;&#160;在<code>FindState</code>实例准备好之后就开始递归的查找订阅方法，从当前的类开始调用<code>findUsingReflectionInSingleClass()</code>方法，然后去超找其父类中是否存在订阅方法，直到<code>moveToSuperclass()</code>将<code>clazz</code>置为null为止。</p>
-<pre><code>void moveToSuperclass() {
-        if (skipSuperClasses) {
-            clazz = null;
-        } else {
-            clazz = clazz.getSuperclass();
-            String clazzName = clazz.getName();
-            /** Skip system classes, this just degrades performance. */
-            if (clazzName.startsWith(&quot;java.&quot;) || clazzName.startsWith(&quot;javax.&quot;) || clazzName.startsWith(&quot;android.&quot;)) {
-                clazz = null;
-            }
-        }
-    }
-</code></pre><p>&#160;&#160;&#160;&#160;<code>findUsingReflectionInSingleClass()</code>方法里面通过反射获取到了类中的所有方法，然后再慢慢的通过几个条件进行筛选，是否具有<code>@OnSubscribe</code>注解，是否为<code>public</code>方法等等，满足条件的方法才会被加入到<code>FindState</code>实例中的数据结构中。到最后所有满足条件的订阅方法都存放在了<code>FindState</code>的实例中，返回即可。</p>
-<h4 id="u5229_u7528SubscriberInfoIndex"><a href="#u5229_u7528SubscriberInfoIndex" class="headerlink" title="利用SubscriberInfoIndex"></a>利用SubscriberInfoIndex</h4>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cis0edblr0016zyutoe3flksq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-View事件分发机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/06/View事件分发机制/" class="article-date">
-  <time datetime="2016-03-06T13:38:54.000Z" itemprop="datePublished">2016-03-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/06/View事件分发机制/">View事件分发机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="View_u4E8B_u4EF6_u6D41_u6E90_u7801_u5206_u6790"><a href="#View_u4E8B_u4EF6_u6D41_u6E90_u7801_u5206_u6790" class="headerlink" title="View事件流源码分析"></a>View事件流源码分析</h2><ol>
-<li><p><strong>public boolean dispatchTouchEvent(MotionEvent ev)</strong></p>
-<p> &#160;&#160;&#160;&#160;用来进行事件的分发，如果事件传递给当前的View，这个方法将在第一个被调用，返回结果受当前的onTouchEvent和下级View的dispatchTouchEvent方法的影响，表示是否消耗当前事件。</p>
-</li>
-<li><p><strong>public boolean onInterceptTouchEvent(MotionEvent event)</strong></p>
-<p> &#160;&#160;&#160;&#160;在上述方法内部调用，用来判断是否拦截某个事件，如果当前View拦截了某个事件，那么在同一个事件序列当中，此方法不会被再次调用，返回结果表示是否拦截当前事件。</p>
-</li>
-<li><p><strong>public boolean onTouchEvent(MotionEvent event)</strong></p>
-<p> &#160;&#160;&#160;&#160;在dispatchTouchEvent方法中调用，用来处理点击时间，返回结果表示是否消耗当前事件，如果不消耗，则在同一个事件序列中，当前View无法再次接收到事件。</p>
-</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a href="/2016/03/06/View事件分发机制/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cis0edbli000qzyuty4h5jfvd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/View/">View</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -861,7 +804,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -870,7 +813,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 16.67px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 13.33px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -879,7 +822,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -891,6 +834,14 @@
       <ul>
         
           <li>
+            <a href="/2016/09/14/279_Perfect Squares/">Perfect Squares</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/14/313_Super Ugly Number/">Super Ugly Number</a>
+          </li>
+        
+          <li>
             <a href="/2016/08/31/89_Gray Code/">Gray Code</a>
           </li>
         
@@ -900,14 +851,6 @@
         
           <li>
             <a href="/2016/08/18/Android中图片的加载/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/27/[译]ProtocolBuffers脚本生成代码/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/27/JitPack使用/">(no title)</a>
           </li>
         
       </ul>
