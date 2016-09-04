@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Xiaojuanmao&#39;s Blog</title>
+  <title>关于正则表达式(Regular Expression) | Xiaojuanmao&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="关于正则表达式(Regular Expression)前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;昨天又复习了一遍正则，之前学的一些东西都已经忘光了，只记得当时刚入团队的时候接到的不知第几个新人任务，是用Python写一个爬虫，要在简书上爬取指定专栏的所有文章并按照规范写成Markdown的格式，涉及到一个过滤html标签并替换成md标签的操作。当时花了好久才从html标签里面用正则匹配到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xiaojuanmao's Blog">
-<meta property="og:url" content="http://yoursite.com/2016/08/19/关于正则表达式(Regular Expression)/index.html">
+<meta property="og:title" content="关于正则表达式(Regular Expression)">
+<meta property="og:url" content="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/index.html">
 <meta property="og:site_name" content="Xiaojuanmao's Blog">
 <meta property="og:description" content="关于正则表达式(Regular Expression)前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;昨天又复习了一遍正则，之前学的一些东西都已经忘光了，只记得当时刚入团队的时候接到的不知第几个新人任务，是用Python写一个爬虫，要在简书上爬取指定专栏的所有文章并按照规范写成Markdown的格式，涉及到一个过滤html标签并替换成md标签的操作。当时花了好久才从html标签里面用正则匹配到">
-<meta property="og:updated_time" content="2016-08-18T18:31:32.000Z">
+<meta property="og:updated_time" content="2016-09-04T15:00:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xiaojuanmao's Blog">
+<meta name="twitter:title" content="关于正则表达式(Regular Expression)">
 <meta name="twitter:description" content="关于正则表达式(Regular Expression)前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;昨天又复习了一遍正则，之前学的一些东西都已经忘光了，只记得当时刚入团队的时候接到的不知第几个新人任务，是用Python写一个爬虫，要在简书上爬取指定专栏的所有文章并按照规范写成Markdown的格式，涉及到一个过滤html标签并替换成md标签的操作。当时花了好久才从html标签里面用正则匹配到">
   
     <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
@@ -66,13 +66,23 @@
       <div class="outer">
         <section id="main"><article id="post-关于正则表达式(Regular Expression)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/08/19/关于正则表达式(Regular Expression)/" class="article-date">
-  <time datetime="2016-08-19T05:00:45.000Z" itemprop="datePublished">2016-08-19</time>
+    <a href="/2016/09/14/关于正则表达式(Regular Expression)/" class="article-date">
+  <time datetime="2016-09-14T13:50:13.000Z" itemprop="datePublished">2016-09-14</time>
 </a>
     
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于正则表达式(Regular Expression)
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -81,8 +91,8 @@
 <p>&#160;&#160;&#160;&#160;下面是很好的一篇文章<br>&#160;&#160;&#160;&#160;<a href="http://deerchao.net/tutorials/regex/regex.htm" target="_blank" rel="external">正则表达式30分钟入门教程</a></p>
 <p>&#160;&#160;&#160;&#160;下面是很好的一个测试工具<br>&#160;&#160;&#160;&#160;<a href="http://tool.oschina.net/regex/" target="_blank" rel="external">正则表达式在线匹配工具</a></p>
 <p>&#160;&#160;&#160;&#160;记录了如下的内容：</p>
-<p>[TOC]</p>
 <h3 id="u6B63_u5219_u7B80_u4ECB"><a href="#u6B63_u5219_u7B80_u4ECB" class="headerlink" title="正则简介"></a>正则简介</h3><p>&#160;&#160;&#160;&#160;正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。也就是用特殊的一些规范标记来定义自己想要的一个规则，来匹配想要的具有特征的字符串。在搜索的时候可能会用到<code>*</code>或者<code>.</code>来表示通配，也就是匹配任何字符，类似于这种符号的功效。</p>
+<a id="more"></a>
 <h3 id="u5143_u5B57_u7B26"><a href="#u5143_u5B57_u7B26" class="headerlink" title="元字符"></a>元字符</h3><p>&#160;&#160;&#160;&#160;元字符也就是组成横则表达式的基本单位，正则通过识别这些元字符以及一些特定组合来构建出一套匹配字符串的方法。下面表格记录了基本上所有的元字符，供查阅，还有些特殊的例如分支条件等等在后面单独记录。</p>
 <table>
 <thead>
@@ -364,28 +374,30 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/19/关于正则表达式(Regular Expression)/" data-id="cis1ag3ae0000amutcqcfb3g1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/" data-id="cisoqwkft0009bnut4t5cyj23" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2016/08/31/89_Gray Code/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/09/14/313_Super Ugly Number/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Gray Code
+          Super Ugly Number
         
       </div>
     </a>
   
   
-    <a href="/2016/08/18/Android中图片的加载/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/08/31/89_Gray Code/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">Gray Code</div>
     </a>
   
 </nav>
@@ -403,7 +415,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -412,7 +424,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 10px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 15px;">EventBus</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 17.5px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 12.5px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -421,7 +433,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -441,11 +453,11 @@
           </li>
         
           <li>
-            <a href="/2016/08/31/89_Gray Code/">Gray Code</a>
+            <a href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
           </li>
         
           <li>
-            <a href="/2016/08/19/关于正则表达式(Regular Expression)/">(no title)</a>
+            <a href="/2016/08/31/89_Gray Code/">Gray Code</a>
           </li>
         
           <li>
