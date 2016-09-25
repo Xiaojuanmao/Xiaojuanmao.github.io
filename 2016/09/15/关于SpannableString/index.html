@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于SpannableString | Xiaojuanmao&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于SpannableString前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;最近在项目中接触到了聊天的模块，在聊天模块中处理了一些关于字符串的功能，例如将一串链接格式的字符串识别成带有下划线样式的链接字样，将预先规范好的字符串翻译成对应的表情字符，将带有特殊意义的字符串标识成不同颜色等。之前没有接触过，学习了一下相关知识，找了个时间稍微整理一下。
+SpannableString
+publ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于SpannableString">
+<meta property="og:url" content="http://yoursite.com/2016/09/15/关于SpannableString/index.html">
+<meta property="og:site_name" content="Xiaojuanmao's Blog">
+<meta property="og:description" content="关于SpannableString前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;最近在项目中接触到了聊天的模块，在聊天模块中处理了一些关于字符串的功能，例如将一串链接格式的字符串识别成带有下划线样式的链接字样，将预先规范好的字符串翻译成对应的表情字符，将带有特殊意义的字符串标识成不同颜色等。之前没有接触过，学习了一下相关知识，找了个时间稍微整理一下。
+SpannableString
+publ">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_align_baseline.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_align_bottom.png">
+<meta property="og:image" content="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_FontMetrics.png">
+<meta property="og:updated_time" content="2016-09-25T12:27:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于SpannableString">
+<meta name="twitter:description" content="关于SpannableString前言&amp;#160;&amp;#160;&amp;#160;&amp;#160;最近在项目中接触到了聊天的模块，在聊天模块中处理了一些关于字符串的功能，例如将一串链接格式的字符串识别成带有下划线样式的链接字样，将预先规范好的字符串翻译成对应的表情字符，将带有特殊意义的字符串标识成不同颜色等。之前没有接触过，学习了一下相关知识，找了个时间稍微整理一下。
+SpannableString
+publ">
+  
+    <link rel="alternative" href="/atom.xml" title="Xiaojuanmao&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Xiaojuanmao&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Life began in 1990</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-关于SpannableString" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/15/关于SpannableString/" class="article-date">
+  <time datetime="2016-09-15T11:39:23.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于SpannableString
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u5173_u4E8ESpannableString"><a href="#u5173_u4E8ESpannableString" class="headerlink" title="关于SpannableString"></a>关于SpannableString</h2><h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;最近在项目中接触到了聊天的模块，在聊天模块中处理了一些关于字符串的功能，例如将一串链接格式的字符串识别成带有下划线样式的<code>链接</code>字样，将预先规范好的字符串翻译成对应的表情字符，将带有特殊意义的字符串标识成不同颜色等。之前没有接触过，学习了一下相关知识，找了个时间稍微整理一下。</p>
+<h3 id="SpannableString"><a href="#SpannableString" class="headerlink" title="SpannableString"></a>SpannableString</h3><blockquote>
+<p>public class SpannableString<br>extends Object implements CharSequence, GetChars, Spannable</p>
+<p>java.lang.Object<br>   ↳    android.text.SpannableString</p>
+<p>This is the class for text whose content is immutable but to which markup objects can be attached and detached.For mutable text, see SpannableStringBuilder.</p>
+</blockquote>
+<a id="more"></a>
+<p>&#160;&#160;&#160;&#160;官方对其解释为，为内容可变的文本进行标记性装饰的类，和<code>SpannableStringBuilder</code>结合起来使用。<code>SpannableStringBuilder</code>也就是用来方便构造各式各样<code>Span</code>的工具类，<code>Android</code>内部提供了很多种样式，部分<code>Span</code>大致使用方法如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TextView textView = (TextView) findViewById(R.id.textview);</span><br><span class="line">    <span class="keyword">String</span> <span class="built_in">text</span> = <span class="string">"电话是180xxxx5623"</span>;</span><br><span class="line">    SpannableStringBuilder builder = <span class="keyword">new</span> SpannableStringBuilder(<span class="built_in">text</span>);</span><br><span class="line">    builder.setSpan(</span><br><span class="line">        <span class="keyword">new</span> UnderlineSpan(), <span class="comment">// 需要添加的Span种类</span></span><br><span class="line">        <span class="number">3</span>,                   <span class="comment">// Span开始生效的起始index</span></span><br><span class="line">        <span class="built_in">text</span>.length() - <span class="number">1</span>,   <span class="comment">// 结束index</span></span><br><span class="line">        Spanned.SPAN_INCLUSIVE_INCLUSIVE <span class="comment">// 设置Span的扩展方式，也就是在新的字符插入的时候采用的策略</span></span><br><span class="line">    );</span><br><span class="line">    textView.setText(builder);</span><br></pre></td></tr></table></figure>
+<p>&#160;&#160;&#160;&#160;使用起来还是挺方便的，由于<code>SpannableStringBuilder</code>和<code>SpannableString</code>都继承自<code>CharSequence</code>,能够直接往<code>TextView</code>上面放。上面只是在字符串中截取了一段添加了下划线样式，<code>Android</code>还提供了各种花式的效果供选择：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URLSpan</td>
+<td>文本超链接</td>
+</tr>
+<tr>
+<td>URLSpan</td>
+<td>文本超链接</td>
+</tr>
+<tr>
+<td>BackgroundColorSpan</td>
+<td>背景色</td>
+</tr>
+<tr>
+<td>MaskFilterSpan</td>
+<td>修饰效果，如模糊(BlurMaskFilter)、浮雕(EmbossMaskFilter)</td>
+</tr>
+<tr>
+<td>MetricAffectingSpan</td>
+<td>父类，一般不用</td>
+</tr>
+<tr>
+<td>RasterizerSpan</td>
+<td>光栅效果</td>
+</tr>
+<tr>
+<td>StrikethroughSpan</td>
+<td>删除线（中划线）</td>
+</tr>
+<tr>
+<td>SuggestionSpan</td>
+<td>相当于占位符</td>
+</tr>
+<tr>
+<td>UnderlineSpan</td>
+<td>下划线</td>
+</tr>
+<tr>
+<td>AbsoluteSizeSpan</td>
+<td>绝对大小（文本字体）</td>
+</tr>
+<tr>
+<td>DynamicDrawableSpan</td>
+<td>设置图片，基于文本基线或底部对齐</td>
+</tr>
+<tr>
+<td>ImageSpan</td>
+<td>图片</td>
+</tr>
+<tr>
+<td>RelativeSizeSpan</td>
+<td>相对大小（文本字体）</td>
+</tr>
+<tr>
+<td>ReplacementSpan</td>
+<td>父类，一般不用</td>
+</tr>
+<tr>
+<td>ScaleXSpan</td>
+<td>基于x轴缩放</td>
+</tr>
+<tr>
+<td>ClickableSpan</td>
+<td>文本可点击</td>
+</tr>
+<tr>
+<td>ForegroundColorSpan</td>
+<td>文本超链接</td>
+</tr>
+<tr>
+<td>TypefaceSpan</td>
+<td>文本字体</td>
+</tr>
+<tr>
+<td>TextAppearanceSpan</td>
+<td>文本外貌（包括字体、大小、样式和颜色）</td>
+</tr>
+<tr>
+<td>SuperscriptSpan</td>
+<td>上标（数学公式会用到）</td>
+</tr>
+<tr>
+<td>SubscriptSpan</td>
+<td>下标（数学公式会用到）</td>
+</tr>
+<tr>
+<td>StyleSpan</td>
+<td>字体样式：粗体、斜体等</td>
+</tr>
+<tr>
+<td>URLSpan</td>
+<td>文本超链接</td>
+</tr>
+</tbody>
+</table>
+<p>&#160;&#160;&#160;&#160;关于<code>SpannableString</code>的介绍就到这里，在接触的过程中，使用比较多的就是<code>ImageSpan</code>，因为是负责调整类似于qq的表情，下面关于<code>ImageSpan</code>单独拿出来整理一下。</p>
+<h3 id="ImageSpan_u7684_u5C45_u4E2D_u5BF9_u9F50_u7684_u95EE_u9898"><a href="#ImageSpan_u7684_u5C45_u4E2D_u5BF9_u9F50_u7684_u95EE_u9898" class="headerlink" title="ImageSpan的居中对齐的问题"></a>ImageSpan的居中对齐的问题</h3><p>&#160;&#160;&#160;&#160;<code>ImageSpan</code>能够用来将文本中指定index的字符串替换成指定的图片资源，使用的基本方法如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TextView textView = (TextView) findViewById(R.id.textview);</span><br><span class="line">    <span class="keyword">String</span> <span class="built_in">text</span> = <span class="string">"图标是18062145623呃呃"</span>;</span><br><span class="line">    SpannableStringBuilder builder = <span class="keyword">new</span> SpannableStringBuilder(<span class="built_in">text</span>);</span><br><span class="line">    builder.setSpan(</span><br><span class="line">        <span class="keyword">new</span> ImageSpan(<span class="keyword">this</span>, R.mipmap.ic_launcher, DynamicDrawableSpan.ALIGN_BASELINE), <span class="comment">// 需要添加的Span种类</span></span><br><span class="line">        <span class="number">3</span>,                   <span class="comment">// Span开始生效的起始index</span></span><br><span class="line">        <span class="built_in">text</span>.length() - <span class="number">1</span>,   <span class="comment">// 结束index</span></span><br><span class="line">        Spanned.SPAN_INCLUSIVE_INCLUSIVE <span class="comment">// 设置Span的扩展方式，也就是在新的字符插入的时候，是否</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    textView.setText(builder);</span><br></pre></td></tr></table></figure>
+<p>&#160;&#160;&#160;&#160;主要的用法上和之前还是没什么区别的，在创建<code>ImageSpan</code>的时候可以给一个值，<code>DynamicDrawableSpan.ALIGN_BASELINE</code>或者<code>DynamicDrawableSpan.ALIGN_BOTTOM</code>，这个值决定了<code>ImageSpan</code>提供的<code>Drawable</code>和字符串的对齐方式。在<code>ImageSpan</code>提供的图像比文字小的时候这两个值的区别看的更加明显。如下：</p>
+<p><strong>DynamicDrawableSpan.ALIGN_BASELINE</strong><br><img src="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_align_baseline.png" alt="ALIGN_BASELINE"></p>
+<p><strong>DynamicDrawableSpan.ALIGN_BOTTOM</strong><br><img src="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_align_bottom.png" alt="ALIGN_BOTTOM"></p>
+<p>&#160;&#160;&#160;&#160;前者是和<code>TextView</code>中文本的<code>baseline</code>对其，而后者是和<code>TextView</code>的底部对齐，在<code>Android</code>中并没有提供居中对齐的方式，遇到需要将<code>ImageSpan</code>和文字垂直举重对齐的需求，只能自己想办法了。<br>&#160;&#160;&#160;&#160;先来看看上面两个值是如何影响图片的位置的，首先在<code>ImageSpan</code>类里面，找到了两个相关的构造函数，如果没有设置<code>verticalAlignment</code>值，默认的是<code>ALIGN_BOTTOM</code>，也就是说会和<code>TextView</code>里面显示的文字最底部对其（并不是<code>TextView</code>的最底部）：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ImageSpan</span><span class="params">(Context context, @DrawableRes <span class="keyword">int</span> resourceId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(context, resourceId, ALIGN_BOTTOM);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> verticalAlignment one of &#123;<span class="doctag">@link</span> DynamicDrawableSpan#ALIGN_BOTTOM&#125; or</span><br><span class="line">     * &#123;<span class="doctag">@link</span> DynamicDrawableSpan#ALIGN_BASELINE&#125;.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ImageSpan</span><span class="params">(Context context, @DrawableRes <span class="keyword">int</span> resourceId, <span class="keyword">int</span> verticalAlignment)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(verticalAlignment);</span><br><span class="line">        mContext = context;</span><br><span class="line">        mResourceId = resourceId;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>&#160;&#160;&#160;&#160;<code>ImageSpan</code>继承自<code>DynamicDrawableSpan</code>类，上面的构造函数将<code>verticalAlignment</code>参数传给了父类处理，在<code>DynamicDrawableSpan</code>中看到了该参数发挥作用的地方，<code>draw</code>在绘制图片的时候会被调用，这时候会根据所指定的位置来画，基本上是想画到哪里就画到哪里。：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Override</span></span><br><span class="line">    public void draw(Canvas <span class="keyword">canvas</span>, CharSequence <span class="keyword">text</span>,</span><br><span class="line">                     <span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">float</span> x,</span><br><span class="line">                     <span class="keyword">int</span> top, <span class="keyword">int</span> y, <span class="keyword">int</span> bottom, Paint paint) &#123;</span><br><span class="line">        Drawable b = getCachedDrawable();</span><br><span class="line">        <span class="keyword">canvas</span>.save();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> transY = bottom - b.getBounds().bottom;</span><br><span class="line">        <span class="keyword">if</span> (mVerticalAlignment == ALIGN_BASELINE) &#123;</span><br><span class="line">            transY -= paint.getFontMetricsInt().descent;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">canvas</span>.translate(x, transY);</span><br><span class="line">        b.draw(<span class="keyword">canvas</span>);</span><br><span class="line">        <span class="keyword">canvas</span>.restore();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>&#160;&#160;&#160;&#160;会根据当前<code>mVerticalAlignment</code>来决定偏移量的值，将<code>canvas</code>偏移之后再将<code>Drawable</code>画上。只需要重载这个函数，测量需要画上的<code>Drawable</code>尺寸，算出合适的偏移量即可。<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Override</span></span><br><span class="line">public void draw(Canvas <span class="keyword">canvas</span>, CharSequence <span class="keyword">text</span>, <span class="keyword">int</span> start, <span class="keyword">int</span> end,</span><br><span class="line">                 <span class="keyword">float</span> x, <span class="keyword">int</span> top, <span class="keyword">int</span> y, <span class="keyword">int</span> bottom, Paint paint) &#123;</span><br><span class="line">  Drawable b = getDrawable();</span><br><span class="line">  <span class="keyword">canvas</span>.save();</span><br><span class="line">  <span class="keyword">int</span> transY = <span class="number">0</span>;</span><br><span class="line">  transY = ((bottom-top) - b.getBounds().bottom)/<span class="number">2</span>+top;</span><br><span class="line">  <span class="keyword">canvas</span>.translate(x, transY);</span><br><span class="line">  b.draw(<span class="keyword">canvas</span>);</span><br><span class="line">  <span class="keyword">canvas</span>.restore();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="FontMetrics"><a href="#FontMetrics" class="headerlink" title="FontMetrics"></a>FontMetrics</h3><p>&#160;&#160;&#160;&#160;在源码里面涉及到了<code>Paint.FontMetrics</code>的问题，这个类是专门用来定位字体位置的一个数据结构，趁机了解了一波。<code>Android</code>中衡量字体位置有自己的一套规范，源代码如下：<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">     * Class that describes the various metrics for a font at a given text size.</span><br><span class="line">     * Remember, Y values increase going down, so those values will be positive,</span><br><span class="line">     * and values that measure distances going up will be negative. This class</span><br><span class="line">     * is returned by getFontMetrics().</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">FontMetrics</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * The maximum distance above the baseline for the tallest glyph in</span><br><span class="line">         * the font at a given text size.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span>   top; <span class="comment">// 在给定文本大小的字体中，字符顶端能达到的距离baseline的最大距离。</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * The recommended distance above the baseline for singled spaced text.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span>   ascent; <span class="comment">// 对单个字符在baseline之上的推荐距离</span></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * The recommended distance below the baseline for singled spaced text.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span>   descent; <span class="comment">// 对单个字符在baseline之下的推荐距离</span></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * The maximum distance below the baseline for the lowest glyph in</span><br><span class="line">         * the font at a given text size.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span>   bottom; <span class="comment">// 在给定文本大小的字体中，字符底端能达到的距离baseline的最大距离。</span></span><br><span class="line">        <span class="comment">/**</span><br><span class="line">         * The recommended additional space to add between lines of text.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span>   leading; <span class="comment">// 两行之间的距离</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的几个尺寸表示起来如下，偷个图：<br><img src="http://7xrl39.com1.z0.glb.clouddn.com/ImageSpan_FontMetrics.png" alt="FontMetrics"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/15/关于SpannableString/" data-id="citilo4ul0000jiuty4u9iy4v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/15/Fresco框架解析(一)------整体介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Fresco框架解析(一)------整体介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fresco/">Fresco</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Fresco/" style="font-size: 10px;">Fresco</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 16.67px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/09/15/关于SpannableString/">关于SpannableString</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/15/Fresco框架解析(一)------整体介绍/">Fresco框架解析(一)------整体介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/14/279_Perfect Squares/">Perfect Squares</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/14/313_Super Ugly Number/">Super Ugly Number</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Xiaoxiaoda<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

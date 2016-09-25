@@ -65,6 +65,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-关于SpannableString" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/15/关于SpannableString/" class="article-date">
+  <time datetime="2016-09-15T11:39:23.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/15/关于SpannableString/">关于SpannableString</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u5173_u4E8ESpannableString"><a href="#u5173_u4E8ESpannableString" class="headerlink" title="关于SpannableString"></a>关于SpannableString</h2><h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;最近在项目中接触到了聊天的模块，在聊天模块中处理了一些关于字符串的功能，例如将一串链接格式的字符串识别成带有下划线样式的<code>链接</code>字样，将预先规范好的字符串翻译成对应的表情字符，将带有特殊意义的字符串标识成不同颜色等。之前没有接触过，学习了一下相关知识，找了个时间稍微整理一下。</p>
+<h3 id="SpannableString"><a href="#SpannableString" class="headerlink" title="SpannableString"></a>SpannableString</h3><blockquote>
+<p>public class SpannableString<br>extends Object implements CharSequence, GetChars, Spannable</p>
+<p>java.lang.Object<br>   ↳    android.text.SpannableString</p>
+<p>This is the class for text whose content is immutable but to which markup objects can be attached and detached.For mutable text, see SpannableStringBuilder.</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2016/09/15/关于SpannableString/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/15/关于SpannableString/" data-id="citilo4ul0000jiuty4u9iy4v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Fresco框架解析(一)------整体介绍" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/09/15/Fresco框架解析(一)------整体介绍/" class="article-date">
@@ -153,6 +201,54 @@
 
 
   
+    <article id="post-关于正则表达式(Regular Expression)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/14/关于正则表达式(Regular Expression)/" class="article-date">
+  <time datetime="2016-09-14T13:50:13.000Z" itemprop="datePublished">2016-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="u5173_u4E8E_u6B63_u5219_u8868_u8FBE_u5F0F_28Regular_Expression_29"><a href="#u5173_u4E8E_u6B63_u5219_u8868_u8FBE_u5F0F_28Regular_Expression_29" class="headerlink" title="关于正则表达式(Regular Expression)"></a>关于正则表达式(Regular Expression)</h2><h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;昨天又复习了一遍正则，之前学的一些东西都已经忘光了，只记得当时刚入团队的时候接到的不知第几个新人任务，是用Python写一个爬虫，要在简书上爬取指定专栏的所有文章并按照规范写成Markdown的格式，涉及到一个过滤html标签并替换成md标签的操作。当时花了好久才从html标签里面用正则匹配到需要的资源…….昨天一下午，复习了一遍正则，写了个正则表达式，是干啥的我就不说了，说实话慢慢调的还是挺麻烦的，要各种情况覆盖 = =.</p>
+<p>&#160;&#160;&#160;&#160;这篇记录只是想结合下面的那篇文章，再复习一下，大部分内容还是原文的，只是把自己的学习小感受记录下。</p>
+<p>&#160;&#160;&#160;&#160;下面是很好的一篇文章<br>&#160;&#160;&#160;&#160;<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></p>
+<p>&#160;&#160;&#160;&#160;下面是很好的一个测试工具<br>&#160;&#160;&#160;&#160;<a href="http://tool.oschina.net/regex/">正则表达式在线匹配工具</a></p>
+<p>&#160;&#160;&#160;&#160;记录了如下的内容：</p>
+<h3 id="u6B63_u5219_u7B80_u4ECB"><a href="#u6B63_u5219_u7B80_u4ECB" class="headerlink" title="正则简介"></a>正则简介</h3><p>&#160;&#160;&#160;&#160;正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。也就是用特殊的一些规范标记来定义自己想要的一个规则，来匹配想要的具有特征的字符串。在搜索的时候可能会用到<code>*</code>或者<code>.</code>来表示通配，也就是匹配任何字符，类似于这种符号的功效。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/09/14/关于正则表达式(Regular Expression)/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/" data-id="cisoqwkft0009bnut4t5cyj23" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-313_Super Ugly Number" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/09/14/313_Super Ugly Number/" class="article-date">
@@ -195,54 +291,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-关于正则表达式(Regular Expression)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/14/关于正则表达式(Regular Expression)/" class="article-date">
-  <time datetime="2016-09-14T13:50:13.000Z" itemprop="datePublished">2016-09-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="u5173_u4E8E_u6B63_u5219_u8868_u8FBE_u5F0F_28Regular_Expression_29"><a href="#u5173_u4E8E_u6B63_u5219_u8868_u8FBE_u5F0F_28Regular_Expression_29" class="headerlink" title="关于正则表达式(Regular Expression)"></a>关于正则表达式(Regular Expression)</h2><h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;昨天又复习了一遍正则，之前学的一些东西都已经忘光了，只记得当时刚入团队的时候接到的不知第几个新人任务，是用Python写一个爬虫，要在简书上爬取指定专栏的所有文章并按照规范写成Markdown的格式，涉及到一个过滤html标签并替换成md标签的操作。当时花了好久才从html标签里面用正则匹配到需要的资源…….昨天一下午，复习了一遍正则，写了个正则表达式，是干啥的我就不说了，说实话慢慢调的还是挺麻烦的，要各种情况覆盖 = =.</p>
-<p>&#160;&#160;&#160;&#160;这篇记录只是想结合下面的那篇文章，再复习一下，大部分内容还是原文的，只是把自己的学习小感受记录下。</p>
-<p>&#160;&#160;&#160;&#160;下面是很好的一篇文章<br>&#160;&#160;&#160;&#160;<a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></p>
-<p>&#160;&#160;&#160;&#160;下面是很好的一个测试工具<br>&#160;&#160;&#160;&#160;<a href="http://tool.oschina.net/regex/">正则表达式在线匹配工具</a></p>
-<p>&#160;&#160;&#160;&#160;记录了如下的内容：</p>
-<h3 id="u6B63_u5219_u7B80_u4ECB"><a href="#u6B63_u5219_u7B80_u4ECB" class="headerlink" title="正则简介"></a>正则简介</h3><p>&#160;&#160;&#160;&#160;正则表达式是对字符串操作的一种逻辑公式，就是用事先定义好的一些特定字符、及这些特定字符的组合，组成一个“规则字符串”，这个“规则字符串”用来表达对字符串的一种过滤逻辑。也就是用特殊的一些规范标记来定义自己想要的一个规则，来匹配想要的具有特征的字符串。在搜索的时候可能会用到<code>*</code>或者<code>.</code>来表示通配，也就是匹配任何字符，类似于这种符号的功效。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/14/关于正则表达式(Regular Expression)/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/" data-id="cisoqwkft0009bnut4t5cyj23" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
 
     </footer>
   </div>
@@ -474,70 +522,6 @@
 
 
   
-    <article id="post-运输层" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/31/运输层/" class="article-date">
-  <time datetime="2016-03-31T09:15:11.000Z" itemprop="datePublished">2016-03-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/31/运输层/">运输层</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="u8FD0_u8F93_u5C42"><a href="#u8FD0_u8F93_u5C42" class="headerlink" title="运输层"></a>运输层</h2><p><strong>功能</strong> ： 为不同主机上运行的应用进程之间提供逻辑通信(logical communication)</p>
-<p><strong>工作内容</strong></p>
-<ul>
-<li>发送方：把应用数据划分成报文段，交给网络层</li>
-<li>接收方：将报文段重组成应用数据，交给应用层</li>
-</ul>
-<p><strong>运输层和网络层区别</strong></p>
-<ul>
-<li>网络层：不同主机之间的逻辑通信</li>
-<li>运输层：应用进程之间的逻辑通信</li>
-</ul>
-<h3 id="u8FD0_u8F93_u5C42_u534F_u8BAE"><a href="#u8FD0_u8F93_u5C42_u534F_u8BAE" class="headerlink" title="运输层协议"></a>运输层协议</h3><ul>
-<li>用户数据报协议UDP</li>
-<li>传输控制协议TCP</li>
-<li>所提供的服务<ul>
-<li>进程间数据交付</li>
-<li>差错检测</li>
-<li>可靠的数据传输</li>
-<li>拥塞控制</li>
-</ul>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2016/03/31/运输层/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/31/运输层/" data-id="cisoqwkfp0003bnuta33sowfc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net/">net</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -553,7 +537,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fresco/">Fresco</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fresco/">Fresco</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -562,7 +546,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Fresco/" style="font-size: 10px;">Fresco</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 13.33px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Fresco/" style="font-size: 10px;">Fresco</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 16.67px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -571,7 +555,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -583,6 +567,10 @@
       <ul>
         
           <li>
+            <a href="/2016/09/15/关于SpannableString/">关于SpannableString</a>
+          </li>
+        
+          <li>
             <a href="/2016/09/15/Fresco框架解析(一)------整体介绍/">Fresco框架解析(一)------整体介绍</a>
           </li>
         
@@ -591,15 +579,11 @@
           </li>
         
           <li>
-            <a href="/2016/09/14/313_Super Ugly Number/">Super Ugly Number</a>
-          </li>
-        
-          <li>
             <a href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
           </li>
         
           <li>
-            <a href="/2016/08/31/89_Gray Code/">Gray Code</a>
+            <a href="/2016/09/14/313_Super Ugly Number/">Super Ugly Number</a>
           </li>
         
       </ul>
