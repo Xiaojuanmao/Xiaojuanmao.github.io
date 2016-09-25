@@ -65,6 +65,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-[译]ProtocolBuffers脚本生成代码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/23/[译]ProtocolBuffers脚本生成代码/" class="article-date">
+  <time datetime="2016-04-23T11:54:23.000Z" itemprop="datePublished">2016-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/23/[译]ProtocolBuffers脚本生成代码/">ProtocolBuffers脚本生成代码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ProtocolBuffers_u811A_u672C_u751F_u6210_u4EE3_u7801"><a href="#ProtocolBuffers_u811A_u672C_u751F_u6210_u4EE3_u7801" class="headerlink" title="ProtocolBuffers脚本生成代码"></a>ProtocolBuffers脚本生成代码</h2><h3 id="u4ECE-pb_u6587_u4EF6_u751F_u6210_u7684_u5DE5_u5177_u7C7B"><a href="#u4ECE-pb_u6587_u4EF6_u751F_u6210_u7684_u5DE5_u5177_u7C7B" class="headerlink" title="从.pb文件生成的工具类"></a>从.pb文件生成的工具类</h3><hr>
+<p>&#160;&#160;&#160;&#160;在上一篇中，定义好了message，选定制定语言并运行官方编译器即可生成能够使用的工具类，工具类中包括了get和set字段值，从序列化message到输出流以及从输入流中解析message的一系列方法。这里以Java为例，运行<a href="https://developers.google.com/protocol-buffers/docs/javatutorial">脚本</a>之后会为每一个message类型都生成一个<code>.java</code>文件。</p>
+<p>&#160;&#160;&#160;&#160;从.pb文件生成.java只需要下面这一行脚本：<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">protoc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">proto_path=src</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">java_out=build/gen</span> <span class="comment">src/foo</span><span class="string">.</span><span class="comment">proto</span></span><br></pre></td></tr></table></figure></p>
+<p>&#160;&#160;&#160;&#160;脚本中包含一些元素：</p>
+<ol>
+<li><code>protoc</code> : 脚本命令，类似于java或javac一样</li>
+<li><code>--proto_path=src</code> : 指定.pb文件文件所在的目录</li>
+<li><code>--java_out=build/gen</code> : 指定.java文件输出的目录</li>
+<li><code>src/foo.proto</code> : .pb文件的名称</li>
+</ol>
+<p>&#160;&#160;&#160;&#160;在执行脚本之前，还需要指定生成的.java文件名称，在.pb文件开头写上如下内容：<code>option java_outer_classname = &quot;Foo&quot;;</code>文件名称随意。</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/04/23/[译]ProtocolBuffers脚本生成代码/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/23/[译]ProtocolBuffers脚本生成代码/" data-id="citirbrlv000fzdutoivhow2m" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-运输层" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/31/运输层/" class="article-date">
@@ -117,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/31/运输层/" data-id="cisoqwkfp0003bnuta33sowfc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/31/运输层/" data-id="citirbrlf0003zduts61weqqv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net/">net</a></li></ul>
@@ -162,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="cisoqwkgh0013bnutlfk726fc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/10/Java内存模型/" data-id="citirbrn90018zdute75era10" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
@@ -260,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="cisoqwkgk0019bnutar0ys1t2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/07/EventBus解析-三-查找Subscribe方法/" data-id="citirbrnf001hzdutug64qtux" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -313,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="cisoqwkga000ubnutm1es7pac" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/06/View事件分发机制/" data-id="citirbrn1000zzdut51ybzxxk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/View/">View</a></li></ul>
@@ -359,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="cisoqwkgn001dbnut5gw2ovo4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/04/Android微信第三方登录以及分享/" data-id="citirbrnj001lzdut2bb3lr8q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wechat/">wechat</a></li></ul>
@@ -405,55 +458,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="cisoqwkfw000cbnutzlc3b2mg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/03/WebView使用总结/" data-id="citirbrlx000hzdutmolvbsd0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView/">WebView</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-EventBus解析-一-简单介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/28/EventBus解析-一-简单介绍/" class="article-date">
-  <time datetime="2016-02-28T08:09:40.000Z" itemprop="datePublished">2016-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D" class="headerlink" title="题外话(可直接无视= ="></a>题外话(可直接无视= =</h4><p>&#160;&#160;&#160;&#160;最近接触了一下EventBus这个开源项目，在好多人都已经用烂的情况下才开始。在了解之前也听到过好多种声音，有说eventbus是语法糖，越用越上瘾，不建议经常使用等等。也有说eventbus挺好用的，又省事来又过瘾，简直关爱代码从事人员的身心健康。是非多，两种声音并不能代表什么，只能说明这个项目大家的关注度还是不小的。</p>
-<p>&#160;&#160;&#160;&#160;<a href="https://github.com/greenrobot/EventBus">github地址</a></p>
-<p>&#160;&#160;&#160;&#160;<a href="http://greenrobot.org/eventbus/">eventbus官方文档</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/02/28/EventBus解析-一-简单介绍/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="cisoqwkgl001bbnut92oii0ex" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
 
     </footer>
   </div>
@@ -500,7 +508,52 @@ AsyncPoster ThreadMode.ASYNC
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-调用链分析/" data-id="cisoqwkgi0016bnut8lsazxo4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-二-调用链分析/" data-id="citirbrne001ezdut24uurled" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-EventBus解析-一-简单介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/28/EventBus解析-一-简单介绍/" class="article-date">
+  <time datetime="2016-02-28T08:09:40.000Z" itemprop="datePublished">2016-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/28/EventBus解析-一-简单介绍/">EventBus解析(一)简单介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D"><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_3D__3D" class="headerlink" title="题外话(可直接无视= ="></a>题外话(可直接无视= =</h4><p>&#160;&#160;&#160;&#160;最近接触了一下EventBus这个开源项目，在好多人都已经用烂的情况下才开始。在了解之前也听到过好多种声音，有说eventbus是语法糖，越用越上瘾，不建议经常使用等等。也有说eventbus挺好用的，又省事来又过瘾，简直关爱代码从事人员的身心健康。是非多，两种声音并不能代表什么，只能说明这个项目大家的关注度还是不小的。</p>
+<p>&#160;&#160;&#160;&#160;<a href="https://github.com/greenrobot/EventBus">github地址</a></p>
+<p>&#160;&#160;&#160;&#160;<a href="http://greenrobot.org/eventbus/">eventbus官方文档</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2016/02/28/EventBus解析-一-简单介绍/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/28/EventBus解析-一-简单介绍/" data-id="citirbrnh001jzdutr0bto3cr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EventBus/">EventBus</a></li></ul>
@@ -547,53 +600,10 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="cisoqwkgc000xbnutl8mfsz1b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/17/Ugly-Number/" data-id="citirbrn30012zduty42icfk6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Volley框架解析-七-Request解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/16/Volley框架解析-七-Request解析/" class="article-date">
-  <time datetime="2016-01-16T10:10:44.000Z" itemprop="datePublished">2016-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/16/Volley框架解析-七-Request解析/">Volley框架解析(七)-----Request解析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D"><a href="#1-__u524D_u8A00_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7_3D__3D" class="headerlink" title="1. 前言(可直接无视跳过= ="></a>1. 前言(可直接无视跳过= =</h3><p>&#160;&#160;&#160;&#160;·一路过关斩将= =，从最顶层一路看代码，了解了request队列的调度程序，request结果的处理方式，以及request请求出错的处理方式，对请求结果进行缓存方面的工作等等。这篇博客就轮到Volley中的主角出场了，那就是—<code>Request.java</code>，前面一直在说request，但是一直都没有介绍到Request是个什么东西，这么重要的东西怎么能忘记呢，其实小达也搞不清楚整个框架的介绍顺序，沿着接口自顶向下的延展开来，支路多了之后就只能慢慢的道来，request的来迟深感抱歉orz。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/01/16/Volley框架解析-七-Request解析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/16/Volley框架解析-七-Request解析/" data-id="cisoqwkg7000qbnut5fl7g779" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
 
     </footer>
   </div>
@@ -617,7 +627,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fresco/">Fresco</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EventBus/">EventBus</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fresco/">Fresco</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LeetCode/">LeetCode</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volley/">Volley</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebView/">WebView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net/">net</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/">others</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/wechat/">wechat</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -626,7 +636,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EventBus/" style="font-size: 13.33px;">EventBus</a> <a href="/tags/Fresco/" style="font-size: 10px;">Fresco</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 16.67px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 16.67px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
+      <a href="/tags/EventBus/" style="font-size: 12.5px;">EventBus</a> <a href="/tags/Fresco/" style="font-size: 10px;">Fresco</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/LeetCode/" style="font-size: 15px;">LeetCode</a> <a href="/tags/View/" style="font-size: 10px;">View</a> <a href="/tags/Volley/" style="font-size: 20px;">Volley</a> <a href="/tags/WebView/" style="font-size: 10px;">WebView</a> <a href="/tags/net/" style="font-size: 10px;">net</a> <a href="/tags/others/" style="font-size: 17.5px;">others</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a>
     </div>
   </div>
 
@@ -635,7 +645,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">9</span></li></ul>
     </div>
   </div>
 
@@ -647,7 +657,7 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
       <ul>
         
           <li>
-            <a href="/2016/09/15/关于SpannableString/">关于SpannableString</a>
+            <a href="/2016/09/25/关于ClickableSpan和OnClickListener冲突问题/">关于ClickableSpan和OnClickListener冲突问题</a>
           </li>
         
           <li>
@@ -655,11 +665,11 @@ Design an algorithm to find the Kth ugly number. The first 5 ugly numbers are 3,
           </li>
         
           <li>
-            <a href="/2016/09/14/279_Perfect Squares/">Perfect Squares</a>
+            <a href="/2016/09/15/关于SpannableString/">关于SpannableString</a>
           </li>
         
           <li>
-            <a href="/2016/09/14/关于正则表达式(Regular Expression)/">关于正则表达式(Regular Expression)</a>
+            <a href="/2016/09/14/279_Perfect Squares/">Perfect Squares</a>
           </li>
         
           <li>
