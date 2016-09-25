@@ -88,17 +88,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="u5173_u4E8EClickableSpan_u548COnClickListener_u51B2_u7A81_u95EE_u9898"><a href="#u5173_u4E8EClickableSpan_u548COnClickListener_u51B2_u7A81_u95EE_u9898" class="headerlink" title="关于ClickableSpan和OnClickListener冲突问题"></a>关于ClickableSpan和OnClickListener冲突问题</h2><h3 id="u524D_u8A00"><a href="#u524D_u8A00" class="headerlink" title="前言"></a>前言</h3><p>&#160;&#160;&#160;&#160;前两天遇到了一个问题，是关于<code>ClickableSpan</code>和<code>TextView</code>的点击事件，当一个<code>TextView</code>设置了<code>OnClickListener</code>，再将显示的文本加上一个<code>ClickableSpan</code>，点击<code>ClickableSpan</code>文本的时候，也会触发<code>OnClickListener</code>的逻辑代码。</p>
-<h3 id="TextView_u89E6_u6478_u4E8B_u4EF6_u5904_u7406"><a href="#TextView_u89E6_u6478_u4E8B_u4EF6_u5904_u7406" class="headerlink" title="TextView触摸事件处理"></a>TextView触摸事件处理</h3><p>&#160;&#160;&#160;&#160;最初问题出现的时候，还没有怀疑是两个点击事件有冲突，本以为<code>TextView</code>会处理好这些点击事件的分发，结果看了看代码好像并没有，下面是截取的部分代码：</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">		.....</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">boolean</span> superResult = <span class="keyword">super</span>.onTouchEvent(event); <span class="comment">// 调用View的正常处理逻辑，里面包含了对于OnClickListener逻辑调用的代码</span></span><br><span class="line">		.....</span><br><span class="line">         <span class="keyword">if</span> ((mMovement != <span class="keyword">null</span> || onCheckIsTextEditor()) &amp;&amp; isEnabled()</span><br><span class="line">                &amp;&amp; mText <span class="keyword">instanceof</span> Spannable &amp;&amp; mLayout != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> handled = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (mMovement != <span class="keyword">null</span>) &#123;</span><br><span class="line">                handled |= mMovement.onTouchEvent(<span class="keyword">this</span>, (Spannable) mText, event); <span class="comment">// 通过LinkMovementMethod调用ClickableSpan的逻辑代码</span></span><br><span class="line">            &#125;</span><br><span class="line">            .....</span><br><span class="line">            &#125;</span><br><span class="line">            .....</span><br><span class="line">            <span class="keyword">if</span> (handled) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> superResult;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>&#160;&#160;&#160;&#160;通过上面能够看到先处理了正常<code>View</code>的触摸事件，然后检测是否存在<code>LinkMovementMethod</code>，再让其响应点击事件。好像一点都没有拦截的样子，后来打了log看了看还真没拦截，在网上找到了一个挺机智的办法来解决这个事情。</p>
-<p>&#160;&#160;&#160;&#160;整个处理的过程主要只涉及到两个<code>boolean</code>值的来回变化，通过这两个<code>boolean</code>值来达到手动拦截并处理这两个点击事件的效果。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * TextView that allows to insert clickablespans while whole textview is still clickable&lt;br&gt;</span><br><span class="line"> * If a click an a clickablespan occurs, click handler of whole textview will &lt;b&gt;not&lt;/b&gt; be invoked</span><br><span class="line"> * In your span onclick handler you first have to check whether &#123;<span class="doctag">@link</span> ignoreSpannableClick&#125; returns true, if so just return from click handler</span><br><span class="line"> * otherwise call &#123;<span class="doctag">@link</span> preventNextClick&#125; and handle the click event</span><br><span class="line"> * <span class="doctag">@author</span> Lukas</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClickPreventableTextView</span> <span class="keyword">extends</span> <span class="title">TextView</span> <span class="keyword">implements</span> <span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> preventClick;</span><br><span class="line"><span class="keyword">private</span> OnClickListener clickListener;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> ignoreSpannableClick;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClickPreventableTextView</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClickPreventableTextView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(context, attrs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClickPreventableTextView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(context, attrs, defStyle);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 整体的思想就是手动的先让ClickableSpan来处理点击事件，如果ClickableSpan能够处理这个点击事件，则需要再调用一个方法，利用boolean变量来拦截接下来的OnClickListener点击事件</span></span><br><span class="line">    <span class="keyword">if</span> (getMovementMethod() != <span class="keyword">null</span>)</span><br><span class="line">        getMovementMethod().onTouchEvent(<span class="keyword">this</span>, (Spannable)getText(), event);</span><br><span class="line">    <span class="keyword">this</span>.ignoreSpannableClick = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">boolean</span> ret = <span class="keyword">super</span>.onTouchEvent(event);</span><br><span class="line">    <span class="keyword">this</span>.ignoreSpannableClick = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Returns true if click event for a clickable span should be ignored</span><br><span class="line"> * <span class="doctag">@return</span> true if click event should be ignored</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">ignoreSpannableClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ignoreSpannableClick;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Call after handling click event for clickable span</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preventNextClick</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    preventClick = <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnClickListener</span><span class="params">(OnClickListener listener)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.clickListener = listener;</span><br><span class="line">    <span class="keyword">super</span>.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (preventClick) &#123;</span><br><span class="line">        preventClick = <span class="keyword">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (clickListener != <span class="keyword">null</span>)</span><br><span class="line">        clickListener.onClick(v);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&#160;在使用的过程中，还需要在<code>ClickableSpan</code>的点击事件中进行如下的处理：</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">span.setSpan(<span class="keyword">new</span> ClickableSpan() &#123;</span><br><span class="line">       <span class="annotation">@Override</span></span><br><span class="line">       <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">           Log.d(<span class="string">"main"</span>, <span class="string">"link clicked"</span>);</span><br><span class="line">           <span class="keyword">if</span> (widget <span class="keyword">instanceof</span> ClickPreventableTextView) &#123;</span><br><span class="line">               <span class="keyword">if</span> (((ClickPreventableTextView)widget).ignoreSpannableClick())</span><br><span class="line">                   <span class="keyword">return</span>;</span><br><span class="line">               ((ClickPreventableTextView)widget).preventNextClick();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           Toast.makeText(Main.<span class="keyword">this</span>, <span class="string">"link clicked"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">       &#125; &#125;, <span class="number">5</span>, <span class="number">9</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2016/09/25/关于ClickableSpan和OnClickListener冲突问题/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/25/关于ClickableSpan和OnClickListener冲突问题/" data-id="citirbrlt000dzdutg6aqwbo0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/25/关于ClickableSpan和OnClickListener冲突问题/" data-id="citirgme6000daiut4rc51bg1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
@@ -142,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/15/Fresco框架解析(一)------整体介绍/" data-id="citirbrnc001bzdutfvvkj2zi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/15/Fresco框架解析(一)------整体介绍/" data-id="citirgmf4001baiut92lrmyci" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fresco/">Fresco</a></li></ul>
@@ -190,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/15/关于SpannableString/" data-id="citirbrls000bzdut934ygqx6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/15/关于SpannableString/" data-id="citirgme4000baiutd3ck56rp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
@@ -234,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/14/279_Perfect Squares/" data-id="citirbrif0000zduto37cppny" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/14/279_Perfect Squares/" data-id="citirgmdc0000aiutwodj3z32" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
@@ -284,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/14/313_Super Ugly Number/" data-id="citirbrnr001rzdut9r59yc17" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/14/313_Super Ugly Number/" data-id="citirgmfg001raiutzs7eby8f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
@@ -332,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/" data-id="citirbrlq0009zdutymjuvb92" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/09/14/关于正则表达式(Regular Expression)/" data-id="citirgme20009aiut3or5zf1f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
@@ -383,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/31/89_Gray Code/" data-id="citirbrnp001pzdutgasvz5j2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/31/89_Gray Code/" data-id="citirgmfe001paiut1bd66rm2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeetCode/">LeetCode</a></li></ul>
@@ -424,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Android中图片的加载/" data-id="citirbrnn001ozdutez6smhva" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Android中图片的加载/" data-id="citirgmfd001oaiutvfsb45gx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -458,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/27/JitPack使用/" data-id="citirbrn80017zdut4r1tauox" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/27/JitPack使用/" data-id="citirgmf00017aiut4wczjwu1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -502,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/23/寻找实习的小感受/" data-id="citirbrlo0006zdutnu3vod7z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/23/寻找实习的小感受/" data-id="citirgme10006aiutdcrbu1jl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/others/">others</a></li></ul>
