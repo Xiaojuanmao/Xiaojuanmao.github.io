@@ -16,6 +16,8 @@ tags: volley
 
 前面一篇对Volley做了一个初步的介绍以及从整体上的一个解析，只是简单的描述了Request在Volley中是如何被处理的。从这篇博客开始将从最顶层一步一步的向下挖掘每一行代码，从最开始调用的地方`RequestQueue mQueue = Volley.newRequestQueue(mContext)`开始。
 
+<!--more-->
+
 ***
 
 ### [](#1-_Volley-java "1\. Volley.java")1\. Volley.java
