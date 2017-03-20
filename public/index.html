@@ -197,7 +197,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -207,7 +207,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            About
+            Über
           </a>
         </li>
       
@@ -217,7 +217,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -240,6 +240,132 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/03/20/Volley框架解析-四-Network接口及其实现/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Retro41">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Retro41's Life">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Retro41's Life" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/20/Volley框架解析-四-Network接口及其实现/" itemprop="url">
+                  Volley框架解析-四-Network接口及其实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-20T23:34:06+08:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Volley框架解析-四-—–Network接口及其默认实现类解析"><a href="#Volley框架解析-四-—–Network接口及其默认实现类解析" class="headerlink" title="Volley框架解析(四)—–Network接口及其默认实现类解析"></a>Volley框架解析(四)—–Network接口及其默认实现类解析</h2><h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>&#160;&#160;&#160;&#160;前面的三篇Volley框架解析文章已经从Volley对外暴露的接口Volley.java开始，向下慢慢深入到了RequestQueue.java，这个Volley中比较核心的类，然后又分析了Volley中负责主要request调度工作的两类Dispatcher，<code>NetworkDispatcher</code>以及<code>CacheDispatcher</code>。应该是将一个request从新建，到加入队列中等待处理，如何被处理以及返回结果或者error这一系列的流程理顺了。</p>
+<p>&#160;&#160;&#160;&#160;但是对于一些细节的问题还是不清楚，例如request究竟是如何发送出去，通过<code>NetworkResponse networkResponse = mNetwork.performRequest(request);</code>这么一句话就返回了结果(response)，这里面发生了些什么还不得而知，还有<code>Network#performRequest()</code>和<code>HttpStack#performRequest()</code>这两个函数之间有什么区别和联系等等。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/20/Volley框架解析-四-Network接口及其实现/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -290,7 +416,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-01T23:53:47+08:00">
                 2017-03-01
@@ -336,7 +462,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/01/Volley框架解析-三-Dispatcher解析/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -418,7 +544,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-28T16:43:26+08:00">
                 2017-02-28
@@ -463,7 +589,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/28/Volley框架解析-二-Volley以及RequestQueue解析/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -545,7 +671,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-26T10:04:01+08:00">
                 2017-02-26
@@ -591,7 +717,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/26/Volley框架解析-一-整体介绍/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -673,7 +799,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:14+08:00">
                 2017-02-24
@@ -717,7 +843,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/24/React-Native笔记-三/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -799,7 +925,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:10+08:00">
                 2017-02-24
@@ -844,7 +970,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/24/React-Native笔记-二/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -926,7 +1052,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:05+08:00">
                 2017-02-24
@@ -971,7 +1097,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/24/React-Native笔记-一/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1053,7 +1179,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-23T00:52:12+08:00">
                 2017-02-23
@@ -1105,7 +1231,7 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/23/Github-Hexo搭建个人博客/#more" rel="contents">
-              Read more &raquo;
+              Weiterlesen &raquo;
             </a>
           </div>
           <!--/noindex-->
@@ -1183,8 +1309,8 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -1195,7 +1321,7 @@
             <div class="site-state-item site-state-tags">
               
                 <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               
             </div>
           
@@ -1245,7 +1371,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
