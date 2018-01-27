@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Retro41's Life
+title: Dada's Life
 subtitle: Begin in 1990
-description: coding...
-author: Retro41
+description: Coding...
+author: Dada
 email: wonderfulifeel@gmail.com
-language: zh_CN
-timezone:
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
