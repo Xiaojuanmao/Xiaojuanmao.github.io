@@ -251,6 +251,413 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2018/04/12/SharedPreferece产生的Concurrent Modification Exception/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dada">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dada's Life">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/12/SharedPreferece产生的Concurrent Modification Exception/" itemprop="url">
+                  SharedPreferece产生的Concurrent Modification Exception
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T10:04:03+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在使用SharedPreference的过程中，Bugly上报出<code>Concurrent ModificationException</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)</div><div class="line">java.util.HashMap$KeyIterator.next(HashMap.java:833)</div><div class="line">com.android.internal.util.XmlUtils.writeSetXml(XmlUtils.java:298)</div><div class="line">com.android.internal.util.XmlUtils.writeValueXml(XmlUtils.java:447)</div><div class="line">com.android.internal.util.XmlUtils.writeMapXml(XmlUtils.java:241)</div><div class="line">com.android.internal.util.XmlUtils.writeMapXml(XmlUtils.java:181)</div><div class="line">android.app.SharedPreferencesImpl.writeToFile(SharedPreferencesImpl.java:596)</div><div class="line">android.app.SharedPreferencesImpl.access$800(SharedPreferencesImpl.java:52)</div><div class="line">android.app.SharedPreferencesImpl$2.run(SharedPreferencesImpl.java:511)</div><div class="line">java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)</div><div class="line">java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)</div><div class="line">java.lang.Thread.run(Thread.java:841)</div></pre></td></tr></table></figure>
+<p>最开始以为是由于使用了<code>RxJava</code>导致的多线程读写问题，但后来阅读<code>SharedPreferenceImpl</code>代码时发现，有使用<code>synchronized</code>来保证线程安全，排除多线程的可能性。</p>
+<p>在<code>HashIterator</code>的源码中，抛出<code>ConcurrentModificationException</code>的片段如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">if(HashMap.this.modCount != this.expectedModCount) &#123;</div><div class="line">                throw new ConcurrentModificationException();</div><div class="line">            &#125; else if(var2 == null) &#123;</div><div class="line">                throw new NoSuchElementException();</div><div class="line">            &#125; else &#123;</div><div class="line">                if((this.next = (this.current = var2).next) == null) &#123;</div><div class="line">                    HashMap.Node[] var1 = HashMap.this.table;</div><div class="line">                    if(HashMap.this.table != null) &#123;</div><div class="line">                        while(this.index &lt; var1.length &amp;&amp; (this.next = var1[this.index++]) == null) &#123;</div><div class="line">                            ;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                return var2;</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<p>基本情况就是同一<code>HashMap</code>或者<code>HashSet</code>被多个线程同时修改了，导致集合的大小和预期不一致，抛出了异常。在网上查找原因时，注意到了<code>SharedPreference</code>中有个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   * Retrieve a set of String values from the preferences.</div><div class="line">   * </div><div class="line">   * &lt;p&gt;Note that you &lt;em&gt;must not&lt;/em&gt; modify the set instance returned</div><div class="line">   * by this call.  The consistency of the stored data is not guaranteed</div><div class="line">   * if you do, nor is your ability to modify the instance at all.</div><div class="line">   *</div><div class="line">   * @param key The name of the preference to retrieve.</div><div class="line">   * @param defValues Values to return if this preference does not exist.</div><div class="line">   * </div><div class="line">   * @return Returns the preference values if they exist, or defValues.</div><div class="line">   * Throws ClassCastException if there is a preference with this name</div><div class="line">   * that is not a Set.</div><div class="line">   * </div><div class="line">   * @throws ClassCastException</div><div class="line">   */</div><div class="line">  @Nullable</div><div class="line">  Set&lt;String&gt; getStringSet(String key, @Nullable Set&lt;String&gt; defValues);</div></pre></td></tr></table></figure>
+<p>明确提到了不能直接修改返回的<code>Set</code>，其实现类<code>SharedPreferenceImpl</code>中的代码,直接从<code>Map</code>中返回了集合，多个线程同时获取了同一个集合，同时修改肯定会出错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Nullable</div><div class="line">  public Set&lt;String&gt; getStringSet(String key, @Nullable Set&lt;String&gt; defValues) &#123;</div><div class="line">      synchronized (mLock) &#123;</div><div class="line">          awaitLoadedLocked();</div><div class="line">          Set&lt;String&gt; v = (Set&lt;String&gt;) mMap.get(key);</div><div class="line">          return v != null ? v : defValues;</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>在使用了<code>getStringSet</code>的地方，将返回的<code>Set</code>拷贝一份再使用，能够避免这个问题。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><blockquote>
+<p><a href="https://janatechnology.wordpress.com/2016/01/29/concurrent-modification-exceptions-on-androids-shared-preferences/" target="_blank" rel="noopener">https://janatechnology.wordpress.com/2016/01/29/concurrent-modification-exceptions-on-androids-shared-preferences/</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2018/04/12/ViewPagerAdapter调用NotifyData后数据不刷新/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dada">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dada's Life">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/12/ViewPagerAdapter调用NotifyData后数据不刷新/" itemprop="url">
+                  ViewPagerAdapter调用NotifyData后数据不刷新
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T10:04:02+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>线上存在一个关于PagerAdapter的少量崩溃，描述如下：</p>
+<blockquote>
+<p>The application’s PagerAdapter changed the adapter’s contents without calling PagerAdapter#notifyDataSetChanged!</p>
+</blockquote>
+<p>由于在使用<code>PagerAdapter</code>的过程中，使用的数据源是从外界传入的，数据源被改变之后未调用<code>notifyDataSetChanged</code>函数来刷新并通知<code>Adapter</code>，此时滑动<code>ViewPager</code>时候会产生上述崩溃。</p>
+<p>在<code>ViewPager</code>内部的<code>PagerObserver</code>中有如下代码，检测数据源的数量是否处于同步状态，并会抛出异常:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">if (N != mExpectedAdapterCount) &#123;</div><div class="line">       String resName;</div><div class="line">       try &#123;</div><div class="line">           resName = getResources().getResourceName(getId());</div><div class="line">       &#125; catch (Resources.NotFoundException e) &#123;</div><div class="line">           resName = Integer.toHexString(getId());</div><div class="line">       &#125;</div><div class="line">       throw new IllegalStateException(&quot;The application&apos;s PagerAdapter changed the adapter&apos;s&quot;</div><div class="line">               + &quot; contents without calling PagerAdapter#notifyDataSetChanged!&quot;</div><div class="line">               + &quot; Expected adapter item count: &quot; + mExpectedAdapterCount + &quot;, found: &quot; + N</div><div class="line">               + &quot; Pager id: &quot; + resName</div><div class="line">               + &quot; Pager class: &quot; + getClass()</div><div class="line">               + &quot; Problematic adapter: &quot; + mAdapter.getClass());</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>最初的解决办法是按照异常的提示，直接在修改了数据源的地方调用<code>notifyDataSetChanged()</code>函数，崩溃消失，出现了数据错位的现象。</p>
+<p>之后了解到，<code>ViewPager</code>的数据绑定和<code>RecyclerView</code>存在不同，<code>RecyclerView</code>在数据源变动之后会调用<code>onBindData</code>将数据源重新进行绑定，而<code>ViewPager</code>会根据<code>PagerAdapter</code>中的<code>getItemPosition</code>函数来决定是否刷新，默认的实现都是不刷新。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">    * Called when the host view is attempting to determine if an item&apos;s position</div><div class="line">    * has changed. Returns &#123;@link #POSITION_UNCHANGED&#125; if the position of the given</div><div class="line">    * item has not changed or &#123;@link #POSITION_NONE&#125; if the item is no longer present</div><div class="line">    * in the adapter.</div><div class="line">    *</div><div class="line">    * &lt;p&gt;The default implementation assumes that items will never</div><div class="line">    * change position and always returns &#123;@link #POSITION_UNCHANGED&#125;.</div><div class="line">    *</div><div class="line">    * @param object Object representing an item, previously returned by a call to</div><div class="line">    *               &#123;@link #instantiateItem(View, int)&#125;.</div><div class="line">    * @return object&apos;s new position index from [0, &#123;@link #getCount()&#125;),</div><div class="line">    *         &#123;@link #POSITION_UNCHANGED&#125; if the object&apos;s position has not changed,</div><div class="line">    *         or &#123;@link #POSITION_NONE&#125; if the item is no longer present.</div><div class="line">    */</div><div class="line">   public int getItemPosition(@NonNull Object object) &#123;</div><div class="line">       return POSITION_UNCHANGED;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>此函数返回<code>POSITION_UNCHANGED</code>则不会进行数据刷新，而<code>POSITION_NONE</code>则会重新生成并绑定数据。对于数据源产生混乱的情况，通过控制该函数的返回值即可解决。</p>
+<p>最终的解决办法为通过设置<code>TAG</code>来判断当前数据源是否和Index匹配，不匹配则重新刷新，匹配则不用处理</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><blockquote>
+<p><a href="https://www.jianshu.com/p/266861496508" target="_blank" rel="noopener">https://www.jianshu.com/p/266861496508</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2018/04/12/MessageQueue中的nativePollOnce/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dada">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dada's Life">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/12/MessageQueue中的nativePollOnce/" itemprop="url">
+                  MessageQueue中的nativePollOnce
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T10:04:01+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>之前了解过的Handler、MessageQueue以及Looper等机制，在MessageQueue的<code>nativePollOnce</code>就终止了，在没有队列中没有消息的状态下，不同Android版本从Linux层面使用管道等方式实现异步阻塞/唤醒。</p>
+<p>在C++层的代码中，也存在一套Handler、MessageQueue以及Looper。</p>
+<p><code>android_os_MessageQueue.cpp</code>中<code>nativePollOnce</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static void android_os_MessageQueue_nativePollOnce(JNIEnv* env, jobject obj,</div><div class="line">        jlong ptr, jint timeoutMillis) &#123;</div><div class="line">    NativeMessageQueue* nativeMessageQueue = reinterpret_cast&lt;NativeMessageQueue*&gt;(ptr);</div><div class="line">    nativeMessageQueue-&gt;pollOnce(env, obj, timeoutMillis);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用了<code>nativeMessageQueue</code>的<code>pollOnce</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void NativeMessageQueue::pollOnce(JNIEnv* env, jobject pollObj, int timeoutMillis) &#123;</div><div class="line">    mPollEnv = env;</div><div class="line">    mPollObj = pollObj;</div><div class="line">    mLooper-&gt;pollOnce(timeoutMillis);</div><div class="line">    mPollObj = NULL;</div><div class="line">    mPollEnv = NULL;</div><div class="line">    if (mExceptionObj) &#123;</div><div class="line">        env-&gt;Throw(mExceptionObj);</div><div class="line">        env-&gt;DeleteLocalRef(mExceptionObj);</div><div class="line">        mExceptionObj = NULL;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>紧接着调用了<code>Looper.cpp</code>的<code>pollOnce</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">int Looper::pollOnce(int timeoutMillis, int* outFd, int* outEvents, void** outData) &#123;</div><div class="line">    int result = 0;</div><div class="line">    for (;;) &#123;</div><div class="line">        while (mResponseIndex &lt; mResponses.size()) &#123;</div><div class="line">            const Response&amp; response = mResponses.itemAt(mResponseIndex++);</div><div class="line">            int ident = response.request.ident;</div><div class="line">            if (ident &gt;= 0) &#123;</div><div class="line">                int fd = response.request.fd;</div><div class="line">                int events = response.events;</div><div class="line">                void* data = response.request.data;</div><div class="line">#if DEBUG_POLL_AND_WAKE</div><div class="line">                ALOGD(&quot;%p ~ pollOnce - returning signalled identifier %d: &quot;</div><div class="line">                        &quot;fd=%d, events=0x%x, data=%p&quot;,</div><div class="line">                        this, ident, fd, events, data);</div><div class="line">#endif</div><div class="line">                if (outFd != NULL) *outFd = fd;</div><div class="line">                if (outEvents != NULL) *outEvents = events;</div><div class="line">                if (outData != NULL) *outData = data;</div><div class="line">                return ident;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (result != 0) &#123;</div><div class="line">#if DEBUG_POLL_AND_WAKE</div><div class="line">            ALOGD(&quot;%p ~ pollOnce - returning result %d&quot;, this, result);</div><div class="line">#endif</div><div class="line">            if (outFd != NULL) *outFd = 0;</div><div class="line">            if (outEvents != NULL) *outEvents = 0;</div><div class="line">            if (outData != NULL) *outData = NULL;</div><div class="line">            return result;</div><div class="line">        &#125;</div><div class="line">        result = pollInner(timeoutMillis);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后会跟踪到了<code>Looper.cpp</code>的<code>pollInner</code>方法上，这个方法会对底层的消息进行处理，线程的阻塞也会在函数<code>epoll_wait()</code>这里产生。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">int Looper::pollInner(int timeoutMillis) &#123;</div><div class="line">#if DEBUG_POLL_AND_WAKE</div><div class="line">    ALOGD(&quot;%p ~ pollOnce - waiting: timeoutMillis=%d&quot;, this, timeoutMillis);</div><div class="line">#endif</div><div class="line">    // Adjust the timeout based on when the next message is due.</div><div class="line">    if (timeoutMillis != 0 &amp;&amp; mNextMessageUptime != LLONG_MAX) &#123;</div><div class="line">        nsecs_t now = systemTime(SYSTEM_TIME_MONOTONIC);</div><div class="line">        int messageTimeoutMillis = toMillisecondTimeoutDelay(now, mNextMessageUptime);</div><div class="line">        if (messageTimeoutMillis &gt;= 0</div><div class="line">                &amp;&amp; (timeoutMillis &lt; 0 || messageTimeoutMillis &lt; timeoutMillis)) &#123;</div><div class="line">            timeoutMillis = messageTimeoutMillis;</div><div class="line">        &#125;</div><div class="line">#if DEBUG_POLL_AND_WAKE</div><div class="line">        ALOGD(&quot;%p ~ pollOnce - next message in %&quot; PRId64 &quot;ns, adjusted timeout: timeoutMillis=%d&quot;,</div><div class="line">                this, mNextMessageUptime - now, timeoutMillis);</div><div class="line">#endif</div><div class="line">    &#125;</div><div class="line">    // Poll.</div><div class="line">    int result = POLL_WAKE;</div><div class="line">    mResponses.clear();</div><div class="line">    mResponseIndex = 0;</div><div class="line">    // We are about to idle.</div><div class="line">    mPolling = true;</div><div class="line">    struct epoll_event eventItems[EPOLL_MAX_EVENTS];</div><div class="line">    int eventCount = epoll_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis);</div><div class="line">    // No longer idling.</div><div class="line">    mPolling = false;</div><div class="line">    // Acquire lock.</div><div class="line">    mLock.lock();</div><div class="line">    </div><div class="line">    ...</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在C++层的<code>Looper</code>初始化的过程中，会初始化一个<code>管道</code>，管道会提供读、写两个端口，并创建一个<code>epoll</code>实例来监控管道的读端口。具体代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">Looper::Looper(bool allowNonCallbacks) :</div><div class="line">        mAllowNonCallbacks(allowNonCallbacks), mSendingMessage(false),</div><div class="line">        mResponseIndex(0), mNextMessageUptime(LLONG_MAX) &#123;</div><div class="line">    int wakeFds[2];</div><div class="line">    int result = pipe(wakeFds); // 创建管道</div><div class="line">    LOG_ALWAYS_FATAL_IF(result != 0, &quot;Could not create wake pipe.  errno=%d&quot;, errno);</div><div class="line">    mWakeReadPipeFd = wakeFds[0]; // 读端口</div><div class="line">    mWakeWritePipeFd = wakeFds[1]; // 写端口</div><div class="line">    result = fcntl(mWakeReadPipeFd, F_SETFL, O_NONBLOCK);</div><div class="line">    LOG_ALWAYS_FATAL_IF(result != 0, &quot;Could not make wake read pipe non-blocking.  errno=%d&quot;,</div><div class="line">            errno);</div><div class="line">    result = fcntl(mWakeWritePipeFd, F_SETFL, O_NONBLOCK);</div><div class="line">    LOG_ALWAYS_FATAL_IF(result != 0, &quot;Could not make wake write pipe non-blocking.  errno=%d&quot;,</div><div class="line">            errno);</div><div class="line">    // Allocate the epoll instance and register the wake pipe.</div><div class="line">    mEpollFd = epoll_create(EPOLL_SIZE_HINT); // 创建一个epoll实例，用来监控mWakeReadPipeFd</div><div class="line">    LOG_ALWAYS_FATAL_IF(mEpollFd &lt; 0, &quot;Could not create epoll instance.  errno=%d&quot;, errno);</div><div class="line">    struct epoll_event eventItem;</div><div class="line">    memset(&amp; eventItem, 0, sizeof(epoll_event)); // zero out unused members of data field union</div><div class="line">    eventItem.events = EPOLLIN;</div><div class="line">    eventItem.data.fd = mWakeReadPipeFd;</div><div class="line">    result = epoll_ctl(mEpollFd, EPOLL_CTL_ADD, mWakeReadPipeFd, &amp; eventItem); // 注册监听</div><div class="line">    LOG_ALWAYS_FATAL_IF(result != 0, &quot;Could not add wake read pipe to epoll instance.  errno=%d&quot;,</div><div class="line">            errno);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用<code>epoll</code>注册监听<code>Looper</code>中的<code>mWakeReadPipeFd</code>之后，在上面提到过的<code>epoll_wait()</code>函数等待的线程，将会在<code>mWakeWritePipeFd</code>端口有数据写入的时候被唤醒，在Java层的<code>MessageQueue</code>中，有消息加入队列的时候，会检测是否需要唤醒当前在<code>epoll_wait()</code>等待的线程，如果需要唤醒，则会调用<code>MessageQueue.cpp</code>的<code>nativeWake()</code>方法，进而调用到<code>Looper.cpp</code>的<code>wake()</code>方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">void Looper::wake() &#123;</div><div class="line">#if DEBUG_POLL_AND_WAKE</div><div class="line">    ALOGD(&quot;%p ~ wake&quot;, this);</div><div class="line">#endif</div><div class="line">    ssize_t nWrite;</div><div class="line">    do &#123;</div><div class="line">        nWrite = write(mWakeWritePipeFd, &quot;W&quot;, 1);</div><div class="line">    &#125; while (nWrite == -1 &amp;&amp; errno == EINTR);</div><div class="line">    if (nWrite != 1) &#123;</div><div class="line">        if (errno != EAGAIN) &#123;</div><div class="line">            ALOGW(&quot;Could not write wake signal, errno=%d&quot;, errno);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>唤醒的方式为，向之前创建的管道中写入一个<code>W</code>字符，管道的读端将会被唤醒，线程离开<code>epoll_wait()</code>方法，开始执行之后的代码，从消息队列中取出消息，开始干活.</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><blockquote>
+<p><a href="http://www.bijishequ.com/detail/214262" target="_blank" rel="noopener">http://www.bijishequ.com/detail/214262</a><br><a href="http://shangjin615.iteye.com/blog/1778615" target="_blank" rel="noopener">http://shangjin615.iteye.com/blog/1778615</a></p>
+</blockquote>
+<h4 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h4><p><a href="https://chromium.googlesource.com/aosp/platform/system/core/+/master/libutils/Looper.cpp" target="_blank" rel="noopener">Looper.cpp</a></p>
+<p><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/jni/android_os_MessageQueue.cpp" target="_blank" rel="noopener">MessageQueue.cpp</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/04/24/Volley框架解析-七-Request解析/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1130,387 +1537,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/26/Volley框架解析-一-整体介绍/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Dada">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Dada's Life">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/26/Volley框架解析-一-整体介绍/" itemprop="url">
-                  Volley框架解析(一)整体介绍
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-26T10:04:01+08:00">
-                2017-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Volley框架解析-一-整体介绍"><a href="#Volley框架解析-一-整体介绍" class="headerlink" title="Volley框架解析(一)整体介绍"></a>Volley框架解析(一)整体介绍</h2><p>感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99">huxian99</a>,<a href="https://github.com/trinea" title="trinea">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju">郭霖juju</a>的图片素材，以及详细的分析。</p>
-<p>其他菊苣关于Volley解析的链接如下：</p>
-<p><a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90">codeKK—Volley源码解析</a></p>
-<p><a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/26/Volley框架解析-一-整体介绍/#more" rel="contents">
-              Weiterlesen &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/24/React-Native笔记-三/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Dada">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Dada's Life">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/24/React-Native笔记-三/" itemprop="url">
-                  React-Native笔记(三)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:14+08:00">
-                2017-02-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="React-Native笔记-三"><a href="#React-Native笔记-三" class="headerlink" title="React-Native笔记(三)"></a>React-Native笔记(三)</h2><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p><code>React Native</code>提供了和web标准一直的<code>Fetch API</code>来满足网络获取数据的需求。</p>
-<p><strong>发起网络请求</strong><br>获取固定地址内容，不进行处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fetch(&apos;https://www.baidu.com&apos;)</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/24/React-Native笔记-三/#more" rel="contents">
-              Weiterlesen &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/24/React-Native笔记-二/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Dada">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Dada's Life">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/24/React-Native笔记-二/" itemprop="url">
-                  React-Native笔记(二)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:10+08:00">
-                2017-02-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="React-Native笔记-二"><a href="#React-Native笔记-二" class="headerlink" title="React-Native笔记(二)"></a>React-Native笔记(二)</h2><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><strong>静态图片</strong><br>引用图片只需要将图片文件放在项目文件夹中，指定路径引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;require(&apos;./my-icon.png&apos;)&#125; /&gt;</div></pre></td></tr></table></figure>
-<p>系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。<br>提供<code>@2x</code>,<code>@3x</code>来指明图片的精度。<br>使用<code>my-icon.ios.png</code>以及<code>my-icon.android.png</code>来提供不同平台的图片。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/24/React-Native笔记-二/#more" rel="contents">
-              Weiterlesen &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1560,7 +1586,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
@@ -1571,7 +1597,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">Tags</span>
               
             </div>

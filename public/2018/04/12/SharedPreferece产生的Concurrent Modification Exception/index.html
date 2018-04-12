@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React-Native," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="React-Native笔记(二)图片静态图片引用图片只需要将图片文件放在项目文件夹中，指定路径引用 1&amp;lt;Image source=&amp;#123;require(&amp;apos;./my-icon.png&amp;apos;)&amp;#125; /&amp;gt; 系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。提供@2x,@3x来指明图片的精度。使用my-icon.ios.png以及my-icon.an">
-<meta name="keywords" content="React-Native">
+<meta name="description" content="在使用SharedPreference的过程中，Bugly上报出Concurrent ModificationException 123456789101112java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)java.util.HashMap$KeyIterator.next(HashMap.java:833)com.androi">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React-Native笔记(二)">
-<meta property="og:url" content="http://xiaojuanmao.github.io/2017/02/24/React-Native笔记-二/index.html">
+<meta property="og:title" content="SharedPreferece产生的Concurrent Modification Exception">
+<meta property="og:url" content="http://xiaojuanmao.github.io/2018/04/12/SharedPreferece产生的Concurrent Modification Exception/index.html">
 <meta property="og:site_name" content="Dada&#39;s Life">
-<meta property="og:description" content="React-Native笔记(二)图片静态图片引用图片只需要将图片文件放在项目文件夹中，指定路径引用 1&amp;lt;Image source=&amp;#123;require(&amp;apos;./my-icon.png&amp;apos;)&amp;#125; /&amp;gt; 系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。提供@2x,@3x来指明图片的精度。使用my-icon.ios.png以及my-icon.an">
+<meta property="og:description" content="在使用SharedPreference的过程中，Bugly上报出Concurrent ModificationException 123456789101112java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)java.util.HashMap$KeyIterator.next(HashMap.java:833)com.androi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-04-20T14:53:02.025Z">
+<meta property="og:updated_time" content="2018-04-12T02:51:56.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React-Native笔记(二)">
-<meta name="twitter:description" content="React-Native笔记(二)图片静态图片引用图片只需要将图片文件放在项目文件夹中，指定路径引用 1&amp;lt;Image source=&amp;#123;require(&amp;apos;./my-icon.png&amp;apos;)&amp;#125; /&amp;gt; 系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。提供@2x,@3x来指明图片的精度。使用my-icon.ios.png以及my-icon.an">
+<meta name="twitter:title" content="SharedPreferece产生的Concurrent Modification Exception">
+<meta name="twitter:description" content="在使用SharedPreference的过程中，Bugly上报出Concurrent ModificationException 123456789101112java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)java.util.HashMap$KeyIterator.next(HashMap.java:833)com.androi">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://xiaojuanmao.github.io/2017/02/24/React-Native笔记-二/"/>
+  <link rel="canonical" href="http://xiaojuanmao.github.io/2018/04/12/SharedPreferece产生的Concurrent Modification Exception/"/>
 
 
 
 
 
-  <title> React-Native笔记(二) | Dada's Life </title>
+  <title> SharedPreferece产生的Concurrent Modification Exception | Dada's Life </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -251,7 +251,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/24/React-Native笔记-二/">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2018/04/12/SharedPreferece产生的Concurrent Modification Exception/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Dada">
@@ -275,7 +275,7 @@
             
             
               
-                React-Native笔记(二)
+                SharedPreferece产生的Concurrent Modification Exception
               
             
           </h1>
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-24T11:36:10+08:00">
-                2017-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T10:04:03+08:00">
+                2018-04-12
               </time>
             
 
@@ -326,34 +326,19 @@
       
 
       
-        <h2 id="React-Native笔记-二"><a href="#React-Native笔记-二" class="headerlink" title="React-Native笔记(二)"></a>React-Native笔记(二)</h2><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><strong>静态图片</strong><br>引用图片只需要将图片文件放在项目文件夹中，指定路径引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;require(&apos;./my-icon.png&apos;)&#125; /&gt;</div></pre></td></tr></table></figure>
-<p>系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。<br>提供<code>@2x</code>,<code>@3x</code>来指明图片的精度。<br>使用<code>my-icon.ios.png</code>以及<code>my-icon.android.png</code>来提供不同平台的图片。</p>
-<a id="more"></a>
-<p>在<code>require()</code>里面的图片名字必须为静态字符串</p>
-<blockquote>
-<p>加入新的图片资源后，可能需要重启packager引入新的图片资源</p>
+        <p>在使用SharedPreference的过程中，Bugly上报出<code>Concurrent ModificationException</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">java.util.HashMap$HashIterator.nextEntry(HashMap.java:806)</div><div class="line">java.util.HashMap$KeyIterator.next(HashMap.java:833)</div><div class="line">com.android.internal.util.XmlUtils.writeSetXml(XmlUtils.java:298)</div><div class="line">com.android.internal.util.XmlUtils.writeValueXml(XmlUtils.java:447)</div><div class="line">com.android.internal.util.XmlUtils.writeMapXml(XmlUtils.java:241)</div><div class="line">com.android.internal.util.XmlUtils.writeMapXml(XmlUtils.java:181)</div><div class="line">android.app.SharedPreferencesImpl.writeToFile(SharedPreferencesImpl.java:596)</div><div class="line">android.app.SharedPreferencesImpl.access$800(SharedPreferencesImpl.java:52)</div><div class="line">android.app.SharedPreferencesImpl$2.run(SharedPreferencesImpl.java:511)</div><div class="line">java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1112)</div><div class="line">java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)</div><div class="line">java.lang.Thread.run(Thread.java:841)</div></pre></td></tr></table></figure>
+<p>最开始以为是由于使用了<code>RxJava</code>导致的多线程读写问题，但后来阅读<code>SharedPreferenceImpl</code>代码时发现，有使用<code>synchronized</code>来保证线程安全，排除多线程的可能性。</p>
+<p>在<code>HashIterator</code>的源码中，抛出<code>ConcurrentModificationException</code>的片段如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">if(HashMap.this.modCount != this.expectedModCount) &#123;</div><div class="line">                throw new ConcurrentModificationException();</div><div class="line">            &#125; else if(var2 == null) &#123;</div><div class="line">                throw new NoSuchElementException();</div><div class="line">            &#125; else &#123;</div><div class="line">                if((this.next = (this.current = var2).next) == null) &#123;</div><div class="line">                    HashMap.Node[] var1 = HashMap.this.table;</div><div class="line">                    if(HashMap.this.table != null) &#123;</div><div class="line">                        while(this.index &lt; var1.length &amp;&amp; (this.next = var1[this.index++]) == null) &#123;</div><div class="line">                            ;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                return var2;</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+<p>基本情况就是同一<code>HashMap</code>或者<code>HashSet</code>被多个线程同时修改了，导致集合的大小和预期不一致，抛出了异常。在网上查找原因时，注意到了<code>SharedPreference</code>中有个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">   * Retrieve a set of String values from the preferences.</div><div class="line">   * </div><div class="line">   * &lt;p&gt;Note that you &lt;em&gt;must not&lt;/em&gt; modify the set instance returned</div><div class="line">   * by this call.  The consistency of the stored data is not guaranteed</div><div class="line">   * if you do, nor is your ability to modify the instance at all.</div><div class="line">   *</div><div class="line">   * @param key The name of the preference to retrieve.</div><div class="line">   * @param defValues Values to return if this preference does not exist.</div><div class="line">   * </div><div class="line">   * @return Returns the preference values if they exist, or defValues.</div><div class="line">   * Throws ClassCastException if there is a preference with this name</div><div class="line">   * that is not a Set.</div><div class="line">   * </div><div class="line">   * @throws ClassCastException</div><div class="line">   */</div><div class="line">  @Nullable</div><div class="line">  Set&lt;String&gt; getStringSet(String key, @Nullable Set&lt;String&gt; defValues);</div></pre></td></tr></table></figure>
+<p>明确提到了不能直接修改返回的<code>Set</code>，其实现类<code>SharedPreferenceImpl</code>中的代码,直接从<code>Map</code>中返回了集合，多个线程同时获取了同一个集合，同时修改肯定会出错:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Nullable</div><div class="line">  public Set&lt;String&gt; getStringSet(String key, @Nullable Set&lt;String&gt; defValues) &#123;</div><div class="line">      synchronized (mLock) &#123;</div><div class="line">          awaitLoadedLocked();</div><div class="line">          Set&lt;String&gt; v = (Set&lt;String&gt;) mMap.get(key);</div><div class="line">          return v != null ? v : defValues;</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>在使用了<code>getStringSet</code>的地方，将返回的<code>Set</code>拷贝一份再使用，能够避免这个问题。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><blockquote>
+<p><a href="https://janatechnology.wordpress.com/2016/01/29/concurrent-modification-exceptions-on-androids-shared-preferences/" target="_blank" rel="noopener">https://janatechnology.wordpress.com/2016/01/29/concurrent-modification-exceptions-on-androids-shared-preferences/</a></p>
 </blockquote>
-<p><strong>原生与React Native</strong><br>使用react native的时候也能够使用原生打包的资源文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;&#123;uri: &apos;app_icon&apos;&#125;&#125; style=&#123;&#123;width: 40, height: 40&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>这一做法并没有任何安全检查。你需要自己确保图片在应用中确实存在，而且还需要指定尺寸。</p>
-</blockquote>
-<p><strong>网络图片</strong><br>使用网络图片的时候需要指定图片的尺寸</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 正确</div><div class="line">&lt;Image source=&#123;&#123;uri: &apos;https://facebook.github.io/react/img/logo_og.png&apos;&#125;&#125;</div><div class="line">       style=&#123;&#123;width: 400, height: 400&#125;&#125; /&gt;</div><div class="line"></div><div class="line">// 错误</div><div class="line">&lt;Image source=&#123;&#123;uri: &apos;https://facebook.github.io/react/img/logo_og.png&apos;&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
-<h3 id="ScrollView"><a href="#ScrollView" class="headerlink" title="ScrollView"></a>ScrollView</h3><p><code>ScrollView</code>是一个通用的可滚动容器，支持竖直、水平滚动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView&gt; </div><div class="line"></div><div class="line">	&lt;Text style=&#123;&#123;fontSize:32&#125;&#125;&gt;Scroll me plz&lt;/Text&gt;</div><div class="line"></div><div class="line">	&lt;Text style=&#123;&#123;fontSize:32&#125;&#125;&gt;Scroll me plz&lt;/Text&gt;</div><div class="line"></div><div class="line">	&lt;Image source=&#123;require(&apos;./test.jpg&apos;)&#125; /&gt;</div><div class="line">&lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
-<p><strong>可点击组件</strong><br>使用<code>Touchable</code>开头的一系列组件能够捕捉用户点击操作。<br><code>onPress</code>属性接受一个处理点击事件的函数，在点击操作开始并终止于组件的时候，相应的函数会被调用。<br><code>onLongPress</code>属性用来处理长按事件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">_onPressButton() &#123;</div><div class="line">    console.log(&quot;You tapped the button!&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&lt;TouchableHighlight onPress=&#123;this._onPressButton&#125;&gt;</div><div class="line">        &lt;Text&gt;Button&lt;/Text&gt;</div><div class="line">      &lt;/TouchableHighlight&gt;</div></pre></td></tr></table></figure>
-<p>可以通过使用不同组件提供给用户不同的触摸反馈:</p>
-<ul>
-<li><code>TouchableHighlight</code>会在用户手指按下的时候变暗</li>
-<li><code>TouchableNativeFeedback</code>会在Android上体现出原生的视觉效果</li>
-<li><code>TouchableOpacity</code>会在用户按下的时候改变透明度</li>
-<li><code>TouchableWithoutFeedback</code>没有任何反馈</li>
-</ul>
-<p>###ListView<br>动态渲染屏幕上可见的元素<br><code>dataSource</code>属性，设定列表的数据源<br><code>renderRow</code>属性，诸葛解析数据源中的数据，染回一个设定好格式的组件来渲染</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class ListViewBasics extends Component &#123;</div><div class="line">  // 初始化模拟数据</div><div class="line">  constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">      dataSource: ds.cloneWithRows([</div><div class="line">        &apos;John&apos;, &apos;Joel&apos;, &apos;James&apos;, &apos;Jimmy&apos;, &apos;Jackson&apos;, &apos;Jillian&apos;, &apos;Julie&apos;, &apos;Devin&apos;</div><div class="line">      ])</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;&#123;flex: 1, paddingTop: 22&#125;&#125;&gt;</div><div class="line">        &lt;ListView</div><div class="line">          dataSource=&#123;this.state.dataSource&#125;</div><div class="line">          renderRow=&#123;(rowData) =&gt; &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -376,7 +361,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-Native/" rel="tag"># React-Native</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
         </div>
       
@@ -389,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/24/React-Native笔记-一/" rel="next" title="React-Native笔记(一)">
-                <i class="fa fa-chevron-left"></i> React-Native笔记(一)
+              <a href="/2018/04/12/ViewPagerAdapter调用NotifyData后数据不刷新/" rel="next" title="ViewPagerAdapter调用NotifyData后数据不刷新">
+                <i class="fa fa-chevron-left"></i> ViewPagerAdapter调用NotifyData后数据不刷新
               </a>
             
           </div>
@@ -398,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/02/24/React-Native笔记-三/" rel="prev" title="React-Native笔记(三)">
-                React-Native笔记(三) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -519,7 +500,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Native笔记-二"><span class="nav-number">1.</span> <span class="nav-text">React-Native笔记(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片"><span class="nav-number">1.1.</span> <span class="nav-text">图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScrollView"><span class="nav-number">1.2.</span> <span class="nav-text">ScrollView</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#参考文章"><span class="nav-number">1.1.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
             
 
           </div>
