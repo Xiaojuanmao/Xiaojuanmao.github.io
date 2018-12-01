@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/volley.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/design.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/android-cn/android-open-project-analysis/master/tool-lib/network/volley/image/Volley-run-flow-chart.png">
-<meta property="og:updated_time" content="2017-04-20T14:53:02.033Z">
+<meta property="og:updated_time" content="2018-12-01T09:56:18.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Volley框架解析(一)整体介绍">
 <meta name="twitter:description" content="Volley框架解析(一)整体介绍感谢各位菊苣，grumoon,huxian99,trinea,郭霖juju的图片素材，以及详细的分析。 其他菊苣关于Volley解析的链接如下： codeKK—Volley源码解析 郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法">
@@ -330,10 +330,10 @@
       
 
       
-        <h2 id="Volley框架解析-一-整体介绍"><a href="#Volley框架解析-一-整体介绍" class="headerlink" title="Volley框架解析(一)整体介绍"></a>Volley框架解析(一)整体介绍</h2><p>感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon" target="_blank" rel="external">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99" target="_blank" rel="external">huxian99</a>,<a href="https://github.com/trinea" title="trinea" target="_blank" rel="external">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju" target="_blank" rel="external">郭霖juju</a>的图片素材，以及详细的分析。</p>
+        <h2 id="Volley框架解析-一-整体介绍"><a href="#Volley框架解析-一-整体介绍" class="headerlink" title="Volley框架解析(一)整体介绍"></a>Volley框架解析(一)整体介绍</h2><p>感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon" target="_blank" rel="noopener">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99" target="_blank" rel="noopener">huxian99</a>,<a href="https://github.com/trinea" title="trinea" target="_blank" rel="noopener">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju" target="_blank" rel="noopener">郭霖juju</a>的图片素材，以及详细的分析。</p>
 <p>其他菊苣关于Volley解析的链接如下：</p>
-<p><a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="external">codeKK—Volley源码解析</a></p>
-<p><a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju" target="_blank" rel="external">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
+<p><a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">codeKK—Volley源码解析</a></p>
+<p><a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju" target="_blank" rel="noopener">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
 <a id="more"></a>
 <hr>
 <h3 id="题外话-可直接跳过orz"><a href="#题外话-可直接跳过orz" class="headerlink" title="题外话(可直接跳过orz"></a><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u8DF3_u8FC7orz" title="题外话(可直接跳过orz"></a>题外话(可直接跳过orz</h3><p>在Android路上的第一个涉及到网络的项目中，就用到了Volley，当时也就照着网上的方法用了用，用到后面发现满足不了需求之后，尝试着去自定义了一些request，自己去结合Volley来处理服务器返回的cookie。第一个项目已经过去时间比较长了，突然想到想深入的了解下Volley,于是就开始了Volley源码之旅…..本人比较笨，需要比其他人花更多的时间来消化，没办法orz。看了比较长的一段时间后，把自己边看边写的笔记拿出来和大家分享。</p>
@@ -489,7 +489,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

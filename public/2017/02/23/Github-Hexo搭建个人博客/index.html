@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Dada&#39;s Life">
 <meta property="og:description" content="Ubuntu上结合Github用Hexo搭建博客简介在搭建博客的过程中会涉及到下面这些东西：  Hexo Git Github Pages Npm Nodejs  Hexo 1一款基于Node.js的简单、快速、强大的静态博客框架">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-04-20T14:53:02.009Z">
+<meta property="og:updated_time" content="2018-12-01T09:56:18.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github+Hexo搭建个人博客">
 <meta name="twitter:description" content="Ubuntu上结合Github用Hexo搭建博客简介在搭建博客的过程中会涉及到下面这些东西：  Hexo Git Github Pages Npm Nodejs  Hexo 1一款基于Node.js的简单、快速、强大的静态博客框架">
@@ -334,21 +334,21 @@
 <li>Npm</li>
 <li>Nodejs</li>
 </ol>
-<p><strong><a href="https://github.com/hexojs/hexo" target="_blank" rel="external">Hexo</a></strong></p>
+<p><strong><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Hexo</a></strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">一款基于Node.js的简单、快速、强大的静态博客框架</div></pre></td></tr></table></figure>
 <a id="more"></a>
 <p><strong>Hexo搭建博客和github有什么关系</strong></p>
 <p>那Hexo就是一个博客框架，关Github什么事情呢，这还被你说对了，还真不怎么和github相关，用hexo弄一个博客出来很简单。当然你也可以选择用wordpress来结合hexo，只是这里选择用github pages服务，那又说到了一个东西:<strong>github pages</strong>。</p>
-<p><strong><a href="https://pages.github.com/" target="_blank" rel="external">Github Pages</a></strong></p>
+<p><strong><a href="https://pages.github.com/" target="_blank" rel="noopener">Github Pages</a></strong></p>
 <p>上面是网址，可以自己进去看看，简单的说就是github提供的一种用来展示托管在自己github仓库上的静态网页。github pages也有自己的一套框架，只用github pages也可以搭建自己的博客。</p>
-<p><strong><a href="https://www.npmjs.com/" target="_blank" rel="external">Npm</a></strong></p>
+<p><strong><a href="https://www.npmjs.com/" target="_blank" rel="noopener">Npm</a></strong></p>
 <p>一个NodeJs包管理和分发工具，全称为Node Package Manager。和Ruby的gem，Python的pypi类似。通过npm能快速的部署hexo框架，毕竟hexo基于nodejs。</p>
-<p><strong><a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></strong></p>
+<p><strong><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></strong></p>
 <p>Node是一个Javascript运行环境(runtime)。实际上它是对Google V8引擎进行了封装。V8引 擎执行Javascript的速度非常快，性能非常好。Node对一些特殊用例进行了优化，提供了替代的API，使得V8在非浏览器环境下运行得更好。</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a><a href="#u5B89_u88C5" title="安装"></a>安装</h3><h4 id="1-安装Node-js"><a href="#1-安装Node-js" class="headerlink" title="1. 安装Node.js"></a><a href="#1-__u5B89_u88C5Node-js" title="1\. 安装Node.js"></a>1. 安装Node.js</h4><p>在Ubuntu下面部署很容易的= =,在终端输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --yes nodejs</div></pre></td></tr></table></figure>
-<p>Nodejs的部署工作就完成了。其他的Linux发行版可以参照下面的教程<a href="https://github.com/nodejs/node-v0.x-archive/wiki/Installing-Node.js-via-package-manager" target="_blank" rel="external">Installing Node.js via package manager</a></p>
-<p>也可以在Node的官网上直接<a href="https://nodejs.org/en/download/" target="_blank" rel="external">下载</a>安装。</p>
+<p>Nodejs的部署工作就完成了。其他的Linux发行版可以参照下面的教程<a href="https://github.com/nodejs/node-v0.x-archive/wiki/Installing-Node.js-via-package-manager" target="_blank" rel="noopener">Installing Node.js via package manager</a></p>
+<p>也可以在Node的官网上直接<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">下载</a>安装。</p>
 <p>安装好之后，在终端输入nodejs即可进入到nodejs的交互模式中。</p>
 <p><strong>Note</strong><br>需要注意一个问题就是，在hexo中的nodejs文件在运行时使用的是<code>node xxx/js</code>这样的形式，而在Ubuntu下面直接运行<code>node xxx.js</code>会失败，报错为<code>/usr/bin/env: node: No such file or directory</code>，网上有些说是和node的版本有关，实际上是因为NodeJs在Ubuntu上默认安装之后，需要<code>nodejs xxx.js</code>这样用，解决方法为创建如下软链接，保证可以运行<code>node xxx.js</code>:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln -s /usr/bin/nodejs /usr/bin/node</div></pre></td></tr></table></figure>
@@ -528,7 +528,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>

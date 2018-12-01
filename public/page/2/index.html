@@ -251,6 +251,133 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/28/Volley框架解析-二-Volley以及RequestQueue解析/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Dada">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Dada's Life">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Dada's Life" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/28/Volley框架解析-二-Volley以及RequestQueue解析/" itemprop="url">
+                  Volley框架解析(二)Volley以及RequestQueue解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-28T16:43:26+08:00">
+                2017-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Volley框架解析-二-—–Volley及RequestQueue解析"><a href="#Volley框架解析-二-—–Volley及RequestQueue解析" class="headerlink" title="Volley框架解析(二)—–Volley及RequestQueue解析"></a>Volley框架解析(二)—–Volley及RequestQueue解析</h2><h3 id="题外话-可直接无视跳过"><a href="#题外话-可直接无视跳过" class="headerlink" title="题外话(可直接无视跳过"></a><a href="#u9898_u5916_u8BDD_28_u53EF_u76F4_u63A5_u65E0_u89C6_u8DF3_u8FC7" title="题外话(可直接无视跳过"></a>题外话(可直接无视跳过</h3><p>是第一次比较完整的去阅读一个框架的源码，刚开始看的时候可以说是除了认识几个基本的<code>public, interface, final</code>等关键词之外，其他的一律不通orz，而且还不知道从哪里下手。后来磨蹭了好久还是慢慢的静下心来，对照着Java文档和Android文档查阅，刚开始都是陌生的，慢慢的在源码旁边打上注释，多看两遍就会get了。</p>
+<p>有些地方在一个.java文件里面是无法理解用处的，这样的先直接跳过不要纠结，看到对应用的地方就会恍然大悟了。还总结出了一个小技巧就是从框架暴露给外面的接口开始阅读，因为框架里面是一层一层往上的，底层是为了上层服务的，所以从接口开始阅读能很好的向下展开。</p>
+<p>前面一篇对Volley做了一个初步的介绍以及从整体上的一个解析，只是简单的描述了Request在Volley中是如何被处理的。从这篇博客开始将从最顶层一步一步的向下挖掘每一行代码，从最开始调用的地方<code>RequestQueue mQueue = Volley.newRequestQueue(mContext)</code>开始。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/02/28/Volley框架解析-二-Volley以及RequestQueue解析/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://xiaojuanmao.github.io/2017/02/26/Volley框架解析-一-整体介绍/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -330,10 +457,10 @@
 
       
         
-          <h2 id="Volley框架解析-一-整体介绍"><a href="#Volley框架解析-一-整体介绍" class="headerlink" title="Volley框架解析(一)整体介绍"></a>Volley框架解析(一)整体介绍</h2><p>感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99">huxian99</a>,<a href="https://github.com/trinea" title="trinea">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju">郭霖juju</a>的图片素材，以及详细的分析。</p>
+          <h2 id="Volley框架解析-一-整体介绍"><a href="#Volley框架解析-一-整体介绍" class="headerlink" title="Volley框架解析(一)整体介绍"></a>Volley框架解析(一)整体介绍</h2><p>感谢各位菊苣，<a href="https://github.com/grumoon" title="grumoon" target="_blank" rel="noopener">grumoon</a>,<a href="https://github.com/huxian99" title="huxian99" target="_blank" rel="noopener">huxian99</a>,<a href="https://github.com/trinea" title="trinea" target="_blank" rel="noopener">trinea</a>,<a href="http://blog.csdn.net/guolin_blog" title="郭霖juju" target="_blank" rel="noopener">郭霖juju</a>的图片素材，以及详细的分析。</p>
 <p>其他菊苣关于Volley解析的链接如下：</p>
-<p><a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90">codeKK—Volley源码解析</a></p>
-<p><a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
+<p><a href="http://www.codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">codeKK—Volley源码解析</a></p>
+<p><a href="http://blog.csdn.net/guolin_blog/article/details/17482095/" title="郭霖juju" target="_blank" rel="noopener">郭霖juju—Android Volley完全解析(一)，初识Volley的基本用法</a></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/02/26/Volley框架解析-一-整体介绍/#more" rel="contents">
@@ -846,7 +973,7 @@
 <li>Npm</li>
 <li>Nodejs</li>
 </ol>
-<p><strong><a href="https://github.com/hexojs/hexo">Hexo</a></strong></p>
+<p><strong><a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">Hexo</a></strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">一款基于Node.js的简单、快速、强大的静态博客框架</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
@@ -933,7 +1060,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
