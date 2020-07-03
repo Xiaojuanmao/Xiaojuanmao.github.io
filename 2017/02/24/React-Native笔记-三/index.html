@@ -1,20 +1,48 @@
-extends partial/layout
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React-Native笔记(三) · Dada's Note</title><meta name="description" content="React-Native笔记(三) - Dada"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://xiaojuanmao.github.io/atom.xml" title="Dada's Note"><link rel="alternate" href="/atom.xml" title="Dada's Note" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React-Native笔记(三)</h1><div class="post-info">2017年2月24日</div><div class="post-content"><h2 id="React-Native笔记-三"><a href="#React-Native笔记-三" class="headerlink" title="React-Native笔记(三)"></a>React-Native笔记(三)</h2><h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p><code>React Native</code>提供了和web标准一直的<code>Fetch API</code>来满足网络获取数据的需求。</p>
+<p><strong>发起网络请求</strong><br>获取固定地址内容，不进行处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fetch(&apos;https://www.baidu.com&apos;)</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>获取内容并对数据进行加工</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">fetch(&apos;http://bbs.reactnative.cn/api/category/3&apos;)</div><div class="line">           .then((response) =&gt; response.json())</div><div class="line">           .then((jsonData) =&gt; &#123;</div><div class="line">               this.setState(&#123;</div><div class="line">                   title: jsonData.topics[0].title,</div><div class="line">               &#125;)</div><div class="line">           &#125;)</div><div class="line">           .catch((error) =&gt; &#123;</div><div class="line">               console.warn(error);</div><div class="line">           &#125;)</div></pre></td></tr></table></figure>
+<h3 id="WebSocket支持"><a href="#WebSocket支持" class="headerlink" title="WebSocket支持"></a>WebSocket支持</h3><p>对<code>websocket</code>支持，可以在单个TCP连接上提供全双工的通信通道。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var ws = new WebSocket(&apos;ws://host.com/path&apos;);</div><div class="line"></div><div class="line">ws.onopen = () =&gt; &#123;</div><div class="line">  // 打开一个连接</div><div class="line"></div><div class="line">  ws.send(&apos;something&apos;); // 发送一个消息</div><div class="line">&#125;;</div><div class="line"></div><div class="line">ws.onmessage = (e) =&gt; &#123;</div><div class="line">  // 接收到了一个消息</div><div class="line">  console.log(e.data);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">ws.onerror = (e) =&gt; &#123;</div><div class="line">  // 发生了一个错误</div><div class="line">  console.log(e.message);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">ws.onclose = (e) =&gt; &#123;</div><div class="line">  // 连接被关闭了</div><div class="line">  console.log(e.code, e.reason);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="页面跳转"><a href="#页面跳转" class="headerlink" title="页面跳转"></a>页面跳转</h3><p><strong>场景(Scene)</strong><br>各种组件组合在一起，形成了一个界面，也就是一个场景</p>
+<p>一个简单的场景如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">MyScene.js</div><div class="line"></div><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123; View, Text &#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 导出当前组件</div><div class="line"> */</div><div class="line"></div><div class="line">export default class MyScene extends Component &#123;</div><div class="line">    static defaultProps = &#123;</div><div class="line">        title: &apos;MyScene&apos;,</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    render() &#123;</div><div class="line">        return (</div><div class="line">            &lt;View&gt;</div><div class="line">                &lt;Text&gt;Hi ! My name is &#123;this.props.title&#125; &lt;/Text&gt;</div><div class="line">            &lt;/View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Navigator</strong><br>官方首推<code>Navigator</code>来作为导航器组件，实现界面跳转,先渲染出一个<code>Navigator</code>组件，通过<code>Navigator</code>的<code>renderScene</code>属性来渲染其他的<code>Scene</code>。将之前的那个场景给渲染进来。</p>
+<p><strong>单个渲染</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;Navigator</div><div class="line">               initialRoute=&#123;&#123;title: &apos;My Initial Scene&apos;, index: 0&#125;&#125;</div><div class="line">               renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">                   return &lt;MyScene title=&#123;route.title&#125; /&gt;</div><div class="line">               &#125;&#125;</div><div class="line">           /&gt;</div></pre></td></tr></table></figure>
+<p>使用导航器经常会碰到“路由(route)”的概念。“路由”抽象自现实生活中的路牌，在RN中专指包含了场景信息的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">**实现跳转**</div><div class="line">场景之间的切换，`navigator`提供了两个主要的方法：</div><div class="line">* `push` 将`route`对象推入并渲染</div><div class="line">* `pop` 将`route`对象弹出导航栈</div><div class="line"></div><div class="line">**基本场景**</div></pre></td></tr></table></figure></p>
+<p>import React, { Component, PropTypes } from ‘react’;<br>import { View, Text, TouchableHighlight } from ‘react-native’;</p>
+<p>export default class MyScene extends Component {<br>  static propTypes = {<br>    title: PropTypes.string.isRequired,<br>    onForward: PropTypes.func.isRequired,<br>    onBack: PropTypes.func.isRequired,<br>  }<br>  render() {<br>    return (<br>      <view><br>        <text>Current Scene: { this.props.title }</text><br>        <touchablehighlight onpress="{this.props.onForward}"><br>          <text>点我进入下一场景</text><br>        </touchablehighlight><br>        <touchablehighlight onpress="{this.props.onBack}"><br>          <text>点我返回上一场景</text><br>        </touchablehighlight><br>      </view><br>    )<br>  }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**导航器**</div></pre></td></tr></table></figure></p>
+<p>import React, {Component} from ‘react’;<br>import {AppRegistry, Navigator, Text, View} from ‘react-native’;</p>
+<p>import MyScene from ‘./MyScene’;</p>
+<p>class AwesomeProject extends Component {</p>
+<pre><code>render() {
+    return (
+        &lt;Navigator
+            initialRoute={{title: 'My Initial Scene', index: 0}}
+            renderScene={(route, navigator) =&gt; {
+                return &lt;MyScene title={route.title}
 
-block site_title
-    != page.title + " · " + config.title
+                 onForward= { () =&gt; {
+                     const nextIndex = route.index + 1;
+                     navigator.push({
+                         title: &apos;Scene &apos; + nextIndex,
+                         index: nextIndex
+                     });
+                 }}
 
-block description
-    - var desc = page.desc || page.title + ' - ' + config.author;
-    meta(name="description", content=desc)
+                 onBack= { () =&gt; {
+                     if (route.index &gt; 0) {
+                         navigator.pop();
+                     }
+                 }}
 
-block container
-    include mixins/post
-    +post(page)
-
-block pagination
-    include mixins/paginator
-    +post()
-    include partial/comment
-
-block copyright
-    include partial/copyright
+                 /&gt;
+            }}
+        /&gt;
+    );
+}
+</code></pre><p>}</p>
+<p>AppRegistry.registerComponent(‘AwesomeProject’, () =&gt; AwesomeProject);<br>```</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2017/02/26/Volley框架解析-一-整体介绍/" class="prev">PREV</a><a href="/2017/02/24/React-Native笔记-二/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://xiaojuanmao.github.io">Dada</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,20 +1,29 @@
-extends partial/layout
-
-block site_title
-    != page.title + " · " + config.title
-
-block description
-    - var desc = page.desc || page.title + ' - ' + config.author;
-    meta(name="description", content=desc)
-
-block container
-    include mixins/post
-    +post(page)
-
-block pagination
-    include mixins/paginator
-    +post()
-    include partial/comment
-
-block copyright
-    include partial/copyright
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React-Native笔记(二) · Dada's Note</title><meta name="description" content="React-Native笔记(二) - Dada"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://xiaojuanmao.github.io/atom.xml" title="Dada's Note"><link rel="alternate" href="/atom.xml" title="Dada's Note" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React-Native笔记(二)</h1><div class="post-info">2017年2月24日</div><div class="post-content"><h2 id="React-Native笔记-二"><a href="#React-Native笔记-二" class="headerlink" title="React-Native笔记(二)"></a>React-Native笔记(二)</h2><h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><strong>静态图片</strong><br>引用图片只需要将图片文件放在项目文件夹中，指定路径引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;require(&apos;./my-icon.png&apos;)&#125; /&gt;</div></pre></td></tr></table></figure>
+<p>系统会从一个引用了图片的组件所在的根目录出发，去寻找这张图片。<br>提供<code>@2x</code>,<code>@3x</code>来指明图片的精度。<br>使用<code>my-icon.ios.png</code>以及<code>my-icon.android.png</code>来提供不同平台的图片。</p>
+<a id="more"></a>
+<p>在<code>require()</code>里面的图片名字必须为静态字符串</p>
+<blockquote>
+<p>加入新的图片资源后，可能需要重启packager引入新的图片资源</p>
+</blockquote>
+<p><strong>原生与React Native</strong><br>使用react native的时候也能够使用原生打包的资源文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Image source=&#123;&#123;uri: &apos;app_icon&apos;&#125;&#125; style=&#123;&#123;width: 40, height: 40&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这一做法并没有任何安全检查。你需要自己确保图片在应用中确实存在，而且还需要指定尺寸。</p>
+</blockquote>
+<p><strong>网络图片</strong><br>使用网络图片的时候需要指定图片的尺寸</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 正确</div><div class="line">&lt;Image source=&#123;&#123;uri: &apos;https://facebook.github.io/react/img/logo_og.png&apos;&#125;&#125;</div><div class="line">       style=&#123;&#123;width: 400, height: 400&#125;&#125; /&gt;</div><div class="line"></div><div class="line">// 错误</div><div class="line">&lt;Image source=&#123;&#123;uri: &apos;https://facebook.github.io/react/img/logo_og.png&apos;&#125;&#125; /&gt;</div></pre></td></tr></table></figure>
+<h3 id="ScrollView"><a href="#ScrollView" class="headerlink" title="ScrollView"></a>ScrollView</h3><p><code>ScrollView</code>是一个通用的可滚动容器，支持竖直、水平滚动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ScrollView&gt; </div><div class="line"></div><div class="line">	&lt;Text style=&#123;&#123;fontSize:32&#125;&#125;&gt;Scroll me plz&lt;/Text&gt;</div><div class="line"></div><div class="line">	&lt;Text style=&#123;&#123;fontSize:32&#125;&#125;&gt;Scroll me plz&lt;/Text&gt;</div><div class="line"></div><div class="line">	&lt;Image source=&#123;require(&apos;./test.jpg&apos;)&#125; /&gt;</div><div class="line">&lt;/ScrollView&gt;</div></pre></td></tr></table></figure>
+<p><strong>可点击组件</strong><br>使用<code>Touchable</code>开头的一系列组件能够捕捉用户点击操作。<br><code>onPress</code>属性接受一个处理点击事件的函数，在点击操作开始并终止于组件的时候，相应的函数会被调用。<br><code>onLongPress</code>属性用来处理长按事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">_onPressButton() &#123;</div><div class="line">    console.log(&quot;You tapped the button!&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&lt;TouchableHighlight onPress=&#123;this._onPressButton&#125;&gt;</div><div class="line">        &lt;Text&gt;Button&lt;/Text&gt;</div><div class="line">      &lt;/TouchableHighlight&gt;</div></pre></td></tr></table></figure>
+<p>可以通过使用不同组件提供给用户不同的触摸反馈:</p>
+<ul>
+<li><code>TouchableHighlight</code>会在用户手指按下的时候变暗</li>
+<li><code>TouchableNativeFeedback</code>会在Android上体现出原生的视觉效果</li>
+<li><code>TouchableOpacity</code>会在用户按下的时候改变透明度</li>
+<li><code>TouchableWithoutFeedback</code>没有任何反馈</li>
+</ul>
+<p>###ListView<br>动态渲染屏幕上可见的元素<br><code>dataSource</code>属性，设定列表的数据源<br><code>renderRow</code>属性，诸葛解析数据源中的数据，染回一个设定好格式的组件来渲染</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class ListViewBasics extends Component &#123;</div><div class="line">  // 初始化模拟数据</div><div class="line">  constructor(props) &#123;</div><div class="line">    super(props);</div><div class="line">    const ds = new ListView.DataSource(&#123;rowHasChanged: (r1, r2) =&gt; r1 !== r2&#125;);</div><div class="line">    this.state = &#123;</div><div class="line">      dataSource: ds.cloneWithRows([</div><div class="line">        &apos;John&apos;, &apos;Joel&apos;, &apos;James&apos;, &apos;Jimmy&apos;, &apos;Jackson&apos;, &apos;Jillian&apos;, &apos;Julie&apos;, &apos;Devin&apos;</div><div class="line">      ])</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;View style=&#123;&#123;flex: 1, paddingTop: 22&#125;&#125;&gt;</div><div class="line">        &lt;ListView</div><div class="line">          dataSource=&#123;this.state.dataSource&#125;</div><div class="line">          renderRow=&#123;(rowData) =&gt; &lt;Text&gt;&#123;rowData&#125;&lt;/Text&gt;&#125;</div><div class="line">        /&gt;</div><div class="line">      &lt;/View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2017/02/24/React-Native笔记-三/" class="prev">PREV</a><a href="/2017/02/24/React-Native笔记-一/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://xiaojuanmao.github.io">Dada</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
