@@ -19,6 +19,8 @@ static void android_os_MessageQueue_nativePollOnce(JNIEnv* env, jobject obj,
 }
 ```
 
+<!--more-->
+
 调用了`nativeMessageQueue`的`pollOnce`方法:
 
 ```

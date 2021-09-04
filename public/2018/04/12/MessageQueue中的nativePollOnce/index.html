@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="Dada&#39;s Note">
 <meta property="og:description" content="之前了解过的Handler、MessageQueue以及Looper等机制，在MessageQueue的nativePollOnce就终止了，在没有队列中没有消息的状态下，不同Android版本从Linux层面使用管道等方式实现异步阻塞/唤醒。 在C++层的代码中，也存在一套Handler、MessageQueue以及Looper。 android_os_MessageQueue.cpp中nati">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-03T02:40:48.119Z">
+<meta property="og:updated_time" content="2021-09-04T03:23:16.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MessageQueue中的nativePollOnce">
 <meta name="twitter:description" content="之前了解过的Handler、MessageQueue以及Looper等机制，在MessageQueue的nativePollOnce就终止了，在没有队列中没有消息的状态下，不同Android版本从Linux层面使用管道等方式实现异步阻塞/唤醒。 在C++层的代码中，也存在一套Handler、MessageQueue以及Looper。 android_os_MessageQueue.cpp中nati">
@@ -342,6 +342,7 @@
 <p>在C++层的代码中，也存在一套Handler、MessageQueue以及Looper。</p>
 <p><code>android_os_MessageQueue.cpp</code>中<code>nativePollOnce</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static void android_os_MessageQueue_nativePollOnce(JNIEnv* env, jobject obj,</div><div class="line">        jlong ptr, jint timeoutMillis) &#123;</div><div class="line">    NativeMessageQueue* nativeMessageQueue = reinterpret_cast&lt;NativeMessageQueue*&gt;(ptr);</div><div class="line">    nativeMessageQueue-&gt;pollOnce(env, obj, timeoutMillis);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>调用了<code>nativeMessageQueue</code>的<code>pollOnce</code>方法:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void NativeMessageQueue::pollOnce(JNIEnv* env, jobject pollObj, int timeoutMillis) &#123;</div><div class="line">    mPollEnv = env;</div><div class="line">    mPollObj = pollObj;</div><div class="line">    mLooper-&gt;pollOnce(timeoutMillis);</div><div class="line">    mPollObj = NULL;</div><div class="line">    mPollEnv = NULL;</div><div class="line">    if (mExceptionObj) &#123;</div><div class="line">        env-&gt;Throw(mExceptionObj);</div><div class="line">        env-&gt;DeleteLocalRef(mExceptionObj);</div><div class="line">        mExceptionObj = NULL;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>紧接着调用了<code>Looper.cpp</code>的<code>pollOnce</code>方法:</p>

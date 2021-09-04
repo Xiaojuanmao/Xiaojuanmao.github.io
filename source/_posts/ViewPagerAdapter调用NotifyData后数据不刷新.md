@@ -29,6 +29,8 @@ tags: Android
         }
 ```
 
+<!--more-->
+
 最初的解决办法是按照异常的提示，直接在修改了数据源的地方调用`notifyDataSetChanged()`函数，崩溃消失，出现了数据错位的现象。
 
 之后了解到，`ViewPager`的数据绑定和`RecyclerView`存在不同，`RecyclerView`在数据源变动之后会调用`onBindData`将数据源重新进行绑定，而`ViewPager`会根据`PagerAdapter`中的`getItemPosition`函数来决定是否刷新，默认的实现都是不刷新。

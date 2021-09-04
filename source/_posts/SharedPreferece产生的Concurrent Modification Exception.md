@@ -26,6 +26,9 @@ java.lang.Thread.run(Thread.java:841)
 最开始以为是由于使用了`RxJava`导致的多线程读写问题，但后来阅读`SharedPreferenceImpl`代码时发现，有使用`synchronized`来保证线程安全，排除多线程的可能性。
 
 在`HashIterator`的源码中，抛出`ConcurrentModificationException`的片段如下
+
+<!--more-->
+
 ```
 if(HashMap.this.modCount != this.expectedModCount) {
                 throw new ConcurrentModificationException();
