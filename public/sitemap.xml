@@ -2,100 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://xiaojuanmao.github.io/2018/04/12/MessageQueue%E4%B8%AD%E7%9A%84nativePollOnce/</loc>
-    
-    <lastmod>2021-09-04T03:23:16.256Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2018/04/12/SharedPreferece%E4%BA%A7%E7%94%9F%E7%9A%84Concurrent%20Modification%20Exception/</loc>
-    
-    <lastmod>2021-09-04T03:23:15.684Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2018/04/12/ViewPagerAdapter%E8%B0%83%E7%94%A8NotifyData%E5%90%8E%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%88%B7%E6%96%B0/</loc>
-    
-    <lastmod>2021-09-04T03:23:13.394Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://xiaojuanmao.github.io/about/index.html</loc>
     
-    <lastmod>2020-07-03T03:28:05.771Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/04/20/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E5%85%AD-Cache%E6%8E%A5%E5%8F%A3%E5%8F%8A%E5%85%B6%E9%BB%98%E8%AE%A4%E5%AE%9E%E7%8E%B0%E7%B1%BB%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/03/21/%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/03/20/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E5%9B%9B-Network%E6%8E%A5%E5%8F%A3%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.122Z</lastmod>
+    <lastmod>2021-12-25T02:57:32.806Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://xiaojuanmao.github.io/tags/index.html</loc>
     
-    <lastmod>2020-07-03T02:40:48.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/03/01/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E4%B8%89-Dispatcher%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.121Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/02/28/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E4%BA%8C-Volley%E4%BB%A5%E5%8F%8ARequestQueue%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.121Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/04/19/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E4%BA%94-HttpStack%E6%8E%A5%E5%8F%A3%E5%8F%8A%E5%85%B6%E9%BB%98%E8%AE%A4%E5%AE%9E%E7%8E%B0%E7%B1%BB%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.121Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/02/26/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E4%B8%80-%E6%95%B4%E4%BD%93%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.120Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/04/24/Volley%E6%A1%86%E6%9E%B6%E8%A7%A3%E6%9E%90-%E4%B8%83-Request%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.120Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaojuanmao.github.io/2017/02/23/Github-Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2020-07-03T02:40:48.119Z</lastmod>
+    <lastmod>2021-12-25T02:52:55.088Z</lastmod>
     
   </url>
   
